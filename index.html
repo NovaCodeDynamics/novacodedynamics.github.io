@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>No More Smoking</title>
   <meta name="description" content="Quit smoking your way — quit now or step by step with gradual programs, craving support, and progress tracking." />
-  <meta property="og:title" content="No More Smoking" />
-  <meta property="og:description" content="Quit now or step by step." />
-  <meta property="og:image" content="craving-screen.jpg" />
   <meta name="theme-color" content="#0f766e" />
+
   <style>
     * {
       box-sizing: border-box;
@@ -20,8 +18,8 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: #10383d;
       background:
-        radial-gradient(circle at 16% 4%, rgba(45, 212, 191, 0.22), transparent 32%),
-        radial-gradient(circle at 88% 18%, rgba(125, 211, 252, 0.26), transparent 34%),
+        radial-gradient(circle at 16% 4%, rgba(45, 212, 191, 0.20), transparent 32%),
+        radial-gradient(circle at 88% 18%, rgba(125, 211, 252, 0.22), transparent 34%),
         linear-gradient(180deg, #f2fffc 0%, #ffffff 72%);
     }
 
@@ -41,7 +39,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      margin-bottom: 22px;
+      margin-bottom: 24px;
     }
 
     .brand {
@@ -62,7 +60,7 @@
     .brand-name {
       font-size: 24px;
       line-height: 1;
-      font-weight: 800;
+      font-weight: 850;
       letter-spacing: -0.5px;
       color: #08383d;
       white-space: nowrap;
@@ -79,7 +77,7 @@
       color: #0f766e;
       background: rgba(255, 255, 255, 0.72);
       text-decoration: none;
-      font-weight: 800;
+      font-weight: 850;
       white-space: nowrap;
       box-shadow: 0 10px 24px rgba(15, 118, 110, 0.08);
     }
@@ -89,7 +87,7 @@
       grid-template-columns: 1fr 430px;
       gap: 54px;
       align-items: center;
-      padding: 30px 0 10px;
+      padding: 24px 0 10px;
     }
 
     .copy {
@@ -114,12 +112,12 @@
       max-width: 610px;
       font-size: clamp(20px, 3vw, 30px);
       line-height: 1.28;
-      color: #3d5860;
-      font-weight: 600;
+      color: #0f766e;
+      font-weight: 800;
     }
 
     .text {
-      margin: 20px 0 0;
+      margin: 18px 0 0;
       max-width: 600px;
       font-size: 19px;
       line-height: 1.58;
@@ -143,7 +141,6 @@
       border: 1px solid rgba(15, 118, 110, 0.10);
       background: rgba(255, 255, 255, 0.72);
       box-shadow: 0 16px 38px rgba(15, 118, 110, 0.07);
-      backdrop-filter: blur(10px);
     }
 
     .feature-icon {
@@ -186,6 +183,14 @@
       font-weight: 900;
       letter-spacing: 0.2px;
       box-shadow: 0 22px 42px rgba(16, 185, 129, 0.28);
+    }
+
+    .desktop-cta {
+      margin-top: 0;
+    }
+
+    .mobile-cta {
+      display: none;
     }
 
     .phone-wrap {
@@ -274,11 +279,12 @@
 
     @media (max-width: 900px) {
       .page {
-        padding-top: 22px;
+        padding: 22px 18px 24px;
       }
 
       .top {
-        margin-bottom: 6px;
+        justify-content: center;
+        margin-bottom: 18px;
       }
 
       .brand-name {
@@ -290,32 +296,46 @@
       }
 
       .hero {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 22px;
-        padding-top: 12px;
+        padding-top: 6px;
         text-align: center;
       }
 
       .copy {
         padding-left: 0;
+        display: contents;
       }
 
-      .subtitle, .text, .features {
-        margin-left: auto;
-        margin-right: auto;
+      h1 {
+        order: 1;
+        font-size: clamp(42px, 12vw, 62px);
+        letter-spacing: -2px;
       }
 
-      .feature {
-        text-align: left;
+      .subtitle {
+        order: 2;
+        margin: -6px auto 0;
+        max-width: 520px;
+      }
+
+      .text {
+        order: 3;
+        margin: 0 auto;
+        max-width: 520px;
+        font-size: 17px;
       }
 
       .phone-wrap {
+        order: 4;
         min-height: 0;
-        padding-top: 10px;
+        padding-top: 4px;
+        width: 100%;
       }
 
       .phone {
-        width: min(88vw, 350px);
+        width: min(86vw, 350px);
         border-radius: 54px;
       }
 
@@ -323,17 +343,36 @@
         border-radius: 43px;
       }
 
-      h1 {
-        letter-spacing: -2px;
+      .mobile-cta {
+        order: 5;
+        display: inline-flex;
+        margin: 2px auto 0;
+      }
+
+      .features {
+        order: 6;
+        margin: 12px auto 10px;
+        width: min(100%, 520px);
+      }
+
+      .feature {
+        text-align: left;
+      }
+
+      .desktop-cta {
+        display: none;
       }
 
       .trust {
+        order: 7;
         justify-content: center;
+        margin-top: 4px;
       }
 
       .footer {
         justify-content: center;
         text-align: center;
+        margin-top: 24px;
       }
     }
 
@@ -366,6 +405,7 @@
     }
   </style>
 </head>
+
 <body>
   <main class="page">
     <header class="top">
@@ -373,13 +413,18 @@
         <img class="icon" src="app-icon.png" alt="No More Smoking icon" />
         <div class="brand-name">No More Smoking</div>
       </div>
-      <a class="mini-button" href="https://apps.apple.com/ca/app/no-more-smoking/id6757434482">Open App Store</a>
+
+      <a class="mini-button" href="https://apps.apple.com/ca/app/no-more-smoking/id6757434482">
+        Open App Store
+      </a>
     </header>
 
     <section class="hero">
       <div class="copy">
         <h1>Quit Smoking<br><span class="green">Your Way</span></h1>
+
         <p class="subtitle">Quit now or step by step.</p>
+
         <p class="text">
           Not everyone can quit overnight. No More Smoking helps you reduce gradually,
           manage cravings, and track your progress.
@@ -411,7 +456,9 @@
           </div>
         </div>
 
-        <a class="cta" href="https://apps.apple.com/ca/app/no-more-smoking/id6757434482">Download on the App Store</a>
+        <a class="cta desktop-cta" href="https://apps.apple.com/ca/app/no-more-smoking/id6757434482">
+          Download on the App Store
+        </a>
 
         <div class="trust">
           <span class="pill">No account required</span>
@@ -426,6 +473,10 @@
           <img class="screen" src="craving-screen.jpg" alt="No More Smoking craving support screen" />
         </div>
       </div>
+
+      <a class="cta mobile-cta" href="https://apps.apple.com/ca/app/no-more-smoking/id6757434482">
+        Download on the App Store
+      </a>
     </section>
 
     <footer class="footer">
