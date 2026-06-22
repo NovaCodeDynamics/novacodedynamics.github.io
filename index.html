@@ -421,11 +421,11 @@
 
     <section class="hero">
       <div class="copy">
-        <h1>Quit Smoking<br><span class="green">Your Way</span></h1>
+        <h1 id="mainTitle">Quit Smoking<br><span class="green">Your Way</span></h1>
 
-        <p class="subtitle">Quit now or step by step.</p>
+        <p class="subtitle" id="subtitle">Quit now or step by step.</p>
 
-        <p class="text">
+        <p class="text" id="description">
           Not everyone can quit overnight. No More Smoking helps you reduce gradually,
           manage cravings, and track your progress.
         </p>
@@ -434,24 +434,24 @@
           <div class="feature">
             <div class="feature-icon">🎯</div>
             <div>
-              <p class="feature-title">Gradual quit programs</p>
-              <p class="feature-desc">Choose your path and reduce step by step.</p>
+              <p class="feature-title" id="feature1Title">Gradual quit programs</p>
+              <p class="feature-desc" id="feature1Desc">Choose your path and reduce step by step.</p>
             </div>
           </div>
 
           <div class="feature">
             <div class="feature-icon">🌊</div>
             <div>
-              <p class="feature-title">Craving support tools</p>
-              <p class="feature-desc">Practical techniques for difficult moments.</p>
+              <p class="feature-title" id="feature2Title">Craving support tools</p>
+              <p class="feature-desc" id="feature2Desc">Practical techniques for difficult moments.</p>
             </div>
           </div>
 
           <div class="feature">
             <div class="feature-icon">📈</div>
             <div>
-              <p class="feature-title">Progress tracking</p>
-              <p class="feature-desc">Keep your journey visible and stay motivated.</p>
+              <p class="feature-title" id="feature3Title">Progress tracking</p>
+              <p class="feature-desc" id="feature3Desc">Keep your journey visible and stay motivated.</p>
             </div>
           </div>
         </div>
@@ -461,9 +461,8 @@
         </a>
 
         <div class="trust">
-          <span class="pill">No account required</span>
-          <span class="pill">Privacy focused</span>
-          <span class="pill">Built for real quit journeys</span>
+          <span class="pill" id="privacyPill">Privacy focused</span>
+          <span class="pill" id="journeyPill">Built for real quit journeys</span>
         </div>
       </div>
 
@@ -480,9 +479,52 @@
     </section>
 
     <footer class="footer">
-      <span>Built by NovaCode Dynamics</span>
-      <span><a href="nomoresmoking-support/">Support</a></span>
+      <span id="footerBuilt">Built by NovaCode Dynamics</span>
+      <span><a href="nomoresmoking-support/" id="supportLink">Support</a></span>
     </footer>
   </main>
+
+  <script>
+    // Turkish language support
+    const translations = {
+      tr: {
+        mainTitle: "Sigarayı Bırak<br><span class=\"green\">Kendi Yolunla</span>",
+        subtitle: "Hemen bırak veya adım adım.",
+        description: "Herkes bir gece sigarayı bırakamaz. No More Smoking seni kademeli olarak azaltmana, isteklere karşı koymanıza ve ilerlemeni takip etmene yardımcı olur.",
+        feature1Title: "Kademeli bırakma programları",
+        feature1Desc: "Senin yolunu seç ve adım adım azalt.",
+        feature2Title: "İstek desteği araçları",
+        feature2Desc: "Zor anlar için pratik teknikler.",
+        feature3Title: "İlerleme takibi",
+        feature3Desc: "Yolculuğunu görünür tut ve motive kal.",
+        privacyPill: "Gizlilik odaklı",
+        journeyPill: "Gerçek sigarayı bırakma yolculuğu için tasarlandı",
+        footerBuilt: "NovaCode Dynamics tarafından yapıldı",
+        supportLink: "Destek"
+      }
+    };
+
+    function setLanguage() {
+      const lang = navigator.language.startsWith('tr') ? 'tr' : 'en';
+      
+      if (lang === 'tr') {
+        document.getElementById('mainTitle').innerHTML = translations.tr.mainTitle;
+        document.getElementById('subtitle').textContent = translations.tr.subtitle;
+        document.getElementById('description').textContent = translations.tr.description;
+        document.getElementById('feature1Title').textContent = translations.tr.feature1Title;
+        document.getElementById('feature1Desc').textContent = translations.tr.feature1Desc;
+        document.getElementById('feature2Title').textContent = translations.tr.feature2Title;
+        document.getElementById('feature2Desc').textContent = translations.tr.feature2Desc;
+        document.getElementById('feature3Title').textContent = translations.tr.feature3Title;
+        document.getElementById('feature3Desc').textContent = translations.tr.feature3Desc;
+        document.getElementById('privacyPill').textContent = translations.tr.privacyPill;
+        document.getElementById('journeyPill').textContent = translations.tr.journeyPill;
+        document.getElementById('footerBuilt').textContent = translations.tr.footerBuilt;
+        document.getElementById('supportLink').textContent = translations.tr.supportLink;
+      }
+    }
+
+    setLanguage();
+  </script>
 </body>
 </html>
