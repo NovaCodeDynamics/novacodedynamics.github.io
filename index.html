@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>No More Smoking</title>
-  <meta name="description" content="Quit smoking your way — quit now or step by step with gradual programs, craving support, and progress tracking." />
+  <meta name="description" content="Sigarayı kendi yönteminle bırak — birden ya da kademeli bırakma programları, kriz anı desteği ve ilerleme takibi." />
   <meta name="theme-color" content="#0f766e" />
 
   <style>
@@ -411,116 +411,141 @@
     <header class="top">
       <div class="brand">
         <img class="icon" src="app-icon.png" alt="No More Smoking icon" />
-        <div class="brand-name">No More Smoking</div>
+        <div class="brand-name" id="brandName">No More Smoking</div>
       </div>
 
       <a class="mini-button" href="https://apps.apple.com/ca/app/no-more-smoking/id6757434482">
-        Open App Store
+        <span id="openAppStore">Open App Store</span>
       </a>
     </header>
 
     <section class="hero">
       <div class="copy">
-        <h1 id="mainTitle">Quit Smoking<br><span class="green">Your Way</span></h1>
+        <h1 id="mainTitle">Sigarayı Bırak<br><span class="green">Kendi Yönteminle</span></h1>
 
-        <p class="subtitle" id="subtitle">Quit now or step by step.</p>
+        <p class="subtitle" id="subtitle">Birden ya da kademeli bırak.</p>
 
         <p class="text" id="description">
-          Not everyone can quit overnight. No More Smoking helps you reduce gradually,
-          manage cravings, and track your progress.
+          Herkes bir gecede bırakamaz. No More Smoking; sigarayı adım adım azaltmana, kriz anlarını yönetmene ve ilerlemeni takip etmene yardımcı olur.
         </p>
 
         <div class="features">
           <div class="feature">
             <div class="feature-icon">🎯</div>
             <div>
-              <p class="feature-title" id="feature1Title">Gradual quit programs</p>
-              <p class="feature-desc" id="feature1Desc">Choose your path and reduce step by step.</p>
+              <p class="feature-title" id="feature1Title">Kademeli bırakma programları</p>
+              <p class="feature-desc" id="feature1Desc">Kendine uygun yolu seç, adım adım azalt.</p>
             </div>
           </div>
 
           <div class="feature">
             <div class="feature-icon">🌊</div>
             <div>
-              <p class="feature-title" id="feature2Title">Craving support tools</p>
-              <p class="feature-desc" id="feature2Desc">Practical techniques for difficult moments.</p>
+              <p class="feature-title" id="feature2Title">Kriz anında destek araçları</p>
+              <p class="feature-desc" id="feature2Desc">Zor anlarda uygulayabileceğin pratik teknikler.</p>
             </div>
           </div>
 
           <div class="feature">
             <div class="feature-icon">📈</div>
             <div>
-              <p class="feature-title" id="feature3Title">Progress tracking</p>
-              <p class="feature-desc" id="feature3Desc">Keep your journey visible and stay motivated.</p>
+              <p class="feature-title" id="feature3Title">İlerleme takibi</p>
+              <p class="feature-desc" id="feature3Desc">Yolculuğunu görünür tut, motivasyonunu koru.</p>
             </div>
           </div>
         </div>
 
         <a class="cta desktop-cta" href="https://apps.apple.com/ca/app/no-more-smoking/id6757434482">
-          Download on the App Store
+          <span id="downloadBtn">App Store'dan İndir</span>
         </a>
 
         <div class="trust">
-          <span class="pill" id="privacyPill">Privacy focused</span>
-          <span class="pill" id="journeyPill">Built for real quit journeys</span>
+          <span class="pill" id="privacyPill">Gizlilik odaklı</span>
+          <span class="pill" id="journeyPill">Gerçek bırakma süreçleri için tasarlandı</span>
         </div>
       </div>
 
       <div class="phone-wrap" aria-label="App preview">
         <div class="glow"></div>
         <div class="phone">
-          <img class="screen" src="craving-screen.jpg" alt="No More Smoking craving support screen" />
+          <img class="screen" src="craving-screen.jpg" alt="No More Smoking kriz anı destek ekranı" />
         </div>
       </div>
 
       <a class="cta mobile-cta" href="https://apps.apple.com/ca/app/no-more-smoking/id6757434482">
-        Download on the App Store
+        <span id="downloadBtnMobile">App Store'dan İndir</span>
       </a>
     </section>
 
     <footer class="footer">
-      <span id="footerBuilt">Built by NovaCode Dynamics</span>
-      <span><a href="nomoresmoking-support/" id="supportLink">Support</a></span>
+      <span id="footerBuilt">NovaCode Dynamics tarafından geliştirildi</span>
+      <span><a href="nomoresmoking-support/" id="supportLink">Destek</a></span>
     </footer>
   </main>
 
   <script>
     // Turkish language support
     const translations = {
+      en: {
+        brandName: "No More Smoking",
+        openAppStore: "Open App Store",
+        mainTitle: "Quit Smoking<br><span class=\"green\">Your Way</span>",
+        subtitle: "Quit now or step by step.",
+        description: "Not everyone can quit overnight. No More Smoking helps you reduce gradually, manage cravings, and track your progress.",
+        feature1Title: "Gradual quit programs",
+        feature1Desc: "Choose your path and reduce step by step.",
+        feature2Title: "Craving support tools",
+        feature2Desc: "Practical techniques for difficult moments.",
+        feature3Title: "Progress tracking",
+        feature3Desc: "Keep your journey visible and stay motivated.",
+        downloadBtn: "Download on the App Store",
+        privacyPill: "Privacy focused",
+        journeyPill: "Built for real quit journeys",
+        footerBuilt: "Built by NovaCode Dynamics",
+        supportLink: "Support"
+      },
       tr: {
-        mainTitle: "Sigarayı Bırak<br><span class=\"green\">Kendi Yolunla</span>",
-        subtitle: "Hemen bırak veya adım adım.",
-        description: "Herkes bir gece sigarayı bırakamaz. No More Smoking seni kademeli olarak azaltmana, isteklere karşı koymanıza ve ilerlemeni takip etmene yardımcı olur.",
+        brandName: "No More Smoking",
+        openAppStore: "App Store'u Aç",
+        mainTitle: "Sigarayı Bırak<br><span class=\"green\">Kendi Yönteminle</span>",
+        subtitle: "Birden ya da kademeli bırak.",
+        description: "Herkes bir gecede bırakamaz. No More Smoking; sigarayı adım adım azaltmana, kriz anlarını yönetmene ve ilerlemeni takip etmene yardımcı olur.",
         feature1Title: "Kademeli bırakma programları",
-        feature1Desc: "Senin yolunu seç ve adım adım azalt.",
-        feature2Title: "İstek desteği araçları",
-        feature2Desc: "Zor anlar için pratik teknikler.",
+        feature1Desc: "Kendine uygun yolu seç, adım adım azalt.",
+        feature2Title: "Kriz anında destek araçları",
+        feature2Desc: "Zor anlarda uygulayabileceğin pratik teknikler.",
         feature3Title: "İlerleme takibi",
-        feature3Desc: "Yolculuğunu görünür tut ve motive kal.",
+        feature3Desc: "Yolculuğunu görünür tut, motivasyonunu koru.",
+        downloadBtn: "App Store'dan İndir",
         privacyPill: "Gizlilik odaklı",
-        journeyPill: "Gerçek sigarayı bırakma yolculuğu için tasarlandı",
-        footerBuilt: "NovaCode Dynamics tarafından yapıldı",
+        journeyPill: "Gerçek bırakma süreçleri için tasarlandı",
+        footerBuilt: "NovaCode Dynamics tarafından geliştirildi",
         supportLink: "Destek"
       }
     };
 
     function setLanguage() {
       const lang = navigator.language.startsWith('tr') ? 'tr' : 'en';
+      const texts = translations[lang];
       
       if (lang === 'tr') {
-        document.getElementById('mainTitle').innerHTML = translations.tr.mainTitle;
-        document.getElementById('subtitle').textContent = translations.tr.subtitle;
-        document.getElementById('description').textContent = translations.tr.description;
-        document.getElementById('feature1Title').textContent = translations.tr.feature1Title;
-        document.getElementById('feature1Desc').textContent = translations.tr.feature1Desc;
-        document.getElementById('feature2Title').textContent = translations.tr.feature2Title;
-        document.getElementById('feature2Desc').textContent = translations.tr.feature2Desc;
-        document.getElementById('feature3Title').textContent = translations.tr.feature3Title;
-        document.getElementById('feature3Desc').textContent = translations.tr.feature3Desc;
-        document.getElementById('privacyPill').textContent = translations.tr.privacyPill;
-        document.getElementById('journeyPill').textContent = translations.tr.journeyPill;
-        document.getElementById('footerBuilt').textContent = translations.tr.footerBuilt;
-        document.getElementById('supportLink').textContent = translations.tr.supportLink;
+        document.getElementById('brandName').textContent = texts.brandName;
+        document.getElementById('openAppStore').textContent = texts.openAppStore;
+        document.getElementById('mainTitle').innerHTML = texts.mainTitle;
+        document.getElementById('subtitle').textContent = texts.subtitle;
+        document.getElementById('description').textContent = texts.description;
+        document.getElementById('feature1Title').textContent = texts.feature1Title;
+        document.getElementById('feature1Desc').textContent = texts.feature1Desc;
+        document.getElementById('feature2Title').textContent = texts.feature2Title;
+        document.getElementById('feature2Desc').textContent = texts.feature2Desc;
+        document.getElementById('feature3Title').textContent = texts.feature3Title;
+        document.getElementById('feature3Desc').textContent = texts.feature3Desc;
+        document.getElementById('downloadBtn').textContent = texts.downloadBtn;
+        document.getElementById('downloadBtnMobile').textContent = texts.downloadBtn;
+        document.getElementById('privacyPill').textContent = texts.privacyPill;
+        document.getElementById('journeyPill').textContent = texts.journeyPill;
+        document.getElementById('footerBuilt').textContent = texts.footerBuilt;
+        document.getElementById('supportLink').textContent = texts.supportLink;
       }
     }
 
