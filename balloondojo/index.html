@@ -1,0 +1,2381 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Balloon Dojo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="description" content="Alacakaranlıkta bir bahçe. Sınırlı shuriken ile fenerleri indir.">
+<meta name="theme-color" content="#1f5c6b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Balloon Dojo">
+<meta property="og:title" content="Balloon Dojo">
+<meta property="og:description" content="Alacakaranlıkta bir bahçe. Sınırlı shuriken ile fenerleri indir.">
+<meta property="og:type" content="website">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="manifest" href="manifest.webmanifest">
+<!-- Analitik: toplayicinin adresi. BU SATIR YOKSA oyun hicbir yere veri
+     yollamaz (kuyruk localStorage'da birikir, gonderilmez). Toplayici
+     Railway'de; sema ve sorgular server/ altinda. -->
+<script>window.BD_ANALYTICS={url:'https://collector-production-f909.up.railway.app/events'}</script>
+<!-- Yazi tipleri: @import <style> icindeydi, tarayici onu SERI yukluyor ve
+     ilk kareyi geciktiriyordu. link + preconnect paralel gidiyor; font
+     gelmezse (cevrimdisi) sistem yazi tipiyle acilmaya devam ediyor. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap">
+<style>
+  :root{
+    --ink:#16232a; --paper:#f6efe2; --red:#c8402f; --red-dk:#8f2a1e;
+    --glass:rgba(18,30,34,.74); --cream:#f3e8d6; --gold:#e9b978;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#0d1418;
+    font-family:"Zen Kaku Gothic New",system-ui,-apple-system,sans-serif;color:var(--ink)}
+  #stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  #frame{position:relative;width:100%;height:100%;max-width:min(100vw,calc(100vh * 0.5625));
+    max-height:100vh;overflow:hidden;background:#1f5c6b;box-shadow:0 0 60px rgba(0,0,0,.5)}
+  canvas{display:block;width:100%;height:100%;touch-action:none}
+
+  #hud{position:absolute;inset:0;pointer-events:none;display:flex;flex-direction:column;
+    padding:calc(env(safe-area-inset-top) + 10px) 12px 10px;gap:7px}
+  .row{display:flex;align-items:center;gap:7px}
+  .spacer{flex:1}
+  .pill{background:var(--glass);border-radius:10px;padding:6px 11px;font-weight:700;font-size:13px;
+    color:var(--cream);display:flex;align-items:center;gap:6px;line-height:1;
+    border:1px solid rgba(243,232,214,.16);letter-spacing:.02em}
+  .pill.btn{pointer-events:auto;cursor:pointer;user-select:none}
+  .pill.btn:active{transform:translateY(1px)}
+  .pill b{font-family:"Shippori Mincho",serif;font-size:15px;font-weight:700}
+  #focusPill{background:linear-gradient(180deg,#c8402f,#8f2a1e);border-color:rgba(255,220,200,.35);
+    color:#fff2ea;box-shadow:0 0 14px rgba(200,64,47,.5)}
+  #focusPill.empty{background:var(--glass);color:rgba(243,232,214,.35);box-shadow:none}
+  #focusPill.armed{animation:armed .7s ease-in-out infinite}
+  @keyframes armed{0%,100%{box-shadow:0 0 12px rgba(200,64,47,.5)}50%{box-shadow:0 0 26px rgba(255,140,110,.95)}}
+  #kn{display:flex;gap:4px;flex-wrap:wrap;max-width:160px;justify-content:center}
+  .k{width:13px;height:13px;background:#b9c6cf;transition:opacity .2s,transform .2s;
+    clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+  .k.used{opacity:.18;transform:scale(.6)}
+  #wmeter{width:46px;height:5px;border-radius:3px;background:rgba(243,232,214,.2);overflow:hidden}
+  #wfill{height:100%;width:0%;background:var(--cream);transition:width .2s}
+  #warrow{display:inline-block;transition:transform .3s;font-size:14px}
+
+  /* align-items:center + tasan icerik = ust kisim kirpilir ve scroll edilemez.
+     Bunun yerine flex-start + karta margin:auto: sigdiginda ortalanir,
+     tastiginda yukaridan baslar ve perde kayar. */
+  .veil{position:absolute;inset:0;display:none;align-items:flex-start;justify-content:center;
+    background:rgba(9,18,22,.7);backdrop-filter:blur(4px);pointer-events:auto;padding:18px;
+    overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+  .veil.show{display:flex;animation:fade .22s ease}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .card{background:var(--paper);border-radius:6px;padding:24px 20px;width:min(340px,92%);
+    margin:auto;flex:0 0 auto;
+    text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.5);position:relative;
+    animation:pop .3s cubic-bezier(.2,1.3,.4,1);
+    border-top:4px solid var(--red)}
+  @keyframes pop{from{transform:scale(.86) translateY(12px);opacity:0}to{transform:none;opacity:1}}
+  .card h1{margin:0 0 2px;font-family:"Shippori Mincho",serif;font-size:31px;letter-spacing:.02em;
+    color:#1b2b31;text-wrap:balance}
+  .card h2{margin:0 0 6px;font-family:"Shippori Mincho",serif;font-size:23px;color:#1b2b31}
+  .card p{margin:6px 0 14px;font-size:14px;line-height:1.55;color:#5a6a70}
+  .kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);
+    font-weight:900;margin-bottom:10px}
+  .btn2{display:block;width:100%;margin:8px 0 0;padding:13px;border:0;border-radius:4px;font:inherit;
+    font-weight:900;font-size:15px;letter-spacing:.08em;color:#fff6f0;background:var(--red);cursor:pointer;
+    transition:filter .15s}
+  .btn2:active{filter:brightness(.88)}
+  .btn2.ghost{background:transparent;color:#6b7b82;border:1px solid #ccc3b2}
+  .stars{font-size:30px;letter-spacing:8px;margin:4px 0 0;height:38px;color:#d6cdbb}
+  .stars span{display:inline-block;opacity:.25}
+  .stars span.on{opacity:1;color:var(--red);animation:st .45s cubic-bezier(.2,1.6,.4,1) both}
+  @keyframes st{from{transform:scale(2.4) rotate(-30deg);opacity:0}to{transform:scale(1);opacity:1}}
+  .lvlgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:7px;
+    margin:14px 0 4px;position:relative;max-height:32vh;overflow-y:auto;
+    overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;
+    padding:2px 4px 2px 2px}
+  .lvlgrid::-webkit-scrollbar{width:5px}
+  .lvlgrid::-webkit-scrollbar-thumb{background:#cfc5b2;border-radius:3px}
+  .lvlgrid button{aspect-ratio:1;border:1px solid #d9d0be;border-radius:3px;font:inherit;font-weight:700;
+    font-size:15px;background:#efe7d8;color:#9a9484;cursor:pointer;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:1px;padding:0}
+  .lvlgrid button.done{background:#e2d9c6;color:#4d5c62;border-color:#c3b9a4}
+  .lvlgrid button.lock{background:#efe9dc;color:#c3bcab;border-color:#e2dbc9}
+  .lvlgrid button.next{background:var(--red);color:#fff;border-color:var(--red-dk)}
+  .lvlgrid .s{font-size:8px;letter-spacing:1px;color:var(--red)}
+  .lvlgrid button.next .s{color:#ffd9d0}
+  .opt{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#ece4d4;
+    border-radius:3px;padding:10px 13px;margin-top:8px;font-size:13px;font-weight:700;color:#5a6a70;text-align:left}
+  .sw{width:42px;height:24px;border-radius:2px;background:#cfc5b2;position:relative;flex:0 0 auto;cursor:pointer;
+    transition:background .18s}
+  .sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:1px;
+    background:#fff;transition:transform .18s}
+  .sw.on{background:var(--red)} .sw.on::after{transform:translateX(18px)}
+  #pickList{display:flex;flex-direction:column;gap:7px;margin:6px 0 13px}
+  .abi{display:flex;gap:11px;align-items:flex-start;text-align:left;cursor:pointer;
+    background:#ece4d4;border:1px solid transparent;border-radius:4px;padding:11px 13px;
+    transition:background .15s,border-color .15s}
+  .abi.on{background:#fff;border-color:var(--red);box-shadow:inset 3px 0 0 var(--red)}
+  .abi.lock{opacity:.42;cursor:default}
+  .abi .ic{font-size:20px;line-height:1.2;color:var(--red);flex:0 0 22px;text-align:center}
+  .abi .nm{font-weight:900;font-size:13.5px;color:#1b2b31;line-height:1.3}
+  .abi .ds{font-size:12px;color:#5a6a70;line-height:1.45;margin-top:2px}
+  .abi .tp{font-size:11px;color:#95793f;margin-top:3px;line-height:1.4}
+  .seg{display:flex;gap:5px}
+  .seg button{flex:1;padding:9px 4px;border:1px solid #d3c9b6;background:#f6efe2;border-radius:3px;
+    font:inherit;font-weight:700;font-size:12px;color:#7a8a90;cursor:pointer}
+  .seg button.on{background:var(--red);color:#fff;border-color:var(--red-dk)}
+  #toast{position:absolute;left:50%;top:31%;transform:translate(-50%,-50%);pointer-events:none;
+    font-family:"Shippori Mincho",serif;font-size:31px;font-weight:700;color:#fff;
+    text-shadow:0 2px 14px rgba(0,0,0,.6);opacity:0;max-width:80%;text-align:center;line-height:1.35}
+  #toast.go{animation:toast .9s ease-out}
+  @keyframes toast{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}
+    22%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}
+    72%{opacity:1;transform:translate(-50%,-58%) scale(1)}
+    100%{opacity:0;transform:translate(-50%,-84%) scale(.97)}}
+  #vig{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .18s;
+    background:radial-gradient(ellipse at center, transparent 42%, rgba(200,64,47,.30) 100%)}
+  #vig.on{opacity:1}
+</style>
+</head>
+<body>
+<div id="stage"><div id="frame">
+  <canvas id="cv"></canvas>
+  <div id="vig"></div>
+
+  <div id="hud">
+    <div class="row">
+      <div class="pill"><b id="lvlNum">一</b><span id="lvlName" style="opacity:.7">Bahçe</span></div>
+      <div class="pill"><span id="bCount">0</span> balon</div>
+      <div class="spacer"></div>
+      <div class="pill btn" id="sndBtn">♪</div>
+      <div class="pill btn" id="menuBtn">≡</div>
+    </div>
+    <div class="row" id="windrow">
+      <div class="pill"><span id="warrow">→</span>RÜZGÂR<div id="wmeter"><div id="wfill"></div></div></div>
+    </div>
+    <div class="spacer"></div>
+    <div class="row" style="justify-content:center;align-items:flex-end">
+      <div class="pill btn" id="focusPill">◈ ODAK <span id="focusN">0</span></div>
+      <div class="pill" style="padding:7px 12px"><div id="kn"></div></div>
+    </div>
+  </div>
+  <div id="toast"></div>
+
+  <div class="veil show" id="menu"><div class="card">
+    <div class="kicker" id="verTag">Balloon Dojo · v1.0</div>
+    <h1>Balloon Dojo</h1>
+    <p>Alacakaranlıkta bir bahçe. Sınırlı shuriken ile fenerleri indir.<br>
+       <b>Dokun</b> at · <b>Basılı tut</b> odak anı</p>
+    <div class="lvlgrid" id="grid"></div>
+    <div class="opt" style="flex-direction:column;align-items:stretch;gap:8px">
+      <span>Atış stili — <b>Nişan</b> dokunduğun noktada kalır;
+        Elden ve Savurma gösterişli ama yolda sapar.</span>
+      <div class="seg" id="seg">
+        <button data-i="2">Nişan</button><button data-i="1">Tam ışın</button><button data-i="0">Elden</button><button data-i="3">Savurma</button>
+      </div>
+    </div>
+    <div class="opt">Nişan halkası<div class="sw on" id="swAim"></div></div>
+    <div class="opt">Rüzgâr sapma göstergesi<div class="sw on" id="swDrift"></div></div>
+    <!-- TEST MODU oyuncuya kapali. Surum etiketine 1.2 sn basili tutunca acilir. -->
+    <div class="opt" id="devRow" hidden>Sınırsız shuriken (test)<div class="sw" id="swInf"></div></div>
+    <button class="btn2" id="playBtn">BAŞLA</button>
+  </div></div>
+
+  <div class="veil" id="pick"><div class="card">
+    <div class="kicker">BÖLÜM <span id="pickLvl"></span> · YANINA NE ALIYORSUN</div>
+    <h2 style="margin-bottom:10px">Tek yetenek seç</h2>
+    <div id="pickList"></div>
+    <button class="btn2" id="pickGo">BAŞLA</button>
+  </div></div>
+  <div class="veil" id="fhelp"><div class="card">
+    <div class="kicker">YENİ · ODAK ANI</div>
+    <h2>Tek nefeslik kesiş</h2>
+    <p style="text-align:left">
+      <b>Parmağını basılı tut</b> — dünya ağır çekime girer.<br>
+      <b>Parmağını sürükle</b> — bir kesme çizgisi çizersin.<br>
+      <b>Bırak</b> — shuriken o çizgiyi takip eder, üstündeki her balonu biçer.
+    </p>
+    <p style="text-align:left;background:#ece4d4;padding:11px 13px;border-radius:3px">
+      Ama bedava değil: <b>çizginin uzunluğu sınırlı</b> ve ağır çekimde
+      <b>1.8 saniyen</b> var. Bir de bir shuriken harcar. En çok balonu tek
+      çizgiye dizmek senin işin.
+    </p>
+    <button class="btn2" id="fhelpBtn">ANLADIM</button>
+  </div></div>
+  <div class="veil" id="win"><div class="card">
+    <div class="kicker" id="winKick">BÖLÜM TAMAM</div>
+    <h2 id="winTitle"></h2>
+    <div class="stars" id="winStars"><span>★</span><span>★</span><span>★</span></div>
+    <p id="winMsg"></p>
+    <button class="btn2" id="nextBtn">SONRAKİ</button>
+    <button class="btn2 ghost" id="winMenu">Bölümler</button>
+  </div></div>
+
+  <div class="veil" id="lose"><div class="card">
+    <div class="kicker" id="loseKick">BAŞARISIZ</div>
+    <h2 id="loseTitle">Az kaldı</h2>
+    <p id="loseMsg"></p>
+    <button class="btn2" id="retryBtn">TEKRAR</button>
+    <button class="btn2 ghost" id="loseMenu">Bölümler</button>
+  </div></div>
+</div></div>
+
+<script>
+"use strict";
+/* =====================================================================
+   BALLOON DOJO — v2
+   Perspektif kamera: ekran = CX + x*F/z , CY + y*F/z
+   Mekanikler: balon tipleri · odak anı · ip kesme · dönen çark · rüzgâr
+   ===================================================================== */
+const W=720, H=1280, CX=360, CY=700;
+const F=760, GY=210, CEIL=-330, NEAR=240;
+const cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+let scale=1, offX=0, offY=0;
+function resize(){
+  const r=document.getElementById('frame').getBoundingClientRect();
+  const dpr=Math.min(window.devicePixelRatio||1,2.5);
+  cv.width=Math.round(r.width*dpr); cv.height=Math.round(r.height*dpr);
+  scale=Math.min(cv.width/W, cv.height/H);
+  offX=(cv.width-W*scale)/2; offY=(cv.height-H*scale)/2;
+}
+addEventListener('resize',resize);
+const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+const px=(x,z)=>CX+x*F/z, py=(y,z)=>CY+y*F/z, sc=z=>F/z;
+
+/* --------- palet: alacakaranlık bahçesi --------- */
+const SKY=[[0,'#1c5666'],[.34,'#4b8b8d'],[.62,'#c9a37f'],[.82,'#f0bc85'],[1,'#ffdcac']];
+const INK_FAR='rgba(30,62,70,.5)', INK_NEAR='rgba(16,38,46,.8)';
+const MOSS_A='#37594a', MOSS_B='#1d3630', GRAVEL='#8d8571';
+const BAMBOO=['#9c8a4e','#6d5f31','#48401f'];
+const COLORS=[
+  {c:'#e8474f',d:'#a5222d',g:'#ff9a95'},
+  {c:'#f2902c',d:'#b25c10',g:'#ffd08a'},
+  {c:'#f2ca35',d:'#b8920f',g:'#fff0a0'},
+  {c:'#3f9ed8',d:'#1c6396',g:'#a5dcff'},
+  {c:'#9061d6',d:'#5d3597',g:'#d4b4ff'},
+  {c:'#27b58c',d:'#0d7a5c',g:'#8ff0cd'}
+];
+const R0=620,R1=880,R2=1160,R3=1440;
+
+/* --------- ÖZELLİK TAKVİMİ ---------
+   Kural: yeni mekanik önce cezasız tanıtılır, bir bölüm dinlendirilir,
+   sonra sıkıştırılır. Rüzgâr seyrek ve sabit yönlü; fırtına tek özel bölüm. */
+/* ==LEVELS-START== gerekli: node tools/build.js — elle düzenleme */
+const LEVELS=[
+{name:"",knives:4,focus:0,wind:null,rope:false,hint:"Dokunduğun yere shuriken gider. Balona dokun.",b:[{x:-198,z:880,rope:180,r:50},{x:0,z:880,rope:395,r:50},{x:198,z:880,rope:250,r:50}]},
+{name:"Derinlik",knives:6,focus:0,wind:null,rope:false,hint:"Küçük görünen balon daha uzakta. Uzağı vurmak daha zor.",b:[{x:-114,z:620,rope:180,r:48},{x:114,z:620,rope:395,r:48},{x:-272,z:880,rope:180,r:44},{x:0,z:880,rope:395,r:44},{x:272,z:880,rope:250,r:44}]},
+{name:"",knives:7,focus:0,wind:null,rope:false,b:[{x:-161,z:620,rope:385,r:46},{x:-136,z:880,rope:200,r:43},{x:0,z:1160,rope:385,r:40},{x:81,z:620,rope:200,r:46},{x:272,z:880,rope:385,r:43}]},
+{name:"",knives:10,focus:0,wind:null,rope:false,hint:"Fitilli balon patlayınca çevresindekileri de patlatır.",b:[{x:55,z:880,rope:215,r:40,t:"bomb"},{x:-24,z:880,rope:434,r:40},{x:-153,z:880,rope:233,r:40},{x:-153,z:880,rope:387,r:40},{x:-24,z:880,rope:186,r:40},{x:-105,z:620,rope:180,r:46},{x:105,z:620,rope:395,r:46}]},
+{name:"",knives:8,focus:0,wind:null,rope:false,b:[{x:-304,z:880,rope:180,r:39},{x:-101,z:880,rope:395,r:39},{x:101,z:880,rope:250,r:39},{x:304,z:880,rope:360,r:39},{x:-161,z:620,rope:385,r:41},{x:361,z:1160,rope:200,r:38}]},
+{name:"",knives:7,focus:0,wind:{base:0.28,gust:0,period:0},rope:false,hint:"Rüzgâr shurikeni yana sürükler. Rüzgârın geldiği tarafa nişan al.",b:[{x:145,z:880,rope:200,r:44},{x:40,z:880,rope:420,r:44},{x:-65,z:880,rope:200,r:44},{x:40,z:880,rope:360,r:44},{x:-95,z:620,rope:180,r:46},{x:95,z:620,rope:395,r:46}]},
+{name:"",knives:8,focus:0,wind:null,rope:false,b:[{x:-256,z:880,rope:180,r:46},{x:0,z:880,rope:395,r:46},{x:256,z:880,rope:250,r:46},{x:-361,z:1160,rope:385,r:40},{x:451,z:1440,rope:200,r:37}]},
+{name:"",knives:10,focus:0,wind:null,rope:false,hint:"Altın halkalı balon +2 shuriken verir. Uzakta ama değer.",b:[{x:40,z:880,rope:215,r:42},{x:-70,z:880,rope:435,r:42},{x:-180,z:880,rope:215,r:42},{x:-70,z:880,rope:375,r:42},{x:380,z:1160,rope:250,r:34,t:"gift"},{x:-95,z:620,rope:180,r:46},{x:95,z:620,rope:395,r:46}]},
+{name:"",knives:9,focus:0,wind:null,rope:false,hint:"Zırhlı balonun demir kabuğu var: iki vuruş ister.",b:[{x:-80,z:880,rope:300,r:48,t:"armor"},{x:-304,z:880,rope:180,r:42},{x:-101,z:880,rope:395,r:42},{x:101,z:880,rope:250,r:42},{x:304,z:880,rope:360,r:42},{x:400,z:1160,rope:230,r:34,t:"gift"}]},
+{name:"",knives:15,focus:0,wind:{base:0.32,gust:0,period:0},rope:false,b:[{x:-160,z:880,rope:260,r:40,t:"armor"},{x:430,z:1440,rope:215,r:26,t:"gift"},{x:-161,z:620,rope:385,r:38},{x:-91,z:880,rope:200,r:35},{x:120,z:1160,rope:385,r:32},{x:162,z:620,rope:200,r:38},{x:-297,z:1160,rope:180,r:34},{x:298,z:1160,rope:395,r:34}]},
+{name:"Odak",knives:10,focus:1,wind:null,rope:false,hint:"ODAK: ağır çekimde bir çizgi çiz, değdiğin balonlar patlar.",b:[{x:-320,z:880,rope:180,r:42},{x:-160,z:880,rope:395,r:42},{x:0,z:880,rope:250,r:42},{x:160,z:880,rope:360,r:42},{x:320,z:880,rope:215,r:42},{x:-361,z:1160,rope:385,r:38},{x:0,z:1440,rope:200,r:35},{x:361,z:1160,rope:385,r:32}]},
+{name:"",knives:12,focus:2,wind:{base:0.38,gust:0,period:0},rope:false,b:[{x:159,z:1160,rope:300,r:36,t:"armor"},{x:-93,z:1160,rope:215,r:30,t:"bomb"},{x:-226,z:1160,rope:435,r:30},{x:-359,z:1160,rope:215,r:30},{x:-226,z:1160,rope:375,r:30},{x:-271,z:880,rope:385,r:32},{x:-150,z:1440,rope:200,r:29},{x:150,z:1440,rope:385,r:26},{x:273,z:880,rope:200,r:32}]},
+{name:"",knives:9,focus:1,wind:null,rope:false,hint:"Kafesli balonu ancak YEŞİL ağızdan geçen shuriken vurur.",b:[{x:-40,z:880,rope:295,r:48,t:"cage"},{x:-304,z:880,rope:180,r:42},{x:-101,z:880,rope:395,r:42},{x:101,z:880,rope:250,r:42},{x:304,z:880,rope:360,r:42},{x:-361,z:1160,rope:385,r:40},{x:361,z:1160,rope:200,r:37}]},
+{name:"",knives:10,focus:1,wind:null,rope:false,b:[{x:-320,z:880,rope:180,r:46},{x:-160,z:880,rope:395,r:46},{x:0,z:880,rope:250,r:46},{x:160,z:880,rope:360,r:46},{x:320,z:880,rope:215,r:46},{x:-105,z:620,rope:180,r:46},{x:105,z:620,rope:395,r:46},{x:410,z:1160,rope:240,r:34,t:"gift"}]},
+{name:"",knives:11,focus:1,wind:null,rope:false,hint:"Çark döner. Balonu değil, geleceği yeri vur.",wheel:{z:880,cx:0,cy:-100,r:200,speed:0.55},b:[{wheelA:0,r:38},{wheelA:1.26,r:38},{wheelA:2.51,r:38},{wheelA:3.77,r:38},{wheelA:5.03,r:38},{x:-161,z:620,rope:385,r:39},{x:0,z:1160,rope:200,r:36},{x:162,z:620,rope:385,r:33},{x:420,z:1160,rope:245,r:31,t:"gift"}]},
+{name:"",knives:10,focus:1,wind:null,rope:false,b:[{x:90,z:880,rope:300,r:46,t:"cage"},{x:-320,z:880,rope:180,r:42},{x:-160,z:880,rope:395,r:42},{x:0,z:880,rope:250,r:42},{x:160,z:880,rope:360,r:42},{x:320,z:880,rope:215,r:42},{x:-161,z:620,rope:385,r:40},{x:361,z:1160,rope:200,r:37}]},
+{name:"",knives:9,focus:1,wind:null,rope:false,hint:"Kaçak balon ipsiz doğar, tavana yaslanır ve gider. Önce onu vur.",b:[{x:-270,z:880,rope:300,r:44,t:"drift"},{x:-198,z:880,rope:180,r:44},{x:-66,z:880,rope:395,r:44},{x:66,z:880,rope:250,r:44},{x:198,z:880,rope:360,r:44},{x:-361,z:1160,rope:385,r:38},{x:451,z:1440,rope:200,r:35}]},
+{name:"",knives:14,focus:1,wind:{base:0.31,gust:0,period:0},rope:false,b:[{x:-150,z:880,rope:275,r:41,t:"armor"},{x:440,z:1440,rope:220,r:27,t:"gift"},{x:-320,z:880,rope:180,r:40,t:"cage"},{x:-107,z:880,rope:395,r:37},{x:107,z:880,rope:250,r:37},{x:320,z:880,rope:360,r:37},{x:-161,z:620,rope:385,r:35},{x:0,z:1160,rope:200,r:32},{x:162,z:620,rope:385,r:29}]},
+{name:"",knives:11,focus:1,wind:null,rope:false,hint:"Kâğıt perde shurikeni yutar. Açını değiştir, etrafından dolaş.",screens:[{x:20,z:810,w:200,h:140,y:CEIL+240}],b:[{x:-320,z:880,rope:180,r:44},{x:-160,z:880,rope:395,r:44},{x:0,z:880,rope:250,r:44},{x:160,z:880,rope:360,r:44},{x:320,z:880,rope:215,r:44},{x:-120,z:1160,rope:200,r:40},{x:-285,z:1160,rope:416,r:40},{x:-285,z:1160,rope:174,r:40},{x:430,z:1160,rope:250,r:34,t:"gift"}]},
+{name:"",knives:17,focus:1,wind:{base:0.34,gust:0,period:0},rope:false,screens:[{x:-380,z:810,w:200,h:140,y:CEIL+220},{x:-320,z:690,w:235,h:140,y:CEIL+300}],b:[{x:-425,z:1160,rope:180,r:34},{x:-212,z:1160,rope:395,r:34},{x:0,z:1160,rope:250,r:34},{x:213,z:1160,rope:360,r:34},{x:425,z:1160,rope:215,r:34},{x:-271,z:880,rope:385,r:32},{x:-150,z:1440,rope:200,r:29},{x:150,z:1440,rope:385,r:26},{x:273,z:880,rope:200,r:32}]},
+{name:"",knives:10,focus:1,wind:null,rope:false,hint:"Kırmızı kordonu kes: bağlı iki balon birden patlar.",b:[{x:-230,z:880,rope:300,r:42,link:1},{x:60,z:880,rope:300,r:42},{x:-256,z:880,rope:180,r:42},{x:-85,z:880,rope:395,r:42},{x:85,z:880,rope:250,r:42},{x:256,z:880,rope:360,r:42},{x:420,z:1160,rope:250,r:34,t:"gift"},{x:0,z:620,rope:180,r:46}]},
+{name:"",knives:11,focus:1,wind:{base:0.26,gust:0,period:0},rope:false,wheel:{z:880,cx:0,cy:-110,r:195,speed:0.68},b:[{wheelA:0.3,r:38},{wheelA:1.55,r:38},{wheelA:2.8,r:38},{wheelA:4.05,r:38},{wheelA:5.3,r:38},{x:-161,z:620,rope:385,r:39},{x:0,z:1160,rope:200,r:36},{x:451,z:1440,rope:385,r:33},{x:430,z:1160,rope:235,r:31,t:"gift"}]},
+{name:"",knives:11,focus:1,wind:null,rope:true,hint:"İpi kesilen balon kaçar. Kaçarken vurursan +1 shuriken.",b:[{x:-161,z:620,rope:385,r:42},{x:-163,z:880,rope:200,r:39},{x:-72,z:1160,rope:385,r:36},{x:90,z:1440,rope:200,r:42},{x:97,z:620,rope:385,r:39},{x:272,z:880,rope:200,r:36},{x:-224,z:880,rope:180,r:40},{x:0,z:880,rope:395,r:40},{x:224,z:880,rope:250,r:40}]},
+{name:"",knives:12,focus:2,wind:{base:0.34,gust:0,period:0},rope:false,wheel:{z:880,cx:0,cy:-105,r:190,speed:0.72},b:[{wheelA:0.5,r:29},{wheelA:1.75,r:29},{wheelA:3,r:29},{wheelA:4.25,r:29},{wheelA:5.5,r:29},{x:-374,z:1440,rope:260,r:40,t:"cage"},{x:-271,z:880,rope:385,r:40,t:"cage"},{x:-150,z:1440,rope:200,r:26},{x:150,z:1440,rope:385,r:26},{x:273,z:880,rope:200,r:26}]},
+{name:"",knives:11,focus:1,wind:{base:0.22,gust:0,period:0},rope:false,screens:[{x:380,z:720,w:170,h:165,y:CEIL+120}],b:[{x:-424,z:1160,rope:180,r:34},{x:-142,z:1160,rope:395,r:34},{x:142,z:1160,rope:250,r:34},{x:424,z:1160,rope:360,r:34},{x:-362,z:1160,rope:385,r:32},{x:-181,z:1160,rope:200,r:29},{x:0,z:1160,rope:385,r:29},{x:181,z:1160,rope:200,r:32},{x:362,z:1160,rope:385,r:29}]},
+{name:"",knives:11,focus:1,wind:null,rope:false,screens:[{x:20,z:720,w:235,h:140,y:CEIL+320}],b:[{x:240,z:880,rope:215,r:39,t:"bomb"},{x:157,z:880,rope:434,r:39},{x:23,z:880,rope:233,r:39},{x:23,z:880,rope:387,r:39},{x:157,z:880,rope:186,r:39},{x:-161,z:620,rope:385,r:41},{x:-120,z:1160,rope:200,r:38},{x:54,z:620,rope:385,r:35},{x:361,z:1160,rope:200,r:41}]},
+{name:"",knives:10,focus:1,wind:{base:0.3,gust:0.34,period:3.1},rope:false,hint:"Fırtına yön değiştirir. Sabit nişan tutmaz, ritmini bekle.",b:[{x:-250,z:880,rope:200,r:42,link:1},{x:50,z:880,rope:370,r:42},{x:335,z:1160,rope:165,r:38,t:"bomb"},{x:230,z:1160,rope:435,r:38},{x:125,z:1160,rope:165,r:38},{x:230,z:1160,rope:435,r:38},{x:-105,z:620,rope:165,r:46},{x:105,z:620,rope:435,r:46}]},
+{name:"",knives:10,focus:1,wind:null,rope:false,b:[{x:-60,z:880,rope:300,r:45,t:"cage"},{x:-320,z:880,rope:180,r:43},{x:-160,z:880,rope:395,r:43},{x:0,z:880,rope:250,r:43},{x:160,z:880,rope:360,r:43},{x:320,z:880,rope:215,r:43},{x:-95,z:620,rope:180,r:45},{x:95,z:620,rope:395,r:45}]},
+{name:"",knives:12,focus:1,wind:{base:0.28,gust:0,period:0},rope:false,b:[{x:110,z:880,rope:290,r:42,t:"cage"},{x:-220,z:880,rope:255,r:40,t:"armor"},{x:-320,z:880,rope:180,r:40,t:"cage"},{x:-107,z:880,rope:395,r:38},{x:107,z:880,rope:250,r:38},{x:320,z:880,rope:360,r:38},{x:-161,z:620,rope:385,r:36},{x:0,z:1160,rope:200,r:33},{x:162,z:620,rope:385,r:30}]},
+{name:"",knives:13,focus:1,wind:{base:0.14,gust:0,period:0},rope:false,b:[{x:-239,z:1160,rope:285,r:46,t:"cage"},{x:231,z:1160,rope:195,r:46,t:"armor"},{x:-425,z:1160,rope:180,r:35},{x:-142,z:1160,rope:395,r:35},{x:142,z:1160,rope:250,r:35},{x:425,z:1160,rope:360,r:35},{x:-271,z:880,rope:385,r:33},{x:-121,z:1160,rope:200,r:32},{x:121,z:1160,rope:385,r:32},{x:273,z:880,rope:200,r:33}]},
+{name:"",knives:13,focus:1,wind:null,rope:false,hint:"Bölünen balon patlayınca iki küçük doğurur. Üç vuruş eder.",b:[{x:-40,z:880,rope:300,r:50,t:"split"},{x:-320,z:880,rope:180,r:42},{x:-160,z:880,rope:395,r:42},{x:0,z:880,rope:250,r:42},{x:160,z:880,rope:360,r:42},{x:320,z:880,rope:215,r:42},{x:425,z:1160,rope:240,r:34,t:"gift"},{x:-95,z:620,rope:180,r:46},{x:95,z:620,rope:395,r:46}]},
+{name:"",knives:12,focus:1,wind:{base:0.32,gust:0,period:0},rope:false,wheel:{z:880,cx:0,cy:-105,r:195,speed:0.62},b:[{wheelA:0,r:34},{wheelA:1.26,r:34},{wheelA:2.51,r:34},{wheelA:3.77,r:34},{wheelA:5.03,r:34},{x:-320,z:1160,rope:265,r:36},{x:430,z:1160,rope:195,r:28,t:"gift"},{x:-152,z:620,rope:180,r:40,t:"cage"},{x:0,z:620,rope:395,r:40,t:"cage"},{x:152,z:620,rope:250,r:38}]},
+{name:"",knives:12,focus:1,wind:{base:0.36,gust:0,period:0},rope:false,wheel:{z:1160,cx:0,cy:-100,r:210,speed:0.58},b:[{wheelA:0.4,r:34},{wheelA:1.65,r:34},{wheelA:2.9,r:34},{wheelA:4.15,r:34},{wheelA:5.4,r:34},{x:-271,z:880,rope:385,r:33},{x:-181,z:1160,rope:200,r:30},{x:0,z:1440,rope:385,r:27},{x:136,z:880,rope:200,r:33},{x:361,z:1160,rope:385,r:30}]},
+{name:"",knives:16,focus:1,wind:{base:0.31,gust:0,period:0},rope:false,b:[{x:-70,z:880,rope:295,r:43,t:"split"},{x:250,z:880,rope:250,r:39,t:"armor"},{x:-161,z:620,rope:385,r:35},{x:-181,z:1160,rope:200,r:32},{x:0,z:1440,rope:385,r:29},{x:81,z:620,rope:200,r:35},{x:361,z:1160,rope:385,r:32},{x:-144,z:880,rope:180,r:37},{x:144,z:880,rope:395,r:37}]},
+{name:"",knives:11,focus:1,wind:null,rope:false,screens:[{x:280,z:810,w:170,h:140,y:CEIL+180}],b:[{x:-320,z:880,rope:180,r:44},{x:-160,z:880,rope:395,r:44},{x:0,z:880,rope:250,r:44},{x:160,z:880,rope:360,r:44},{x:320,z:880,rope:215,r:44},{x:-161,z:620,rope:385,r:40},{x:0,z:1160,rope:200,r:37},{x:162,z:620,rope:385,r:34},{x:-430,z:1160,rope:245,r:32,t:"gift"}]},
+{name:"Çifte",knives:12,focus:1,wind:null,rope:false,hint:"ÇİFTE: üç atış boyunca her dokunuşta iki shuriken gider.",b:[{x:-260,z:880,rope:200,r:42,link:1},{x:20,z:880,rope:355,r:42},{x:-170,z:1160,rope:395,r:40,link:3},{x:230,z:1160,rope:235,r:40},{x:-161,z:620,rope:385,r:42},{x:-150,z:1440,rope:200,r:39},{x:54,z:620,rope:385,r:36},{x:451,z:1440,rope:200,r:42},{x:-112,z:880,rope:180,r:42},{x:112,z:880,rope:395,r:42}]},
+{name:"",knives:15,focus:1,wind:{base:0.34,gust:0,period:0},rope:false,b:[{x:-90,z:880,rope:300,r:39,t:"cage"},{x:240,z:1160,rope:255,r:35,t:"armor"},{x:-161,z:620,rope:385,r:33},{x:-181,z:1160,rope:200,r:30},{x:0,z:1440,rope:385,r:27},{x:81,z:620,rope:200,r:33},{x:361,z:1160,rope:385,r:30},{x:-128,z:880,rope:180,r:35},{x:128,z:880,rope:395,r:35}]},
+{name:"",knives:13,focus:1,wind:{base:0.34,gust:0,period:0},rope:false,wheel:{z:880,cx:0,cy:-105,r:190,speed:0.66},b:[{wheelA:0.2,r:31},{wheelA:1.45,r:31},{wheelA:2.7,r:31},{wheelA:3.95,r:31},{wheelA:5.2,r:31},{x:-181,z:1440,rope:205,r:29,t:"bomb"},{x:-312,z:1440,rope:425,r:29},{x:-443,z:1440,rope:205,r:29},{x:-312,z:1440,rope:365,r:29},{x:-160,z:880,rope:180,r:33},{x:160,z:880,rope:395,r:33}]},
+{name:"",knives:14,focus:1,wind:{base:0.33,gust:0,period:0},rope:false,b:[{x:-60,z:880,rope:300,r:42,t:"split"},{x:250,z:880,rope:255,r:40,t:"cage"},{x:-195,z:880,rope:390,r:34},{x:-65,z:880,rope:215,r:34},{x:65,z:1160,rope:400,r:34},{x:195,z:1160,rope:230,r:34},{x:-161,z:620,rope:385,r:34},{x:0,z:1440,rope:200,r:31}]},
+{name:"",knives:12,focus:1,wind:{base:0.26,gust:0,period:0},rope:false,screens:[{x:140,z:810,w:170,h:140,y:CEIL+260},{x:420,z:810,w:170,h:165,y:CEIL+120}],b:[{x:-425,z:1160,rope:180,r:29},{x:-142,z:1160,rope:395,r:29},{x:142,z:1160,rope:250,r:29},{x:425,z:1160,rope:360,r:29},{x:-271,z:880,rope:385,r:26},{x:0,z:1440,rope:200,r:26},{x:273,z:880,rope:385,r:26},{x:-536,z:1440,rope:300,r:26,t:"gift"}]},
+{name:"",knives:15,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,b:[{x:-110,z:880,rope:300,r:43,t:"split"},{x:200,z:880,rope:250,r:40,t:"cage"},{x:-161,z:620,rope:385,r:35},{x:-136,z:880,rope:200,r:32},{x:0,z:1160,rope:385,r:29},{x:225,z:1440,rope:200,r:35},{x:162,z:620,rope:385,r:32},{x:-112,z:880,rope:180,r:40,t:"cage"},{x:112,z:880,rope:395,r:37}]},
+{name:"Sağanak",knives:15,focus:1,wind:null,rope:false,hint:"SAĞANAK: dört saniye boyunca attığın shurikenler bedava.",b:[{x:-270,z:880,rope:195,r:39,link:1},{x:10,z:880,rope:360,r:39},{x:-200,z:1160,rope:400,r:37,link:3},{x:250,z:1160,rope:225,r:37},{x:120,z:880,rope:290,r:43,t:"split"},{x:-161,z:620,rope:385,r:37},{x:-120,z:1160,rope:200,r:34},{x:150,z:1440,rope:385,r:31},{x:272,z:880,rope:200,r:37},{x:-120,z:620,rope:175,r:39},{x:150,z:620,rope:330,r:39}]},
+{name:"",knives:12,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,wheel:{z:880,cx:0,cy:-105,r:204,speed:0.6},b:[{wheelA:0.52,r:32},{wheelA:1.57,r:32},{wheelA:2.61,r:32},{wheelA:3.66,r:32},{wheelA:4.71,r:32},{wheelA:5.76,r:32},{x:-425,z:1160,rope:180,r:37},{x:-318,z:1440,rope:395,r:37},{x:-106,z:1440,rope:250,r:37,t:"bomb"},{x:-503,z:1440,rope:257,r:30,t:"gift"}]},
+{name:"",knives:13,focus:1,wind:null,rope:false,b:[{x:282,z:1160,rope:190,r:36,t:"bomb"},{x:-425,z:1160,rope:180,r:40},{x:-331,z:1160,rope:395,r:40},{x:-236,z:1160,rope:250,r:40},{x:-142,z:1160,rope:360,r:40,t:"armor"},{x:-47,z:1160,rope:215,r:40},{x:47,z:1160,rope:430,r:40},{x:142,z:1160,rope:180,r:40},{x:236,z:1160,rope:395,r:40},{x:371,z:1160,rope:250,r:40}]},
+{name:"",knives:12,focus:1,wind:null,rope:false,b:[{x:-504,z:1440,rope:236,r:30,t:"gift"},{x:-425,z:1160,rope:180,r:34},{x:-319,z:1160,rope:395,r:34},{x:-160,z:880,rope:250,r:34,t:"drift"},{x:-106,z:1160,rope:360,r:34},{x:0,z:1160,rope:215,r:34},{x:106,z:1160,rope:430,r:34},{x:213,z:1160,rope:180,r:34},{x:319,z:1160,rope:395,r:34},{x:425,z:1160,rope:250,r:37}]},
+{name:"",knives:12,focus:1,wind:null,rope:false,screens:[{x:-380,z:810,w:235,h:140,y:CEIL+120}],b:[{x:-256,z:880,rope:235,r:39},{x:-199,z:880,rope:415,r:39},{x:-142,z:880,rope:235,r:39},{x:-85,z:880,rope:415,r:39},{x:-28,z:880,rope:235,r:39},{x:28,z:880,rope:415,r:39},{x:85,z:880,rope:235,r:39},{x:142,z:880,rope:415,r:39},{x:199,z:880,rope:235,r:39},{x:256,z:880,rope:415,r:39}]},
+{name:"",knives:12,focus:1,wind:null,rope:false,b:[{x:-156,z:620,rope:200,r:37,link:1},{x:23,z:620,rope:360,r:37},{x:-234,z:1160,rope:340,r:35},{x:306,z:1160,rope:235,r:35},{x:-361,z:1160,rope:180,r:36},{x:-217,z:1160,rope:435,r:36},{x:-54,z:880,rope:250,r:36,t:"drift"},{x:72,z:1160,rope:360,r:36},{x:217,z:1160,rope:215,r:36},{x:361,z:1160,rope:430,r:36}]},
+{name:"",knives:15,focus:2,wind:{base:0.3,gust:0.26,period:3.1},rope:false,b:[{x:29,z:880,rope:180,r:37,t:"cage"},{x:-320,z:880,rope:180,r:35},{x:-262,z:880,rope:395,r:35,t:"armor"},{x:-204,z:880,rope:250,r:35},{x:-145,z:880,rope:360,r:35},{x:-87,z:880,rope:215,r:35},{x:-29,z:880,rope:430,r:35},{x:87,z:880,rope:395,r:35},{x:145,z:880,rope:250,r:35,t:"bomb"},{x:204,z:880,rope:360,r:35},{x:262,z:880,rope:215,r:35},{x:-503,z:1440,rope:278,r:30,t:"gift"}]},
+{name:"",knives:11,focus:1,wind:{base:0.22,gust:0,period:0},rope:false,b:[{x:216,z:1160,rope:190,r:39,t:"bomb"},{x:92,z:1160,rope:435,r:39},{x:-77,z:1160,rope:229,r:39},{x:-141,z:1160,rope:410,r:39},{x:-18,z:1160,rope:165,r:39},{x:151,z:1160,rope:371,r:39},{x:-256,z:880,rope:180,r:41},{x:0,z:880,rope:395,r:41},{x:256,z:880,rope:250,r:41}]},
+{name:"",knives:15,focus:1,wind:null,rope:false,b:[{x:-425,z:1160,rope:200,r:31},{x:-339,z:1160,rope:200,r:31},{x:-365,z:1160,rope:270,r:31},{x:-193,z:1160,rope:270,r:31},{x:-86,z:1160,rope:340,r:37,t:"split"},{x:86,z:1160,rope:340,r:31},{x:193,z:1160,rope:410,r:31},{x:365,z:1160,rope:355,r:31},{x:339,z:1160,rope:435,r:31},{x:425,z:1160,rope:435,r:31,t:"armor"}]},
+{name:"",knives:12,focus:1,wind:null,rope:false,screens:[{x:-400,z:810,w:170,h:140,y:CEIL+120}],b:[{x:-320,z:880,rope:180,r:40},{x:-249,z:880,rope:395,r:40},{x:-178,z:880,rope:250,r:40},{x:-107,z:880,rope:360,r:40},{x:-36,z:880,rope:215,r:40},{x:36,z:880,rope:430,r:40},{x:107,z:880,rope:180,r:40},{x:178,z:880,rope:395,r:40},{x:249,z:880,rope:250,r:40},{x:320,z:880,rope:360,r:40,t:"bomb"}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,b:[{x:-271,z:880,rope:385,r:39},{x:-282,z:1160,rope:200,r:36},{x:-201,z:1160,rope:385,r:33},{x:-120,z:1160,rope:200,r:39},{x:-30,z:880,rope:385,r:36},{x:30,z:880,rope:200,r:33,t:"drift"},{x:150,z:1440,rope:385,r:39},{x:250,z:1440,rope:200,r:36},{x:212,z:880,rope:385,r:36,t:"cage"},{x:-504,z:1440,rope:237,r:30,t:"gift"}]},
+{name:"",knives:15,focus:1,wind:null,rope:false,b:[{x:-435,z:1440,rope:200,r:34,link:1},{x:64,z:1440,rope:360,r:34},{x:-271,z:880,rope:385,r:35},{x:-258,z:1160,rope:200,r:32,t:"bomb"},{x:-116,z:880,rope:385,r:30},{x:-52,z:1160,rope:200,r:35},{x:39,z:880,rope:385,r:32,t:"drift"},{x:155,z:1160,rope:200,r:30},{x:194,z:880,rope:385,r:35,t:"cage"},{x:361,z:1160,rope:200,r:32}]},
+{name:"",knives:12,focus:1,wind:null,rope:false,wheel:{z:1160,cx:0,cy:-105,r:195,speed:0.57},b:[{wheelA:0.22,r:34},{wheelA:1.27,r:34},{wheelA:2.31,r:34},{wheelA:3.36,r:34},{wheelA:4.41,r:34},{wheelA:5.46,r:34},{x:-190,z:620,rope:180,r:39},{x:-114,z:620,rope:395,r:39},{x:-38,z:620,rope:250,r:39},{x:181,z:620,rope:221,r:30,t:"gift"}]},
+{name:"",knives:13,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,b:[{x:208,z:1160,rope:190,r:31,t:"bomb"},{x:-320,z:880,rope:180,r:35},{x:-249,z:880,rope:395,r:35},{x:-178,z:880,rope:250,r:35},{x:-107,z:880,rope:360,r:35},{x:-36,z:880,rope:215,r:35},{x:36,z:880,rope:430,r:35},{x:107,z:880,rope:180,r:35},{x:178,z:880,rope:395,r:35},{x:249,z:880,rope:250,r:35,t:"armor"}]},
+{name:"",knives:12,focus:1,wind:null,rope:false,b:[{x:-320,z:880,rope:180,r:42},{x:-240,z:880,rope:395,r:42},{x:-160,z:880,rope:250,r:42},{x:-80,z:880,rope:360,r:42},{x:0,z:880,rope:215,r:42},{x:80,z:880,rope:430,r:42},{x:160,z:880,rope:180,r:42},{x:240,z:880,rope:395,r:42,t:"drift"},{x:320,z:880,rope:195,r:42},{x:304,z:880,rope:361,r:33,t:"gift"}]},
+{name:"",knives:15,focus:1,wind:null,rope:false,screens:[{x:-340,z:810,w:235,h:140,y:CEIL+200}],b:[{x:-256,z:880,rope:235,r:37},{x:-205,z:880,rope:415,r:37},{x:-153,z:880,rope:235,r:40,t:"split"},{x:-103,z:880,rope:415,r:37},{x:-51,z:880,rope:235,r:37},{x:0,z:880,rope:415,r:37},{x:51,z:880,rope:235,r:37},{x:103,z:880,rope:415,r:37},{x:153,z:880,rope:235,r:37},{x:205,z:880,rope:415,r:37},{x:504,z:1440,rope:313,r:30,t:"gift"}]},
+{name:"",knives:18,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,b:[{x:-262,z:880,rope:200,r:34,link:1},{x:38,z:880,rope:360,r:34},{x:-233,z:1160,rope:340,r:32},{x:306,z:1160,rope:235,r:32},{x:-361,z:1160,rope:180,r:34,t:"cage"},{x:-241,z:1160,rope:435,r:33},{x:-120,z:1160,rope:250,r:33},{x:0,z:1160,rope:360,r:33},{x:150,z:1440,rope:215,r:33}]},
+{name:"",knives:20,focus:1,wind:null,rope:false,b:[{x:0,z:1160,rope:430,r:40,t:"cage"},{x:-425,z:1160,rope:180,r:38},{x:-340,z:1160,rope:395,r:38},{x:-255,z:1160,rope:250,r:38},{x:-170,z:1160,rope:360,r:38},{x:-85,z:1160,rope:215,r:38},{x:212,z:1440,rope:395,r:38,t:"armor"},{x:320,z:880,rope:215,r:38,t:"drift"}]},
+{name:"",knives:14,focus:2,wind:{base:0.3,gust:0.26,period:3.1},rope:false,wheel:{z:1160,cx:0,cy:-105,r:195,speed:0.55},b:[{x:76,z:880,rope:190,r:31,t:"bomb"},{x:-16,z:880,rope:435,r:31},{x:-144,z:880,rope:229,r:31},{x:-192,z:880,rope:410,r:31},{x:-100,z:880,rope:165,r:31},{x:28,z:880,rope:371,r:31},{wheelA:0.31,r:30},{wheelA:1.36,r:30},{wheelA:2.4,r:30},{wheelA:3.45,r:30},{wheelA:4.5,r:30},{wheelA:5.55,r:30}]},
+{name:"",knives:13,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,b:[{x:-320,z:880,rope:165,r:35},{x:-255,z:880,rope:200,r:35},{x:-320,z:880,rope:270,r:35},{x:-197,z:880,rope:325,r:35},{x:-117,z:880,rope:340,r:35},{x:13,z:880,rope:340,r:35},{x:93,z:880,rope:410,r:35},{x:223,z:880,rope:300,r:35},{x:255,z:880,rope:380,r:35},{x:320,z:880,rope:435,r:35},{x:304,z:880,rope:240,r:30,t:"gift"}]},
+{name:"",knives:13,focus:1,wind:null,rope:false,screens:[{x:380,z:810,w:235,h:140,y:CEIL+120}],b:[{x:-320,z:880,rope:180,r:37},{x:-256,z:880,rope:395,r:37},{x:-192,z:880,rope:250,r:37},{x:-128,z:880,rope:360,r:37},{x:-64,z:880,rope:215,r:37},{x:0,z:880,rope:430,r:37},{x:64,z:880,rope:180,r:37},{x:128,z:880,rope:395,r:37},{x:192,z:880,rope:250,r:37,t:"bomb"},{x:256,z:880,rope:360,r:37},{x:-504,z:1440,rope:295,r:30,t:"gift"}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,b:[{x:-161,z:620,rope:385,r:41},{x:-212,z:880,rope:200,r:38},{x:-201,z:1160,rope:385,r:42,t:"split"},{x:-150,z:1440,rope:200,r:41},{x:-18,z:620,rope:385,r:38},{x:30,z:880,rope:200,r:35},{x:120,z:1160,rope:385,r:41},{x:250,z:1440,rope:200,r:38},{x:126,z:620,rope:385,r:35},{x:-503,z:1440,rope:316,r:30,t:"gift"}]},
+{name:"",knives:13,focus:1,wind:null,rope:false,b:[{x:-434,z:1440,rope:200,r:36,link:1},{x:64,z:1440,rope:360,r:36},{x:-271,z:880,rope:385,r:37},{x:-204,z:880,rope:200,r:34,t:"drift"},{x:-136,z:880,rope:385,r:31},{x:-90,z:1160,rope:200,r:37},{x:0,z:880,rope:385,r:34},{x:90,z:1160,rope:200,r:31},{x:136,z:880,rope:385,r:37,t:"cage"},{x:271,z:1160,rope:200,r:34},{x:273,z:880,rope:385,r:31}]},
+{name:"",knives:13,focus:1,wind:null,rope:false,wheel:{z:880,cx:0,cy:-105,r:207,speed:0.75},b:[{wheelA:0.71,r:30},{wheelA:1.76,r:30},{wheelA:2.8,r:30},{wheelA:3.85,r:30},{wheelA:4.9,r:30},{wheelA:5.95,r:30},{x:-425,z:1160,rope:180,r:35},{x:-353,z:1440,rope:395,r:35},{x:-107,z:880,rope:250,r:35,t:"drift"},{x:0,z:1440,rope:360,r:37,t:"cage"},{x:0,z:1440,rope:180,r:33}]},
+{name:"",knives:15,focus:1,wind:null,rope:false,b:[{x:110,z:880,rope:165,r:35,t:"bomb"},{x:-320,z:880,rope:180,r:39},{x:-256,z:880,rope:395,r:39},{x:-192,z:880,rope:250,r:39},{x:-128,z:880,rope:360,r:39},{x:-64,z:880,rope:215,r:39},{x:0,z:880,rope:430,r:39,t:"cage"},{x:24,z:880,rope:235,r:39},{x:128,z:880,rope:395,r:39},{x:192,z:880,rope:250,r:39},{x:304,z:880,rope:248,r:30,t:"gift"}]},
+{name:"",knives:14,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,b:[{x:404,z:1160,rope:255,r:30,t:"gift"},{x:-190,z:620,rope:180,r:36},{x:-148,z:620,rope:395,r:36},{x:-106,z:620,rope:250,r:36},{x:-63,z:620,rope:360,r:36},{x:-21,z:620,rope:215,r:36},{x:21,z:620,rope:430,r:36},{x:63,z:620,rope:180,r:36,t:"armor"},{x:106,z:620,rope:395,r:36},{x:148,z:620,rope:250,r:36},{x:190,z:620,rope:360,r:36}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,screens:[{x:-340,z:810,w:235,h:140,y:CEIL+240}],b:[{x:-340,z:1160,rope:235,r:34},{x:-272,z:1160,rope:415,r:34},{x:-205,z:1160,rope:235,r:34},{x:-135,z:1160,rope:415,r:34},{x:-68,z:1160,rope:235,r:34},{x:0,z:1160,rope:415,r:34},{x:68,z:1160,rope:235,r:34},{x:135,z:1160,rope:415,r:34},{x:205,z:1160,rope:235,r:34},{x:272,z:1160,rope:415,r:34,t:"armor"},{x:504,z:1440,rope:342,r:30,t:"gift"}]},
+{name:"",knives:15,focus:1,wind:null,rope:false,b:[{x:-348,z:1160,rope:165,r:35,link:1},{x:51,z:1160,rope:305,r:35},{x:-234,z:1160,rope:340,r:33,link:3},{x:306,z:1160,rope:235,r:33},{x:-361,z:1160,rope:235,r:34},{x:-241,z:1160,rope:435,r:34},{x:-90,z:880,rope:250,r:34,t:"drift"},{x:0,z:1160,rope:415,r:34},{x:150,z:1440,rope:215,r:39,t:"split"},{x:301,z:1440,rope:430,r:34,t:"bomb"},{x:-504,z:1440,rope:309,r:30,t:"gift"}]},
+{name:"",knives:15,focus:1,wind:null,rope:false,b:[{x:-320,z:880,rope:180,r:39},{x:-256,z:880,rope:395,r:39},{x:-192,z:880,rope:250,r:39},{x:-128,z:880,rope:360,r:39},{x:-64,z:880,rope:215,r:39},{x:0,z:880,rope:430,r:41,t:"cage"},{x:64,z:880,rope:180,r:39,t:"drift"},{x:128,z:880,rope:395,r:39},{x:192,z:880,rope:250,r:39,t:"bomb"},{x:256,z:880,rope:360,r:39},{x:404,z:1160,rope:334,r:30,t:"gift"}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,wheel:{z:880,cx:0,cy:-105,r:192,speed:0.61},b:[{x:354,z:1440,rope:190,r:35,t:"bomb"},{x:202,z:1440,rope:435,r:35},{x:-10,z:1440,rope:229,r:35},{x:-89,z:1440,rope:410,r:35},{x:63,z:1440,rope:165,r:35},{x:275,z:1440,rope:371,r:35},{wheelA:0.77,r:34},{wheelA:1.82,r:34},{wheelA:2.86,r:34},{wheelA:3.91,r:34},{wheelA:4.96,r:34},{x:-503,z:1440,rope:269,r:30,t:"gift"}]},
+{name:"",knives:14,focus:2,wind:{base:0.3,gust:0,period:0},rope:false,b:[{x:-190,z:620,rope:200,r:31},{x:-125,z:620,rope:200,r:31},{x:-190,z:620,rope:270,r:33,t:"cage"},{x:-125,z:620,rope:270,r:31},{x:-170,z:620,rope:340,r:31},{x:-40,z:620,rope:340,r:31},{x:40,z:620,rope:410,r:31},{x:170,z:620,rope:245,r:31},{x:125,z:620,rope:325,r:31},{x:190,z:620,rope:325,r:31},{x:125,z:620,rope:435,r:31},{x:190,z:620,rope:435,r:31}]},
+{name:"",knives:14,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,screens:[{x:160,z:720,w:200,h:140,y:CEIL+320}],b:[{x:-320,z:880,rope:180,r:35},{x:-262,z:880,rope:395,r:35},{x:-204,z:880,rope:250,r:35},{x:-145,z:880,rope:360,r:35},{x:-87,z:880,rope:215,r:35},{x:-29,z:880,rope:430,r:35},{x:29,z:880,rope:180,r:35},{x:87,z:880,rope:395,r:35},{x:145,z:880,rope:250,r:35},{x:204,z:880,rope:360,r:35},{x:262,z:880,rope:215,r:35},{x:320,z:880,rope:430,r:35}]},
+{name:"",knives:18,focus:1,wind:null,rope:false,b:[{x:-271,z:880,rope:385,r:39,t:"split"},{x:-296,z:1160,rope:200,r:35},{x:-230,z:1160,rope:385,r:32},{x:-164,z:1160,rope:200,r:38},{x:-74,z:880,rope:385,r:35},{x:-33,z:1160,rope:200,r:32},{x:41,z:1440,rope:385,r:38},{x:123,z:1440,rope:200,r:35,t:"bomb"},{x:123,z:880,rope:385,r:32},{x:230,z:1160,rope:200,r:38},{x:369,z:1440,rope:385,r:35,t:"armor"},{x:451,z:1440,rope:200,r:32}]},
+{name:"",knives:17,focus:1,wind:null,rope:false,b:[{x:-434,z:1440,rope:200,r:33,link:1},{x:64,z:1440,rope:360,r:33},{x:-271,z:880,rope:385,r:34},{x:-282,z:1160,rope:200,r:31},{x:-152,z:880,rope:385,r:30},{x:-121,z:1160,rope:200,r:34},{x:-30,z:880,rope:385,r:31,t:"drift"},{x:40,z:1160,rope:200,r:30},{x:91,z:880,rope:385,r:34},{x:201,z:1160,rope:200,r:37,t:"split"},{x:212,z:880,rope:385,r:30},{x:361,z:1160,rope:200,r:34}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,wheel:{z:880,cx:0,cy:-105,r:198,speed:0.72},b:[{wheelA:0.4,r:33},{wheelA:1.45,r:33},{wheelA:2.49,r:33},{wheelA:3.54,r:33},{wheelA:4.59,r:33},{wheelA:5.64,r:33},{x:-530,z:1440,rope:180,r:38},{x:-379,z:1440,rope:395,r:38},{x:-227,z:1440,rope:250,r:38},{x:-76,z:1440,rope:360,r:38},{x:-152,z:620,rope:180,r:36},{x:504,z:1440,rope:323,r:30,t:"gift"}]},
+{name:"",knives:15,focus:1,wind:null,rope:false,b:[{x:-190,z:620,rope:180,r:40},{x:-152,z:620,rope:395,r:40,t:"bomb"},{x:-114,z:620,rope:250,r:40},{x:-76,z:620,rope:360,r:40},{x:-38,z:620,rope:215,r:40},{x:0,z:620,rope:430,r:40},{x:38,z:620,rope:180,r:40},{x:76,z:620,rope:395,r:40},{x:114,z:620,rope:250,r:40},{x:152,z:620,rope:360,r:42,t:"split"},{x:-404,z:1160,rope:333,r:30,t:"gift"}]},
+{name:"",knives:12,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,b:[{x:-503,z:1440,rope:324,r:30,t:"gift"},{x:-320,z:880,rope:180,r:34},{x:-256,z:880,rope:395,r:34},{x:-192,z:880,rope:250,r:34,t:"bomb"},{x:-128,z:880,rope:360,r:34},{x:-64,z:880,rope:215,r:34},{x:0,z:880,rope:430,r:34,t:"cage"},{x:64,z:880,rope:180,r:34},{x:128,z:880,rope:395,r:34}]},
+{name:"",knives:14,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,screens:[{x:-320,z:810,w:170,h:140,y:CEIL+240}],b:[{x:-340,z:1160,rope:235,r:36},{x:-278,z:1160,rope:415,r:36},{x:-216,z:1160,rope:235,r:36},{x:-155,z:1160,rope:415,r:36},{x:-93,z:1160,rope:235,r:36},{x:-31,z:1160,rope:415,r:36},{x:31,z:1160,rope:235,r:36},{x:93,z:1160,rope:415,r:36},{x:155,z:1160,rope:235,r:36},{x:216,z:1160,rope:415,r:36},{x:278,z:1160,rope:235,r:36},{x:340,z:1160,rope:415,r:36}]},
+{name:"",knives:18,focus:1,wind:null,rope:false,b:[{x:-348,z:1160,rope:165,r:33,link:1},{x:50,z:1160,rope:360,r:33},{x:-234,z:1160,rope:340,r:31},{x:306,z:1160,rope:235,r:31},{x:-361,z:1160,rope:235,r:32},{x:-258,z:1160,rope:435,r:32,t:"armor"},{x:-155,z:1160,rope:250,r:37,t:"split"},{x:-52,z:1160,rope:360,r:32},{x:65,z:1440,rope:215,r:32},{x:193,z:1440,rope:430,r:32},{x:322,z:1440,rope:180,r:32},{x:450,z:1440,rope:395,r:32}]},
+{name:"",knives:17,focus:1,wind:null,rope:false,b:[{x:39,z:1160,rope:180,r:40,t:"cage"},{x:-425,z:1160,rope:180,r:38},{x:-348,z:1160,rope:395,r:40,t:"split"},{x:-271,z:1160,rope:250,r:38},{x:-193,z:1160,rope:360,r:38},{x:-116,z:1160,rope:215,r:38},{x:-39,z:1160,rope:430,r:38},{x:116,z:1160,rope:395,r:38},{x:193,z:1160,rope:250,r:38},{x:271,z:1160,rope:360,r:38},{x:262,z:880,rope:215,r:38,t:"drift"},{x:425,z:1160,rope:430,r:38}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,wheel:{z:1160,cx:0,cy:-105,r:209,speed:0.67},b:[{x:128,z:880,rope:190,r:32,t:"bomb"},{x:35,z:880,rope:435,r:32},{x:-93,z:880,rope:229,r:32},{x:-141,z:880,rope:410,r:32,t:"drift"},{x:-49,z:880,rope:165,r:32},{x:79,z:880,rope:371,r:32},{wheelA:0.43,r:31},{wheelA:1.48,r:31},{wheelA:2.52,r:31},{wheelA:3.57,r:31},{wheelA:4.62,r:31},{wheelA:5.67,r:31}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,b:[{x:-425,z:1160,rope:200,r:31},{x:-339,z:1160,rope:200,r:31},{x:-425,z:1160,rope:270,r:33,t:"cage"},{x:-332,z:1160,rope:270,r:31},{x:-226,z:1160,rope:340,r:31},{x:-53,z:1160,rope:340,r:31},{x:53,z:1160,rope:410,r:31},{x:226,z:1160,rope:410,r:31,t:"bomb"},{x:332,z:1160,rope:325,r:31},{x:320,z:880,rope:325,r:31,t:"drift"},{x:339,z:1160,rope:435,r:31},{x:425,z:1160,rope:435,r:31}]},
+{name:"",knives:14,focus:2,wind:null,rope:false,screens:[{x:-380,z:760,w:235,h:140,y:CEIL+240}],b:[{x:-425,z:1160,rope:180,r:35},{x:-348,z:1160,rope:395,r:35},{x:-270,z:1160,rope:250,r:35},{x:-193,z:1160,rope:360,r:35},{x:-116,z:1160,rope:215,r:35},{x:-39,z:1160,rope:430,r:35},{x:39,z:1160,rope:180,r:35},{x:116,z:1160,rope:395,r:35,t:"cage"},{x:241,z:1440,rope:250,r:35},{x:337,z:1440,rope:360,r:35},{x:434,z:1440,rope:215,r:35},{x:504,z:1440,rope:355,r:30,t:"gift"}]},
+{name:"",knives:15,focus:1,wind:{base:0.18,gust:0,period:0},rope:false,b:[{x:-161,z:620,rope:385,r:41},{x:-223,z:880,rope:200,r:38},{x:-230,z:1160,rope:385,r:35},{x:-205,z:1440,rope:200,r:41},{x:-44,z:620,rope:385,r:38},{x:-25,z:880,rope:200,r:35,t:"armor"},{x:33,z:1160,rope:385,r:41},{x:123,z:1440,rope:200,r:38},{x:73,z:620,rope:385,r:35},{x:173,z:880,rope:200,r:41},{x:296,z:1160,rope:385,r:38},{x:451,z:1440,rope:200,r:35}]},
+{name:"",knives:18,focus:1,wind:null,rope:false,b:[{x:-348,z:1160,rope:165,r:36,link:1},{x:50,z:1160,rope:360,r:36},{x:-271,z:880,rope:385,r:37},{x:-282,z:1160,rope:255,r:34},{x:-152,z:880,rope:385,r:31,t:"armor"},{x:-121,z:1160,rope:200,r:37},{x:-30,z:880,rope:385,r:40,t:"split"},{x:40,z:1160,rope:200,r:31},{x:91,z:880,rope:385,r:37},{x:201,z:1160,rope:200,r:34},{x:212,z:880,rope:385,r:31},{x:361,z:1160,rope:200,r:37,t:"bomb"}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,wheel:{z:620,cx:0,cy:-105,r:210,speed:0.69},b:[{wheelA:0.09,r:31},{wheelA:1.14,r:31},{wheelA:2.18,r:31},{wheelA:3.23,r:31},{wheelA:4.28,r:31},{wheelA:5.33,r:31},{x:-320,z:880,rope:180,r:36,t:"drift"},{x:-304,z:1160,rope:395,r:36},{x:-227,z:1440,rope:250,r:36},{x:-76,z:1440,rope:360,r:36},{x:-424,z:1440,rope:180,r:34},{x:-504,z:1440,rope:345,r:30,t:"gift"}]},
+{name:"",knives:15,focus:1,wind:null,rope:false,b:[{x:202,z:1440,rope:190,r:31,t:"bomb"},{x:-425,z:1160,rope:180,r:35,t:"armor"},{x:-156,z:620,rope:395,r:35},{x:-271,z:1160,rope:250,r:35},{x:-193,z:1160,rope:360,r:35},{x:-116,z:1160,rope:215,r:35},{x:-39,z:1160,rope:430,r:35},{x:87,z:880,rope:395,r:35,t:"drift"},{x:504,z:1440,rope:291,r:30,t:"gift"}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,b:[{x:404,z:1160,rope:273,r:30,t:"gift"},{x:-425,z:1160,rope:180,r:36},{x:-340,z:1160,rope:395,r:36},{x:-255,z:1160,rope:250,r:36},{x:-170,z:1160,rope:360,r:36,t:"cage"},{x:-64,z:880,rope:215,r:36,t:"drift"},{x:0,z:1160,rope:430,r:36},{x:85,z:1160,rope:180,r:36},{x:212,z:1440,rope:395,r:36},{x:318,z:1440,rope:250,r:36},{x:424,z:1440,rope:360,r:36},{x:530,z:1440,rope:215,r:36}]},
+{name:"",knives:17,focus:1,wind:null,rope:false,b:[{x:-152,z:620,rope:180,r:34},{x:-278,z:1160,rope:415,r:34,t:"cage"},{x:-97,z:620,rope:290,r:34},{x:-69,z:620,rope:415,r:34},{x:-70,z:880,rope:235,r:34},{x:-31,z:1160,rope:415,r:34},{x:31,z:1160,rope:235,r:34},{x:93,z:1160,rope:415,r:34},{x:216,z:1160,rope:415,r:34,t:"bomb"}]},
+{name:"",knives:14,focus:1,wind:{base:0.26,gust:0,period:0},rope:false,b:[{x:-262,z:880,rope:200,r:39,link:1},{x:38,z:880,rope:360,r:39},{x:-161,z:620,rope:180,r:38},{x:-115,z:620,rope:395,r:38},{x:-69,z:620,rope:250,r:38},{x:-52,z:1160,rope:360,r:38},{x:52,z:1160,rope:215,r:38},{x:155,z:1160,rope:430,r:38},{x:194,z:880,rope:180,r:38},{x:272,z:880,rope:395,r:38},{x:-176,z:880,rope:395,r:37},{x:304,z:880,rope:239,r:31,t:"gift"}]},
+{name:"",knives:18,focus:1,wind:null,rope:false,b:[{x:29,z:880,rope:180,r:38,t:"cage"},{x:-190,z:620,rope:180,r:36},{x:-155,z:620,rope:395,r:36},{x:-121,z:620,rope:250,r:36},{x:-193,z:1160,rope:360,r:36},{x:-88,z:880,rope:215,r:38,t:"split"},{x:-39,z:1160,rope:430,r:36},{x:117,z:1160,rope:395,r:36},{x:145,z:880,rope:250,r:36},{x:204,z:880,rope:360,r:36,t:"armor"},{x:261,z:880,rope:215,r:36},{x:320,z:880,rope:430,r:36}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,wheel:{z:1440,cx:0,cy:-105,r:206,speed:0.72},b:[{x:56,z:1160,rope:190,r:31,t:"bomb"},{x:-66,z:1160,rope:435,r:31},{x:-236,z:1160,rope:229,r:31},{x:-300,z:1160,rope:410,r:31},{x:-178,z:1160,rope:165,r:31},{x:-6,z:880,rope:371,r:31,t:"drift"},{wheelA:0.09,r:30},{wheelA:1.14,r:30},{wheelA:2.18,r:30},{wheelA:3.23,r:30},{wheelA:4.28,r:30},{wheelA:5.33,r:30}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,b:[{x:-366,z:1160,rope:165,r:33},{x:-236,z:1160,rope:190,r:33},{x:237,z:1160,rope:275,r:33},{x:458,z:1440,rope:275,r:33},{x:-320,z:880,rope:180,r:37,t:"drift"},{x:-379,z:1440,rope:395,r:37},{x:-227,z:1440,rope:250,r:37},{x:-76,z:1440,rope:360,r:37},{x:-340,z:1160,rope:235,r:35},{x:-113,z:1160,rope:395,r:35,t:"cage"},{x:113,z:1160,rope:250,r:35},{x:340,z:1160,rope:360,r:35,t:"bomb"}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,screens:[{x:380,z:760,w:235,h:140,y:CEIL+120}],b:[{x:-190,z:620,rope:180,r:35},{x:-156,z:620,rope:395,r:35},{x:-121,z:620,rope:250,r:35},{x:-193,z:1160,rope:360,r:35},{x:-116,z:1160,rope:215,r:35},{x:-39,z:1160,rope:430,r:35,t:"bomb"},{x:29,z:880,rope:180,r:35,t:"drift"},{x:116,z:1160,rope:395,r:35},{x:193,z:1160,rope:250,r:35},{x:271,z:1160,rope:360,r:35},{x:348,z:1160,rope:215,r:35},{x:425,z:1160,rope:430,r:35}]},
+{name:"",knives:14,focus:2,wind:{base:0.3,gust:0.26,period:3.1},rope:false,b:[{x:-161,z:620,rope:385,r:36,t:"cage"},{x:-223,z:880,rope:200,r:33},{x:-230,z:1160,rope:385,r:30},{x:-205,z:1440,rope:200,r:36},{x:-44,z:620,rope:385,r:33},{x:-25,z:880,rope:200,r:30},{x:33,z:1160,rope:385,r:36},{x:123,z:1440,rope:200,r:33},{x:73,z:620,rope:385,r:30},{x:173,z:880,rope:200,r:36},{x:296,z:1160,rope:385,r:33},{x:-304,z:880,rope:350,r:30,t:"gift"}]},
+{name:"",knives:15,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,b:[{x:-348,z:1160,rope:200,r:34,link:1},{x:51,z:1160,rope:360,r:34},{x:-271,z:880,rope:385,r:35},{x:-212,z:880,rope:200,r:32},{x:-90,z:620,rope:385,r:30,t:"bomb"},{x:-91,z:880,rope:200,r:35},{x:-30,z:880,rope:385,r:32},{x:30,z:880,rope:200,r:30},{x:54,z:620,rope:385,r:35},{x:151,z:880,rope:200,r:32},{x:126,z:620,rope:385,r:30,t:"armor"},{x:-404,z:1160,rope:302,r:30,t:"gift"}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,wheel:{z:880,cx:0,cy:-105,r:201,speed:0.66},b:[{wheelA:0.59,r:33},{wheelA:1.64,r:33},{wheelA:2.68,r:33},{wheelA:3.73,r:33},{wheelA:4.78,r:33},{wheelA:5.83,r:33},{x:-340,z:1160,rope:180,r:36},{x:-204,z:1160,rope:395,r:36},{x:-85,z:1440,rope:250,r:36},{x:85,z:1440,rope:360,r:36},{x:254,z:1440,rope:215,r:36},{x:424,z:1440,rope:430,r:36}]},
+{name:"",knives:17,focus:1,wind:null,rope:false,b:[{x:48,z:1160,rope:190,r:32,t:"bomb"},{x:-425,z:1160,rope:180,r:36},{x:-348,z:1160,rope:395,r:36},{x:-270,z:1160,rope:250,r:38,t:"split"},{x:-193,z:1160,rope:360,r:36},{x:-116,z:1160,rope:215,r:36},{x:-39,z:1160,rope:430,r:36},{x:49,z:1440,rope:180,r:36},{x:145,z:1440,rope:395,r:36},{x:241,z:1440,rope:250,r:36},{x:337,z:1440,rope:360,r:36},{x:262,z:880,rope:215,r:36,t:"drift"}]},
+{name:"",knives:13,focus:1,wind:null,rope:false,b:[{x:-504,z:1440,rope:342,r:30,t:"gift"},{x:-190,z:620,rope:180,r:34},{x:-152,z:620,rope:395,r:34},{x:-192,z:880,rope:250,r:34,t:"drift"},{x:-170,z:1160,rope:360,r:34},{x:-85,z:1160,rope:215,r:34},{x:0,z:1160,rope:430,r:34},{x:85,z:1160,rope:180,r:34},{x:170,z:1160,rope:395,r:34,t:"cage"},{x:255,z:1160,rope:250,r:34}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,screens:[{x:340,z:720,w:200,h:190,y:CEIL+120}],b:[{x:-152,z:620,rope:180,r:36},{x:-124,z:620,rope:415,r:36},{x:-97,z:620,rope:290,r:36},{x:-154,z:1160,rope:415,r:36},{x:-93,z:1160,rope:235,r:36},{x:-31,z:1160,rope:415,r:36},{x:31,z:1160,rope:235,r:36},{x:93,z:1160,rope:415,r:36},{x:116,z:880,rope:235,r:36,t:"drift"},{x:216,z:1160,rope:415,r:36},{x:278,z:1160,rope:235,r:36},{x:340,z:1160,rope:415,r:36}]},
+{name:"",knives:18,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,b:[{x:-156,z:620,rope:165,r:34,link:1},{x:23,z:620,rope:360,r:34},{x:-234,z:1160,rope:395,r:32,link:3},{x:306,z:1160,rope:235,r:32},{x:-161,z:620,rope:235,r:33},{x:-194,z:880,rope:395,r:33},{x:-155,z:1160,rope:250,r:34,t:"cage"},{x:-52,z:1160,rope:360,r:33},{x:52,z:1160,rope:215,r:33}]},
+{name:"",knives:15,focus:1,wind:{base:0.18,gust:0,period:0},rope:false,b:[{x:29,z:880,rope:180,r:42,t:"cage"},{x:-190,z:620,rope:180,r:40},{x:-156,z:620,rope:395,r:40},{x:-121,z:620,rope:250,r:40},{x:-193,z:1160,rope:360,r:40},{x:-87,z:880,rope:215,r:40,t:"armor"},{x:-39,z:1160,rope:430,r:40},{x:87,z:880,rope:395,r:40},{x:145,z:880,rope:250,r:40},{x:204,z:880,rope:360,r:40},{x:262,z:880,rope:215,r:40},{x:-503,z:1440,rope:246,r:35,t:"gift"}]},
+{name:"",knives:15,focus:1,wind:null,rope:false,wheel:{z:1160,cx:0,cy:-105,r:203,speed:0.58},b:[{x:107,z:620,rope:190,r:32,t:"bomb"},{x:52,z:620,rope:435,r:32,t:"armor"},{x:-24,z:620,rope:229,r:32},{x:-146,z:1440,rope:410,r:32},{x:7,z:1440,rope:165,r:32},{x:218,z:1440,rope:371,r:32},{wheelA:0.55,r:31},{wheelA:1.6,r:31},{wheelA:2.64,r:31},{wheelA:3.69,r:31},{wheelA:4.74,r:31},{x:504,z:1440,rope:240,r:30,t:"gift"}]},
+{name:"",knives:17,focus:1,wind:null,rope:false,b:[{x:-361,z:1160,rope:165,r:40,t:"split"},{x:-189,z:1160,rope:190,r:34},{x:189,z:1160,rope:275,r:34},{x:361,z:1160,rope:275,r:34},{x:-340,z:1160,rope:235,r:36},{x:-243,z:1160,rope:395,r:36},{x:-146,z:1160,rope:250,r:36},{x:-49,z:1160,rope:360,r:36},{x:61,z:1440,rope:215,r:36},{x:182,z:1440,rope:430,r:36},{x:303,z:1440,rope:180,r:36},{x:-504,z:1440,rope:340,r:30,t:"gift"}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,screens:[{x:-240,z:760,w:235,h:140,y:CEIL+300}],b:[{x:-190,z:620,rope:180,r:37},{x:-156,z:620,rope:395,r:37},{x:-121,z:620,rope:250,r:37},{x:-193,z:1160,rope:360,r:37},{x:-87,z:880,rope:215,r:37,t:"drift"},{x:-39,z:1160,rope:430,r:37},{x:39,z:1160,rope:180,r:37},{x:116,z:1160,rope:395,r:37},{x:193,z:1160,rope:250,r:37},{x:271,z:1160,rope:360,r:37},{x:348,z:1160,rope:215,r:37},{x:425,z:1160,rope:430,r:37}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,b:[{x:-271,z:880,rope:385,r:37},{x:-296,z:1160,rope:200,r:34},{x:-230,z:1160,rope:385,r:31},{x:-164,z:1160,rope:200,r:37},{x:-74,z:880,rope:385,r:34},{x:-33,z:1160,rope:200,r:31},{x:41,z:1440,rope:385,r:37},{x:123,z:1440,rope:200,r:34},{x:123,z:880,rope:385,r:31,t:"drift"},{x:230,z:1160,rope:200,r:37,t:"cage"},{x:369,z:1440,rope:385,r:34},{x:451,z:1440,rope:200,r:31}]},
+{name:"",knives:14,focus:2,wind:{base:0.3,gust:0.26,period:3.1},rope:false,b:[{x:-435,z:1440,rope:200,r:33,link:1},{x:64,z:1440,rope:360,r:33},{x:-271,z:880,rope:385,r:34},{x:-212,z:880,rope:200,r:31},{x:-152,z:880,rope:385,r:30},{x:-91,z:880,rope:200,r:34},{x:-18,z:620,rope:385,r:33,t:"cage"},{x:30,z:880,rope:200,r:30},{x:54,z:620,rope:385,r:34},{x:151,z:880,rope:200,r:31},{x:126,z:620,rope:385,r:30},{x:-503,z:1440,rope:267,r:30,t:"gift"}]},
+{name:"",knives:14,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,wheel:{z:1160,cx:0,cy:-105,r:193,speed:0.63},b:[{wheelA:0.28,r:31},{wheelA:1.33,r:31},{wheelA:2.37,r:31},{wheelA:3.42,r:31},{wheelA:4.47,r:31},{wheelA:5.52,r:31},{x:-320,z:880,rope:165,r:36},{x:-229,z:880,rope:395,r:36},{x:-81,z:620,rope:250,r:36},{x:-27,z:620,rope:360,r:36},{x:-256,z:880,rope:235,r:34},{x:-181,z:620,rope:328,r:30,t:"gift"}]},
+{name:"",knives:18,focus:1,wind:null,rope:false,b:[{x:288,z:1440,rope:190,r:31,t:"bomb"},{x:-190,z:620,rope:180,r:35},{x:-156,z:620,rope:395,r:35},{x:-121,z:620,rope:250,r:35},{x:-193,z:1160,rope:360,r:35},{x:-116,z:1160,rope:215,r:35},{x:-39,z:1160,rope:430,r:35},{x:39,z:1160,rope:180,r:35},{x:116,z:1160,rope:395,r:37,t:"split"},{x:193,z:1160,rope:250,r:35,t:"armor"},{x:271,z:1160,rope:360,r:35},{x:348,z:1160,rope:215,r:35}]},
+{name:"",knives:17,focus:1,wind:null,rope:false,b:[{x:-404,z:1160,rope:291,r:30,t:"gift"},{x:-190,z:620,rope:180,r:36},{x:-340,z:1160,rope:395,r:39,t:"split"},{x:-114,z:620,rope:250,r:36},{x:-76,z:620,rope:360,r:36},{x:-85,z:1160,rope:215,r:36},{x:0,z:1160,rope:430,r:36},{x:85,z:1160,rope:180,r:36},{x:170,z:1160,rope:395,r:36},{x:255,z:1160,rope:250,r:36},{x:340,z:1160,rope:360,r:36},{x:320,z:880,rope:215,r:36,t:"drift"}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,b:[{x:-256,z:880,rope:235,r:38},{x:-209,z:880,rope:415,r:38},{x:-163,z:880,rope:235,r:38},{x:-69,z:620,rope:415,r:38,t:"drift"},{x:-69,z:880,rope:235,r:38},{x:-24,z:880,rope:415,r:38},{x:14,z:620,rope:235,r:38,t:"bomb"},{x:69,z:880,rope:415,r:38},{x:154,z:1160,rope:235,r:38},{x:217,z:1160,rope:415,r:38},{x:124,z:620,rope:235,r:38},{x:404,z:1160,rope:327,r:30,t:"gift"}]},
+{name:"",knives:14,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,b:[{x:-262,z:880,rope:200,r:33,link:1},{x:38,z:880,rope:360,r:33},{x:-233,z:1160,rope:340,r:31},{x:306,z:1160,rope:235,r:31},{x:-361,z:1160,rope:180,r:32},{x:-258,z:1160,rope:435,r:32},{x:-155,z:1160,rope:250,r:32},{x:-51,z:1160,rope:360,r:32},{x:64,z:1440,rope:215,r:32},{x:193,z:1440,rope:430,r:32},{x:322,z:1440,rope:180,r:32},{x:504,z:1440,rope:247,r:30,t:"gift"}]},
+{name:"",knives:14,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,b:[{x:39,z:1160,rope:180,r:38,t:"cage"},{x:-190,z:620,rope:180,r:36},{x:-156,z:620,rope:395,r:36},{x:-121,z:620,rope:250,r:36},{x:-145,z:880,rope:360,r:36},{x:-116,z:1160,rope:215,r:36},{x:-39,z:1160,rope:430,r:36},{x:116,z:1160,rope:395,r:36},{x:193,z:1160,rope:250,r:36},{x:270,z:1160,rope:360,r:36},{x:348,z:1160,rope:215,r:36},{x:-404,z:1160,rope:275,r:30,t:"gift"}]},
+{name:"",knives:14,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,wheel:{z:1160,cx:0,cy:-105,r:200,speed:0.63},b:[{x:93,z:880,rope:190,r:31,t:"bomb"},{x:1,z:880,rope:435,r:31},{x:-127,z:880,rope:229,r:31},{x:-175,z:880,rope:410,r:31},{x:-83,z:880,rope:165,r:31},{x:45,z:880,rope:371,r:31},{wheelA:0.21,r:30},{wheelA:1.26,r:30},{wheelA:2.3,r:30},{wheelA:3.35,r:30},{wheelA:4.4,r:30},{x:-181,z:620,rope:270,r:30,t:"gift"}]},
+{name:"",knives:18,focus:1,wind:null,rope:false,b:[{x:-361,z:1160,rope:165,r:33},{x:-229,z:1160,rope:190,r:33},{x:189,z:1160,rope:275,r:33},{x:361,z:1160,rope:275,r:33},{x:-425,z:1160,rope:235,r:37},{x:-304,z:1160,rope:395,r:37},{x:-142,z:1160,rope:250,r:37},{x:-61,z:1160,rope:360,r:37,t:"armor"},{x:-256,z:880,rope:180,r:35},{x:-86,z:880,rope:395,r:35},{x:86,z:880,rope:250,r:35},{x:256,z:880,rope:360,r:39,t:"split"}]},
+{name:"",knives:17,focus:1,wind:null,rope:false,screens:[{x:160,z:720,w:200,h:140,y:CEIL+320}],b:[{x:-190,z:620,rope:180,r:35},{x:-155,z:620,rope:395,r:35},{x:-204,z:880,rope:250,r:37,t:"split"},{x:-86,z:620,rope:360,r:35},{x:-117,z:1160,rope:215,r:35},{x:-39,z:1160,rope:430,r:35},{x:39,z:1160,rope:180,r:35},{x:88,z:880,rope:395,r:35},{x:145,z:880,rope:250,r:35},{x:204,z:880,rope:360,r:35},{x:261,z:880,rope:215,r:35},{x:320,z:880,rope:430,r:35}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,b:[{x:-271,z:880,rope:385,r:36},{x:-296,z:1160,rope:200,r:33},{x:-173,z:880,rope:385,r:30,t:"drift"},{x:-164,z:1160,rope:200,r:36},{x:-74,z:880,rope:385,r:33,t:"cage"},{x:-33,z:1160,rope:200,r:30},{x:41,z:1440,rope:385,r:36},{x:123,z:1440,rope:200,r:33},{x:123,z:880,rope:385,r:30},{x:230,z:1160,rope:200,r:36},{x:369,z:1440,rope:385,r:33},{x:451,z:1440,rope:200,r:30}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,b:[{x:-271,z:880,rope:385,r:39},{x:-212,z:880,rope:200,r:36},{x:-201,z:1160,rope:330,r:33},{x:-91,z:880,rope:200,r:39},{x:-18,z:620,rope:385,r:36},{x:30,z:880,rope:200,r:33},{x:54,z:620,rope:385,r:39},{x:151,z:880,rope:200,r:36,t:"drift"},{x:126,z:620,rope:385,r:33},{x:272,z:880,rope:200,r:39},{x:-212,z:1160,rope:435,r:30},{x:361,z:1160,rope:250,r:30,t:"bomb"}]},
+{name:"",knives:14,focus:2,wind:{base:0.3,gust:0.26,period:3.1},rope:false,wheel:{z:880,cx:0,cy:-105,r:204,speed:0.6},b:[{wheelA:0.77,r:30},{wheelA:1.82,r:30},{wheelA:2.86,r:30},{wheelA:3.91,r:30},{wheelA:4.96,r:30},{wheelA:6.01,r:30},{x:-425,z:1160,rope:180,r:35},{x:-304,z:1160,rope:395,r:35},{x:-182,z:1160,rope:250,r:35},{x:-61,z:1160,rope:360,r:35},{x:-340,z:1160,rope:180,r:33},{x:404,z:1160,rope:272,r:30,t:"gift"}]},
+{name:"",knives:15,focus:1,wind:{base:0.3,gust:0,period:0},rope:false,b:[{x:87,z:880,rope:190,r:33,t:"bomb"},{x:-190,z:620,rope:180,r:37},{x:-156,z:620,rope:395,r:37},{x:-121,z:620,rope:250,r:37},{x:-193,z:1160,rope:360,r:37},{x:-87,z:880,rope:215,r:37,t:"armor"},{x:-39,z:1160,rope:430,r:37},{x:39,z:1160,rope:180,r:37},{x:87,z:880,rope:395,r:37},{x:145,z:880,rope:250,r:37},{x:204,z:880,rope:360,r:37},{x:262,z:880,rope:215,r:37}]},
+{name:"",knives:18,focus:1,wind:null,rope:false,b:[{x:504,z:1440,rope:240,r:30,t:"gift"},{x:-320,z:880,rope:180,r:34,t:"bomb"},{x:-152,z:620,rope:395,r:34},{x:-192,z:880,rope:250,r:37,t:"split"},{x:-76,z:620,rope:360,r:34},{x:-38,z:620,rope:215,r:34},{x:0,z:1160,rope:430,r:34},{x:85,z:1160,rope:180,r:34},{x:128,z:880,rope:395,r:34},{x:192,z:880,rope:250,r:34},{x:256,z:880,rope:360,r:34},{x:320,z:880,rope:215,r:34,t:"armor"}]},
+{name:"",knives:14,focus:1,wind:null,rope:false,screens:[{x:280,z:810,w:170,h:140,y:CEIL+240}],b:[{x:-152,z:620,rope:180,r:34},{x:-124,z:620,rope:415,r:34},{x:-97,z:620,rope:290,r:34},{x:-154,z:1160,rope:415,r:34},{x:-93,z:1160,rope:235,r:34},{x:-31,z:1160,rope:415,r:34},{x:31,z:1160,rope:235,r:34},{x:93,z:1160,rope:415,r:34},{x:154,z:1160,rope:235,r:34},{x:216,z:1160,rope:415,r:34},{x:278,z:1160,rope:235,r:34},{x:-503,z:1440,rope:351,r:30,t:"gift"}]},
+{name:"",knives:20,focus:1,wind:null,rope:false,b:[{x:-348,z:1160,rope:165,r:34,link:1},{x:51,z:1160,rope:360,r:34},{x:-234,z:1160,rope:340,r:32},{x:306,z:1160,rope:235,r:32},{x:-361,z:1160,rope:235,r:33},{x:-258,z:1160,rope:435,r:33},{x:-155,z:1160,rope:250,r:33},{x:-39,z:880,rope:360,r:33,t:"drift"},{x:65,z:1440,rope:215,r:33},{x:193,z:1440,rope:430,r:34,t:"cage"},{x:322,z:1440,rope:180,r:33},{x:450,z:1440,rope:395,r:33}]},
+{name:"",knives:15,focus:1,wind:null,rope:false,b:[{x:39,z:1160,rope:180,r:37,t:"cage"},{x:-190,z:620,rope:180,r:35},{x:-348,z:1160,rope:395,r:35,t:"armor"},{x:-121,z:620,rope:250,r:35},{x:-86,z:620,rope:360,r:35},{x:-116,z:1160,rope:215,r:35},{x:-39,z:1160,rope:430,r:35},{x:87,z:880,rope:395,r:35,t:"drift"},{x:193,z:1160,rope:250,r:35,t:"bomb"},{x:271,z:1160,rope:360,r:35},{x:348,z:1160,rope:215,r:35},{x:425,z:1160,rope:430,r:35}]},
+{name:"",knives:15,focus:1,wind:null,rope:false,b:[{x:231,z:880,rope:190,r:37,t:"bomb"},{x:185,z:1160,rope:435,r:37},{x:11,z:880,rope:229,r:37},{x:-37,z:880,rope:410,r:37},{x:55,z:880,rope:165,r:37},{x:183,z:880,rope:371,r:37},{x:-340,z:1160,rope:180,r:39},{x:-204,z:1160,rope:395,r:39},{x:-30,z:620,rope:250,r:39},{x:30,z:620,rope:360,r:39},{x:91,z:620,rope:215,r:39,t:"armor"},{x:304,z:880,rope:282,r:31,t:"gift"}]}
+];
+/* ==LEVELS-END== */
+const KANJI=['一','二','三','四','五','六','七','八','九','十','十一','十二','十三'];
+/* Sol üstteki rozet levelin İÇERİĞİNDEN türetilir — binlerce levele elle
+   isim yazılamaz. levels.json'da `name` varsa o kullanılır, yoksa bu.
+   Aynı mantık tools/curve.js badge() içinde de var, ikisi eş tutulmalı. */
+function autoBadge(L){
+  if(L.wheel) return 'Çark';
+  if(L.wind && L.wind.gust>0) return 'Fırtına';
+  if(L.screens && L.screens.length) return 'Perde';
+  if(L.rope) return 'İp';
+  const t=new Set((L.b||[]).map(b=>b.t||'plain'));
+  if(t.has('cage'))  return 'Kafes';
+  if((L.b||[]).some(b=>b.link!==undefined&&b.link!==null)) return 'Bağlı Çift';
+  if(t.has('drift')) return 'Kaçak';
+  if(L.wind) return 'Yel';
+  if(t.has('split')) return 'Bölünen';
+  if(t.has('armor')) return 'Zırh';
+  if(t.has('bomb'))  return 'Fitil';
+  return new Set((L.b||[]).map(b=>b.z)).size>=3 ? 'Derinlik' : 'Bahçe';
+}
+
+/* ---- YETENEKLER ----
+   Bölüm başında biri seçilir, o bölümde sadece o kullanılabilir.
+   Hepsi aynı kaynağı harcar: bölümün yetenek hakkı. */
+/* Perde (shoji): shuriken geçemez. Arkasındaki balona ancak yandan
+   geçip direğe çarparak, yani SEKME ile ulaşılır. Sekmenin varlık sebebi. */
+const TWIN_GAP=130;      // çifte atışta iki shuriken arası (dünya birimi)
+const TWIN_SHOTS=3, FRENZY_TIME=4.0;
+const ABILITIES=[
+ {k:'odak',    icon:'◈', name:'Odak',    unlock:6,
+  desc:'Dünya ağır çekime girer, bir kesme çizgisi çizersin. Çizgi kısa, süre 1.8sn.',
+  tip:'Sıralı balonlarda güçlü, çarkta zayıf.'},
+ {k:'cifte',   icon:'⁘', name:'Çifte',   unlock:7,
+  desc:TWIN_SHOTS+' atış boyunca iki shuriken yan yana gider. Aradaki boşluk sabittir.',
+  tip:'Aynı derinlikte yan yana duran ikiliyi tek atışta al.'},
+ {k:'saganak', icon:'⁝', name:'Sağanak', unlock:9,
+  desc:FRENZY_TIME.toFixed(1)+' saniye boyunca atışlar shuriken harcamaz. Sınırsız at.',
+  tip:'Kalabalık bölümlerde panik düğmesi. Nişan almaya vakit yok.'}
+];
+const ABI=k=>ABILITIES.find(a=>a.k===k)||ABILITIES[0];
+
+/* --------- ses ---------
+   Balon patlaması tek bir "pop" değil, üç katman:
+     1) ÇATLAK  — 10-20 ms geniş bantlı transient. Kulağın "patladı" dediği an.
+     2) GÖVDE   — hızla düşen sinüs. Balonun içindeki hava hacmi:
+                  büyük balon pes, küçük balon tiz patlar.
+     3) KUYRUK  — kabuğun artığı. SES İMZASINI BU BELİRLER:
+                  normal = lastik hışırtısı, zırh = tok demir gümbürtüsü,
+                  bölünen = ikiye ayrılan cıvıltı, kafes = bambu tokması,
+                  hediye = çan, kaçak = hava kaçağı.
+   Derinlik (z) hem sesi kısar hem tizini yutar: uzaktaki balon boğuk patlar.
+   Art arda patlamalar çeyrek ton yükselir (combo), 900 ms sessizlikte sıfırlanır —
+   zincirleme patlama tek bir "brrrap" yerine yükselen bir merdiven gibi duyulur.
+   Hepsi bir kompresörden geçer, yoksa fitilli zincir kulağı patlatıyor.        */
+const Snd=(()=>{
+  let ac=null,on=true,bus=null,verbIn=null,nb=null,comboN=0,comboT=-9;
+  const mkNoise=()=>{ const n=(ac.sampleRate*.7)|0,b=ac.createBuffer(1,n,ac.sampleRate),c=b.getChannelData(0);
+    for(let i=0;i<n;i++) c[i]=Math.random()*2-1; return b; };
+  const mkIR=(d,k)=>{ const n=(ac.sampleRate*d)|0,b=ac.createBuffer(2,n,ac.sampleRate);
+    for(let ch=0;ch<2;ch++){ const c=b.getChannelData(ch);
+      for(let i=0;i<n;i++) c[i]=(Math.random()*2-1)*Math.pow(1-i/n,k); }
+    return b; };
+  /* Ses hiçbir zaman oyunu düşürmemeli: AudioContext yoksa (bazı gömülü
+     tarayıcılar, headless test) sessizce kapanır, oyun çalışmaya devam eder. */
+  const init=()=>{
+    try{
+      if(!ac){
+        ac=new (window.AudioContext||window.webkitAudioContext)();
+        const comp=ac.createDynamicsCompressor();
+        comp.threshold.value=-9; comp.knee.value=16; comp.ratio.value=4.5;
+        comp.attack.value=.004; comp.release.value=.20;
+        /* Telafi kazanci: kompresor zinciri kistigi icin cikista geri aciyoruz.
+           Olculdu (tools/sound-preview.js): tek pop ~0.45 tepe, zirh ~0.49
+           (ama RMS'i 3 kati -> "tok"), fitilli ~0.76, 5'li zincir ~0.61.
+           Hicbiri kirpmiyor. */
+        const mk=ac.createGain(); mk.gain.value=3.6;
+        comp.connect(mk); mk.connect(ac.destination);
+        bus=ac.createGain(); bus.gain.value=1.0; bus.connect(comp);
+        /* dojo'nun tahta duvarları: çok kısa oda yankısı. Uzun olursa
+           art arda patlamalar birbirine karışıp çamura dönüyor. */
+        const cv=ac.createConvolver(); cv.buffer=mkIR(.42,3.0);
+        verbIn=ac.createGain(); const wet=ac.createGain(); wet.gain.value=.26;
+        verbIn.connect(cv); cv.connect(wet); wet.connect(comp);
+        nb=mkNoise();
+      }
+      /* resume() bazi baglamlarda (offline render, kilitli sekme) atar;
+         atmasi sesin tamamini kapatmamali. */
+      try{ if(ac.state==='suspended') ac.resume(); }catch(e){}
+      return true;
+    }catch(e){ on=false; return false; }
+  };
+  /* gürültü katmanı: t=başlangıç, d=süre, g=tepe, f0->f1 filtre süpürmesi */
+  const nz=(t,d,g,f0,f1,type,q,send)=>{
+    const s=ac.createBufferSource(); s.buffer=nb; s.loop=true;
+    s.playbackRate.value=.8+Math.random()*.5;
+    const f=ac.createBiquadFilter(),a=ac.createGain();
+    f.type=type||'bandpass'; f.Q.value=q||1;
+    f.frequency.setValueAtTime(Math.max(30,f0),t);
+    if(f1) f.frequency.exponentialRampToValueAtTime(Math.max(30,f1),t+d);
+    a.gain.setValueAtTime(.0001,t);
+    a.gain.exponentialRampToValueAtTime(Math.max(.0005,g),t+.004);
+    a.gain.exponentialRampToValueAtTime(.0001,t+d);
+    s.connect(f); f.connect(a); a.connect(bus);
+    if(send){ const sg=ac.createGain(); sg.gain.value=send; a.connect(sg); sg.connect(verbIn); }
+    s.start(t); s.stop(t+d+.03);
+  };
+  /* ton katmanı */
+  const tn=(t,d,g,f0,f1,type,send)=>{
+    const o=ac.createOscillator(),a=ac.createGain();
+    o.type=type||'sine';
+    o.frequency.setValueAtTime(Math.max(20,f0),t);
+    if(f1) o.frequency.exponentialRampToValueAtTime(Math.max(20,f1),t+d);
+    a.gain.setValueAtTime(.0001,t);
+    a.gain.exponentialRampToValueAtTime(Math.max(.0005,g),t+.005);
+    a.gain.exponentialRampToValueAtTime(.0001,t+d);
+    o.connect(a); a.connect(bus);
+    if(send){ const sg=ac.createGain(); sg.gain.value=send; a.connect(sg); sg.connect(verbIn); }
+    o.start(t); o.stop(t+d+.03);
+  };
+  /* uzaklık zayıflaması: R0=620 yakın, R3=1440 uzak */
+  const far=z=>{ const u=Math.max(0,Math.min(1,((z||620)-620)/820));
+    return { g:1-u*.40, f:1-u*.36 }; };
+  /* balon boyu -> perde. 44 referans yarıçap. */
+  const sz=r=>Math.pow(44/Math.max(14,r||44), .75);
+  /* combo: art arda patlamada çeyrek ton yükselir, 6 basamakta durur */
+  const combo=()=>{ const t=ac.currentTime;
+    if(t-comboT>.9) comboN=0;
+    comboT=t; const s=Math.min(comboN++,6);
+    return Math.pow(2,s/24); };
+  /* ---- tip imzaları ---- */
+  const sigPlain=(t,P,F,G)=>{
+    nz(t,      .014, .30*G, 5000*F, 2400*F, 'highpass', .7);
+    tn(t,      .085, .34*G, 540*P,  95*P,   'sine',     .18);
+    nz(t+.005, .08,  .15*G, 1700*P*F, 500*F,'bandpass', .9, .18);
+  };
+  const sigArmor=(t,P,F,G)=>{
+    /* TOK: kabuk önce çatlar, sonra derin bir gümbürtü gelir.
+       İki ahenksiz metalik parça (1180/1790) çınlamayı verir —
+       harmonik olsalar zil gibi olurdu, ahenksiz oldukları için demir. */
+    nz(t,      .022, .32*G, 3000*F, 800*F, 'bandpass', .8);
+    tn(t,      .32,  .44*G, 205*P,  40*P,  'sine',     .30);
+    tn(t+.006, .24,  .14*G, 162*P,  148*P, 'triangle', .22);
+    tn(t+.004, .34,  .065*G,1180,   1130,  'square',   .30);
+    tn(t+.004, .28,  .045*G,1790,   1720,  'square',   .30);
+    nz(t+.012, .28,  .20*G, 420*F,  110*F, 'lowpass',  .7, .28);
+  };
+  const sigSplit=(t,P,F,G)=>{
+    /* İKİYE AYRILMA: patlamadan 55 ms sonra iki cıvıltı zıt yöne açılır.
+       Kulak "tek şey ikiye bölündü" diye duyar. */
+    nz(t,      .016, .26*G, 4200*F, 2000*F,'highpass', .7);
+    tn(t,      .10,  .30*G, 470*P,  110*P, 'sine',     .18);
+    nz(t+.05,  .15,  .10*G, 2400*F, 900*F, 'bandpass', 2.2, .20);
+    tn(t+.055, .17,  .17*G, 620*P,  980*P, 'triangle', .26);
+    tn(t+.062, .19,  .15*G, 620*P,  372*P, 'triangle', .26);
+  };
+  const sigCage=(t,P,F,G)=>{
+    nz(t,      .05,  .20*G, 1100*F, 700*F, 'bandpass', 3.0);
+    tn(t,      .10,  .24*G, 380*P,  205*P, 'triangle',.20);
+    sigPlain(t+.02,P,F,G*.7);
+  };
+  const sigDrift=(t,P,F,G)=>{
+    sigPlain(t,P,F,G*.9);
+    nz(t+.012, .24,  .13*G, 900*F,  240*F, 'bandpass', .6, .30);
+  };
+  const sigBomb=(t,P,F,G)=>{
+    nz(t, .02, .22*G, 2600*F, 900*F, 'bandpass', .8);
+    tn(t, .06, .20*G, 380*P,  120*P, 'sine', .1);
+  };
+  const SIG={ plain:sigPlain, armor:sigArmor, split:sigSplit, cage:sigCage,
+              drift:sigDrift, bomb:sigBomb, gift:sigPlain, link:sigPlain };
+  return{
+    toggle(){on=!on;return on;}, unlock(){ init(); },
+    /* balonun kendi sesi: tip + boy + derinlik */
+    balloon(type,r,z){ if(!on||!init())return;
+      const t=ac.currentTime, d=far(z), P=sz(r)*combo();
+      (SIG[type]||sigPlain)(t,P,d.f,d.g); },
+    /* eski API: sade patlama */
+    pop(p=1){ if(!on||!init())return; sigPlain(ac.currentTime,p,1,1); },
+    /* zırh çatlaması — patlama değil, kabuğun ilk kırılması */
+    clank(){ if(!on||!init())return; const t=ac.currentTime;
+      nz(t,      .05, .26, 3400, 1200,'bandpass',1.2);
+      tn(t,      .16, .20, 520,  300, 'square', .2);
+      tn(t+.005, .20, .10, 1470, 1400,'square', .25);
+      tn(t+.005, .13, .07, 2310, 2240,'square', .25); },
+    /* bambu parmaklık: tahta tokması, metal değil */
+    woodHit(){ if(!on||!init())return; const t=ac.currentTime;
+      nz(t,      .045,.20, 1300, 620,'bandpass',2.6);
+      tn(t,      .10, .18, 300,  170,'triangle',.15); },
+    /* kordonun kopması: gergin ipin tınısı */
+    twang(){ if(!on||!init())return; const t=ac.currentTime;
+      nz(t,      .05, .18, 3200, 1400,'highpass',.8);
+      tn(t,      .22, .20, 300,  190, 'triangle',.3);
+      tn(t+.004, .16, .09, 604,  392, 'sine',    .3); },
+    boom(){ if(!on||!init())return; const t=ac.currentTime;
+      nz(t,      .03, .30, 3000, 900,'bandpass',.7);
+      tn(t,      .46, .46, 170,  32, 'sawtooth',.35);
+      tn(t+.008, .34, .18, 96,   28, 'sine',    .3);
+      nz(t+.01,  .34, .34, 700,  120,'lowpass', .7, .35); },
+    chime(){ if(!on||!init())return; const t=ac.currentTime;
+      [784,1046,1318].forEach((f,i)=> tn(t+i*.055,.42,.15,f,f,'triangle',.4)); },
+    whoosh(){ if(!on||!init())return;
+      nz(ac.currentTime,.28,.18,2600,520,'bandpass',.8); },
+    thunk(){ if(!on||!init())return; const t=ac.currentTime;
+      tn(t,.10,.24,200,58,'triangle');
+      nz(t,.035,.14,900,380,'bandpass',1.4); },
+    cut(){ if(!on||!init())return;
+      nz(ac.currentTime,.14,.30,2600,2600,'highpass',.7,.15); },
+    focus(){ if(!on||!init())return; tn(ac.currentTime,.5,.16,1200,300,'sine',.3); },
+    alarm(){ if(!on||!init())return; const t=ac.currentTime;
+      tn(t,.1,.2,880,880,'square'); tn(t+.13,.1,.2,1150,1150,'square'); },
+    win(){ if(!on||!init())return; const t=ac.currentTime;
+      [587,784,880,1175].forEach((f,i)=> tn(t+[0,.13,.26,.42][i],.36,.20,f,f,'triangle',.35)); }
+  };})();
+
+/* --------- durum --------- */
+const PEND_G=1500, KNIFE_SPEED=2350, KNIFE_GRAV=0, WIND_ON_KNIFE=2400;
+/* Shuriken çarpışma kutusu — ÇİZİLEN şekle göre türetildi, eskiden 10'du
+   (göbekten bile küçük, sadece merkez sayılıyordu).
+   Çizim: uç yarıçapı 34*1.75 = 59.5 dünya birimi, göbek 10*1.75 = 17.5.
+   6 uçlu yıldızın alan-eşdeğer yarıçapı ~0.67*uç = 40.
+   Dönüş fazına göre değiştirmiyoruz: oyuncu fazı ne görüyor ne kontrol
+   edebiliyor, açıya bağlı kutu görülmeyen bir kumar olurdu.
+   Dikey daha dar çünkü shuriken yatık uçuyor (squash .13) — ekranda yatay
+   bir ağız. Görsel 8 birim, oyuncuya pay bırakmak için 18. */
+const SHK_RX = 40, SHK_RY = 18;
+const CAGE_GAP = 1.15;      // boşluğun açısal genişliği (radyan)
+const CAGE_SPIN = 0.55;     // boşluk saniyede bu kadar döner
+const GIFT_BONUS = 2;       // hediye balonun verdiği shuriken
+/* Saplanan shuriken ekranda birikmesin: kaçırdığın yeri görecek kadar kalsın,
+   sonra silinsin. Son FADE saniyede solar ve batar. */
+const STUCK_LIFE = 1.5, STUCK_FADE = 0.55;
+const ESCAPE_TIME=2.4;
+/* Kaçan balon tavana YAPIŞIR, içine girmez.
+   Sebep: shuriken y<CEIL olan her yerde tavana saplanıyor ve bu kontrol
+   uçuş boyunca yapılıyor. Kamera ışını derinlikle açıldığı için, tavanın
+   üstündeki bir hedefe atılan shuriken hedefe varmadan ÇOK ÖNCE tavan
+   düzlemini kesiyordu — yani balon tavanı geçtiği an her derinlikte
+   vurulamaz hale geliyordu. Balonun üstü CEIL+FREE_CLR'ın altında
+   tutulunca ışın tavanı hiç kesmiyor: her derinlikten vurulabilir.       */
+const FREE_CLR = 55;
+const freeLim = b => (b.type==='drift' ? ESCAPE_TIME*2.6 : ESCAPE_TIME);
+const FOCUS_INK=300;    // çizebileceğin toplam çizgi uzunluğu (sanal px)
+const FOCUS_TIME=1.8;   // ağır çekimde elindeki gerçek süre (sn)
+let state='menu', level=null, levelIdx=0;
+let balloons=[], knives=[], parts=[], stuck=[], petals=[], slash=null, screens=[], pairs=[];
+let knivesLeft=0, focusLeft=0, lost=0, time=0, shake=0, hitStop=0, wheelPhase=0;
+let ability='odak', twinShots=0, frenzyT=0, focusArmed=false;
+let wind={cur:0,target:0,t:0,on:false};
+let aimPt=null, aiming=false, holdT=0, focusMode=false, focusPath=[], timeScale=1;
+let focusInk=0, focusT=0, focusEnd=null;
+let progress={}; try{ progress=JSON.parse(localStorage.getItem('kb_prog')||'{}'); }catch(e){}
+/* OYUNCU KİMLİĞİ — şimdiden üretiliyor, çünkü sonradan üretilemez.
+   Hesap sistemi (Nakama `authenticateDevice`) tam olarak böyle bir cihaz
+   kimliği bekliyor. Bugün kaydedilmezse, hesap eklendiği gün mevcut
+   oyuncuların ilerlemesi hiçbir hesaba bağlanamaz — sıfırdan başlarlar.
+   Sunucuya hiçbir şey gitmiyor; sadece tarayıcıda duruyor. */
+const GAME_VERSION='1.0';
+let playerId='';
+try{
+  playerId=localStorage.getItem('kb_pid')||'';
+  if(!playerId){
+    playerId = (crypto && crypto.randomUUID) ? crypto.randomUUID()
+             : 'bd-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,10);
+    localStorage.setItem('kb_pid', playerId);
+  }
+}catch(e){ playerId='bd-gecici'; }
+let optAim=true, optDrift=true, throwStyle=2, unlimited=false;   // 2 = Nisan (isin uzerinde)
+const unlockedAbilities=()=>ABILITIES.filter(a=>levelIdx+1>=a.unlock);
+/* Anahtar kb_opt2 -> kb_opt3: eski kayitlarda atis stili 0'da kilitli
+   kaliyordu, yeni varsayilan devreye girsin diye surum atlandi. */
+try{ const o=JSON.parse(localStorage.getItem('kb_opt3')||'{}');
+     optAim=o.aim!==false; optDrift=o.drift!==false;
+     /* HATA: `o.style|0` kayit YOKKEN de 0 uretiyordu, yani varsayilan stil
+        hicbir zaman devreye girmiyordu -- yeni oyuncu da Elden'le basliyordu.
+        Alan yoksa varsayilana dokunma. */
+     if(o.style!==undefined) throwStyle=Math.min(3,Math.max(0,o.style|0));
+     if(o.unl!==undefined) unlimited=!!o.unl;
+     if(o.ab) ability=o.ab; }catch(e){}
+const saveOpt=()=>{try{localStorage.setItem('kb_opt3',JSON.stringify({aim:optAim,drift:optDrift,style:throwStyle,unl:unlimited,ab:ability}));}catch(e){}};
+const saveProg=()=>{try{localStorage.setItem('kb_prog',JSON.stringify(progress));}catch(e){}};
+const el=id=>document.getElementById(id);
+
+function loadLevel(i){
+  levelIdx=clamp(i,0,LEVELS.length-1); level=LEVELS[levelIdx];
+  try{ Analytics.level(levelIdx, level); }catch(e){}
+  shotsFired=0; levelT0=Date.now();
+  const wh=level.wheel;
+  balloons=level.b.map((b,k)=>{
+    const col=COLORS[k%COLORS.length];
+    const onWheel=(b.wheelA!==undefined);
+    const zz=onWheel?wh.z:b.z;
+    const mx=Math.max(60,(CX-56)/sc(zz)-b.r);          // bu derinlikte kenara taşmama sınırı
+    const bx=clamp(b.x||0,-mx,mx);
+    return {
+      onWheel, wheelA:b.wheelA||0, maxX:mx,
+      ax0:bx, ax:bx, z:zz, rope:(b.rope||300)*.65, r:b.r,
+      ang:(Math.random()-.5)*.18, av:0, wob:Math.random()*6.28,
+      type:b.t||'plain', hp:(b.t==='armor')?2:1, col,
+      gapA:Math.random()*6.28,
+      free:(b.t==='drift'), freeT:0, pin:false, alive:true,
+      link:null, x:bx, y:CEIL+(b.rope||300)*.65, cut:false
+    };
+  });
+  /* bağlı çift: iki balon aralarındaki iple birbirine bağlı.
+     İpi kesen shuriken İKİSİNİ birden patlatır. Tek tek de vurulabilirler. */
+  pairs=[];
+  { const seen=new Set();
+    (level.b||[]).forEach((src,i)=>{
+      if(src.link===undefined||src.link===null) return;
+      const j=src.link|0; if(j===i||!balloons[j]) return;
+      const lo=Math.min(i,j), hi=Math.max(i,j), key=lo+'-'+hi;
+      if(seen.has(key)) return; seen.add(key);
+      const a=balloons[lo], c=balloons[hi];
+      a.link=c; c.link=a;
+      pairs.push({a, b:c, len:Math.max(90,Math.hypot(a.x-c.x,a.y-c.y))});
+    }); }
+  beamRows=[...new Set(balloons.filter(b=>!b.onWheel).map(b=>b.z))];
+  screens=(level.screens||[]).map(o=>({x:o.x||0, y:o.y||CEIL+40, z:o.z,
+    w:o.w||400, h:o.h||300, hit:0}));
+  knives=[]; parts=[]; stuck=[]; slash=null; lost=0;
+  knivesLeft=level.knives; focusLeft=level.focus;
+  twinShots=0; frenzyT=0; focusArmed=false;
+  wind.on=!!level.wind;
+  wind.cur=0; wind.target=level.wind?level.wind.base:0; wind.t=0;
+  time=0; shake=0; wheelPhase=0; aimPt=null; focusMode=false; timeScale=1;
+  petals=[]; for(let i=0;i<22;i++) petals.push({
+    x:(Math.random()-.5)*1000, y:(Math.random()-.5)*520,
+    z:340+Math.random()*1400, ph:Math.random()*6.28, sz:4+Math.random()*4,
+    sp:.5+Math.random()*.9});
+  state='play'; syncHUD();
+  if(level.focus>0 && !localStorage.getItem('kb_ftut')){
+    try{ localStorage.setItem('kb_ftut','1'); }catch(e){}
+    setTimeout(()=>el('fhelp').classList.add('show'), 380);
+  } else if(level.focus>0 && unlockedAbilities().length>1){
+    setTimeout(showPicker, 260);
+  } else if(level.hint) toast(level.hint,true);
+}
+
+function syncHUD(){
+  el('lvlNum').textContent=KANJI[levelIdx]||(levelIdx+1);
+  el('lvlName').textContent=level.name || autoBadge(level);
+  el('bCount').textContent=balloons.filter(b=>b.alive).length;
+  const box=el('kn'); box.innerHTML='';
+  if(unlimited){
+    const d=document.createElement('span');
+    d.textContent='∞';
+    d.style.cssText='font-size:21px;font-weight:900;color:#f3e8d6;line-height:1;padding:0 4px';
+    box.appendChild(d);
+  } else for(let i=0;i<level.knives;i++){
+    const d=document.createElement('div'); d.className='k'+(i>=knivesLeft?' used':''); box.appendChild(d);
+  }
+  const A=ABI(ability);
+  el('focusN').textContent=focusLeft;
+  el('focusPill').firstChild.textContent=A.icon+' '+A.name.toUpperCase()+' ';
+  el('focusPill').classList.toggle('empty', focusLeft<=0);
+  el('focusPill').classList.toggle('armed', focusArmed||twinShots>0||frenzyT>0);
+  el('focusPill').style.display=level.focus>0?'flex':'none';
+  el('windrow').style.visibility=wind.on?'visible':'hidden';
+}
+function syncWind(){
+  el('warrow').style.transform=wind.cur<0?'scaleX(-1)':'none';
+  el('wfill').style.width=Math.min(100,Math.abs(wind.cur)*95)+'%';
+}
+function toast(t,small){
+  const e=el('toast'); e.textContent=t;
+  e.style.fontSize=small?'17px':'31px';
+  e.classList.remove('go'); void e.offsetWidth; e.classList.add('go');
+}
+
+/* --------- girdi --------- */
+function toScreen(e){
+  const r=cv.getBoundingClientRect();
+  const x=(e.clientX-r.left)*(cv.width/r.width), y=(e.clientY-r.top)*(cv.height/r.height);
+  return {x:(x-offX)/scale, y:(y-offY)/scale};
+}
+cv.addEventListener('pointerdown',e=>{ Snd.unlock(); if(state!=='play')return;
+  aiming=true; holdT=0; aimPt=toScreen(e); focusPath=[aimPt];
+  cv.setPointerCapture(e.pointerId); });
+cv.addEventListener('pointermove',e=>{ if(state!=='play'||!aiming)return;
+  const p=toScreen(e); aimPt=p;
+  if(focusMode){
+    const l=focusPath[focusPath.length-1];
+    if(!l){ focusPath.push(p); return; }
+    const d=Math.hypot(p.x-l.x, p.y-l.y);
+    if(d>10){
+      if(focusInk<=0){ focusEnd=focusEnd||l; return; }   // mürekkep bitti, çizgi donar
+      if(d>focusInk){                                     // son parçayı kırp
+        const k=focusInk/d;
+        focusPath.push({x:l.x+(p.x-l.x)*k, y:l.y+(p.y-l.y)*k});
+        focusInk=0; focusEnd=focusPath[focusPath.length-1];
+      } else { focusPath.push(p); focusInk-=d; }
+    }
+  } });
+cv.addEventListener('pointerup',e=>{ if(state!=='play'||!aiming)return;
+  aiming=false;
+  if(focusMode){ endFocus(toScreen(e)); } else throwKnife(toScreen(e)); });
+cv.addEventListener('pointercancel',()=>{ aiming=false; if(focusMode) endFocus(null); });
+
+const HAND={x:63, y:150};
+const rayX=(s,z)=>(s-CX)*z/F, rayY=(s,z)=>(s-CY)*z/F;
+/* Tavan kirişleri sadece balon sıralarının derinliğinde çizilir (drawFrame).
+   Aradaki boşluklardan shuriken geçer — bkz. uçuş döngüsündeki tavan kontrolü. */
+let beamRows=[];
+const BEAM_HALF=70;
+const beamAt=z=>beamRows.some(r=>Math.abs(r-z)<BEAM_HALF);
+/* Atış stilleri — hepsinde yol 3B'de DÜZ bir doğru (yerçekimi yok).
+   Fark: shuriken NEREDEN doğuyor.
+
+   NEDEN VARSAYILAN 2 (Nişan):
+   Kamera merkezden ışınsal yansıtıyor (px = CX + x*F/z). Elden atışta shuriken
+   ışının dışında bir noktadan doğuyor; düz bir doğru ışını yalnızca TEK bir
+   derinlikte kesebilir. Yani shuriken dokunduğun noktaya ancak hedefin
+   derinliğinde varır, yolun geri kalanında oradan kayar. Oyuncu için bu
+   "dokunduğum yere gitmiyor" demek ve oyuncunun düzeltmek için derinliği
+   tahmin etmesi gerekir — yapamayacağı bir şey.
+
+   Ölçüldü (node tools/aim-audit.js, 343 atış, her balonun ekran merkezine
+   dokunularak) — shurikenin yolun ortasında dokunulan noktadan sapması:
+
+       stil          sol      orta     sağ    en büyük
+       0 Elden      143 px   117 px   111 px   828 px
+       1 Tam ışın     3 px     3 px     3 px    53 px
+       2 Nişan       21 px    20 px    21 px   118 px
+       3 Savurma    150 px   145 px   165 px  1196 px
+
+   Elden/Savurma'da sapma ekranın SOLUNDA en büyük: el sağ altta, sol hedefe
+   giden yol daha uzun bir çapraz. Işın tabanlı stillerde sapma bölgeden
+   bağımsız — ve derinlik artık nişanı hiç etkilemiyor, çünkü shuriken bütün
+   derinlikler boyunca dokunulan pikselin üstünde kalıyor.
+
+   1 ile 2 arasındaki fark his: 1'de shuriken ekranda hiç yer değiştirmez,
+   sadece küçülür (matematiksel olarak kusursuz ama cansız). 2'de ışının
+   ~70 px yanından doğup üstüne oturur: atış hareketi görünür, sapma
+   balonun yarıçapının altında kalır.                                        */
+const THROW_STYLES=[
+  {name:'Elden',    L:{x:63,  y:150, z:240}, squash:.40, spin:26},
+  {name:'Tam ışın', L:null,  off:null,       squash:.13, spin:23},
+  {name:'Nişan',    L:null,  off:{x:-22,y:30},squash:.28, spin:24},  // ışın + ~70px kaçıklık
+  {name:'Savurma',  L:{x:-120,y:205, z:205}, squash:.55, spin:30}
+];
+/* Nişan noktasının altındaki balonu hedef al; yoksa ışın üstünde bir nokta. */
+function pickTarget(s){
+  let hit=null, hd=1e9, nearZ=null, nd=1e9;
+  for(const b of balloons){
+    if(!b.alive) continue;
+    const bx=px(b.x,b.z), by=py(b.y,b.z), R=b.r*sc(b.z);
+    const d=Math.hypot(bx-s.x, by-s.y);
+    if(d<nd){ nd=d; nearZ=b.z; }
+    // Kafesli balonda merkeze kilitleme YOK: mekanik zaten "nereden girdiğin".
+    if(d < R+26 && d<hd){ hd=d; hit = (b.type==='cage') ? {ropeZ:b.z} : {b}; }
+    if(level && level.rope && !b.free && !b.onWheel){
+      const rd=segDist(s.x, s.y, {x:px(b.ax,b.z), y:py(CEIL,b.z)}, {x:bx, y:by-R*.9});
+      if(rd.d<22 && rd.d<hd){ hd=rd.d; hit={ropeZ:b.z}; }
+    }
+  }
+  // bağlı çiftin ipine nişan: balon merkezine kilitleme buraya karışmasın
+  for(const pr of pairs){
+    const sg=linkSeg(pr); if(!sg) continue;
+    const A={x:px(sg.p1.x,sg.z), y:py(sg.p1.y,sg.z)}, B={x:px(sg.p2.x,sg.z), y:py(sg.p2.y,sg.z)};
+    const rd=segDist(s.x,s.y,A,B);
+    if(rd.d<24 && rd.d<hd){ hd=rd.d; hit={ropeZ:sg.z}; }
+  }
+  if(hit && hit.b) return {x:hit.b.x, y:hit.b.y, z:hit.b.z};
+  // boşluğa ya da ipe nişan: o derinlikte tam dokunulan noktadan geçer
+  const z = hit ? hit.ropeZ : (nearZ || 1250);
+  return {x:rayX(s.x,z), y:rayY(s.y,z), z};
+}
+function throwKnife(s){
+  if(knivesLeft<=0 && frenzyT<=0) return;
+  const st=THROW_STYLES[throwStyle]||THROW_STYLES[0];
+  const T=pickTarget(s);
+  if(twinShots>0){                       // iki shuriken, dünya birimiyle sabit aralık
+    twinShots--;
+    spawnKnife(st,{x:T.x-TWIN_GAP/2,y:T.y,z:T.z},s,-TWIN_GAP/2);
+    spawnKnife(st,{x:T.x+TWIN_GAP/2,y:T.y,z:T.z},s, TWIN_GAP/2);
+    payShot(); syncHUD(); Snd.whoosh(); return;
+  }
+  spawnKnife(st,T,s,0);
+  payShot(); syncHUD(); Snd.whoosh();
+}
+let shotsFired=0, levelT0=0;
+function payShot(){ shotsFired++; if(frenzyT<=0 && !unlimited) knivesLeft--; }
+function spawnKnife(st,T,s,lateral){
+  const L=st.L ? {x:st.L.x+(lateral||0)*.35, y:st.L.y, z:st.L.z}
+               : {x:rayX(s.x,NEAR)+(st.off?st.off.x:0)+(lateral||0)*.35,
+                  y:rayY(s.y,NEAR)+(st.off?st.off.y:0), z:NEAR};
+  const dx=T.x-L.x, dy=T.y-L.y, dz=Math.max(60,T.z-L.z);
+  const len=Math.hypot(dx,dy,dz)||1;
+  const k={ x:L.x, y:L.y, z:L.z,
+    vx:dx/len*KNIFE_SPEED, vy:dy/len*KNIFE_SPEED, vz:dz/len*KNIFE_SPEED,
+    rot:Math.random()*6.28, spin:st.spin+Math.random()*3, squash:st.squash,
+    hits:0, dead:false, trail:[], t:0,
+    lx:px(L.x,L.z), ly:py(L.y,L.z) };
+  knives.push(k);
+}
+const driftAt=(z,w)=>{ const t=Math.max(0,(z-NEAR)/KNIFE_SPEED); return .5*w*WIND_ON_KNIFE*t*t*F/z; };
+
+function useAbility(){
+  if(state!=='play'||focusLeft<=0) return;
+  const A=ABI(ability);
+  try{ Analytics.ability(A.k); }catch(e){}
+  if(A.k==='odak'){ focusArmed=true; toast('Parmağını sürükle — kesme çizgisi', true); }
+  else if(A.k==='cifte'){ spend(); twinShots=TWIN_SHOTS; toast('ÇİFTE · '+TWIN_SHOTS+' atış', true); }
+  else if(A.k==='saganak'){ spend(); frenzyT=FRENZY_TIME; Snd.focus(); toast('SAĞANAK!'); }
+  syncHUD();
+}
+function spend(){ if(!unlimited) focusLeft--; }
+function startFocus(){
+  focusMode=true; timeScale=.15; focusInk=FOCUS_INK; focusT=FOCUS_TIME; focusEnd=null;
+  el('vig').classList.add('on'); Snd.focus();
+}
+function endFocus(last){
+  focusMode=false; timeScale=1; focusEnd=null; el('vig').classList.remove('on');
+  if(last) focusPath.push(last);
+  if(focusPath.length<3 || knivesLeft<=0){ if(last) throwKnife(last); focusPath=[]; return; }
+  if(!unlimited){ focusLeft--; knivesLeft--; } syncHUD();
+  const path=focusPath.slice(); focusPath=[];
+  // kümülatif uzunluk — zamanlama nokta sayısına değil gerçek mesafeye bağlı olsun
+  const cum=[0]; let total=0;
+  for(let i=0;i<path.length-1;i++){
+    total+=Math.hypot(path[i+1].x-path[i].x, path[i+1].y-path[i].y); cum.push(total);
+  }
+  if(total<1){ focusPath=[]; return; }
+  const hits=[];
+  for(const b of balloons){
+    if(!b.alive) continue;
+    const bx=px(b.x,b.z), by=py(b.y,b.z), R=b.r*sc(b.z)+14;
+    let best=1e9, u=0;
+    for(let i=0;i<path.length-1;i++){
+      const d=segDist(bx,by,path[i],path[i+1]);
+      if(d.d<best){ best=d.d; u=(cum[i]+d.t*(cum[i+1]-cum[i]))/total; }
+    }
+    if(best<R) hits.push({b, u, tp:null, ang:0});
+  }
+  hits.sort((a,b)=>a.u-b.u);
+  if(hits.length>=3) setTimeout(()=>toast(hits.length+' BALON — ODAK'), 260);
+  slash={ path, cum, total, samples:resamplePath(path,cum,total,56),
+          t:0, dur:.26+total/1500, head:0, hits, idx:0, sparks:[] };
+  Snd.cut();
+}
+function resamplePath(path,cum,total,n){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const u=i/(n-1), t=total*u;
+    let j=0; while(j<cum.length-2 && cum[j+1]<t) j++;
+    const f=(t-cum[j])/Math.max(1e-6,(cum[j+1]-cum[j]));
+    out.push({x:path[j].x+(path[j+1].x-path[j].x)*f,
+              y:path[j].y+(path[j+1].y-path[j].y)*f, u});
+  }
+  return out;
+}
+function slashPointAt(sl,u){
+  const s2=sl.samples, i=clamp(Math.floor(u*(s2.length-1)),0,s2.length-2);
+  const f=u*(s2.length-1)-i;
+  return {x:s2[i].x+(s2[i+1].x-s2[i].x)*f, y:s2[i].y+(s2[i+1].y-s2[i].y)*f,
+          ax:Math.atan2(s2[i+1].y-s2[i].y, s2[i+1].x-s2[i].x)};
+}
+function segDist(pxx,pyy,a,b){
+  const vx=b.x-a.x, vy=b.y-a.y, wx=pxx-a.x, wy=pyy-a.y;
+  const L=vx*vx+vy*vy;
+  let t=L>0?clamp((wx*vx+wy*vy)/L,0,1):0;
+  const cx=a.x+vx*t, cy=a.y+vy*t;
+  return {d:Math.hypot(pxx-cx,pyy-cy), t};
+}
+
+/* --------- güncelleme --------- */
+function update(rdt){
+  const dt=rdt*timeScale;
+  time+=dt;
+  if(aiming && !focusMode && focusArmed && knivesLeft>0){ focusArmed=false; startFocus(); }
+  if(frenzyT>0){ frenzyT-=rdt; if(frenzyT<=0){ frenzyT=0; syncHUD(); toast('Sağanak bitti', true); } }
+  if(focusMode){
+    focusT-=rdt;
+    if(focusT<=0){ aiming=false; endFocus(null); }   // süre doldu, çizgi neyse o
+  }
+  // rüzgâr
+  if(level && level.wind){
+    const wc=level.wind;
+    if(wc.gust>0&&wc.period>0){ wind.t+=dt;
+      if(wind.t>wc.period){ wind.t=0;
+        wind.target=(Math.random()<.5?-1:1)*wc.base*(.5+Math.random()*1.2); } }
+    else wind.target=wc.base;
+  } else wind.target=0;
+  wind.cur+=(wind.target-wind.cur)*Math.min(1,dt*1.3);
+  const w=wind.cur;
+
+  if(level && level.wheel) wheelPhase+=dt*level.wheel.speed;
+
+  // balonlar
+  for(const b of balloons){
+    if(!b.alive) continue;
+    if(b.type==='cage') b.gapA+=dt*CAGE_SPIN;
+    if(b.free){
+      b.freeT+=dt;
+      b.y-=(b.type==='drift'?95:180)*dt;
+      const top=CEIL+FREE_CLR+b.r;
+      if(b.y<top){ b.y=top; b.pin=true; }        // tavana yaslandı, artık yan kayıyor
+      /* Tavana sürtünüyor: yan kayma yavaşlar. Hızlı kaydırmak balonu
+         uçuş süresi boyunca hedeften çıkarıyor, "vuramıyorum" hissi buradan. */
+      const wf = b.pin ? .45 : 1;
+      b.x+=(w*220*wf + (b.pin?Math.sin(b.freeT*1.1+b.wob*.3)*45:0))*dt;
+      b.x=clamp(b.x,-b.maxX,b.maxX);             // ekranın dışına da kaçamaz
+      b.wob+=dt*5;
+      if(b.freeT>freeLim(b)){ b.alive=false; lost++; puffAway(b); escapeFail(b); }
+      continue;
+    }
+    if(b.onWheel){
+      const wh=level.wheel, a=b.wheelA+wheelPhase;
+      b.x=wh.cx+Math.cos(a)*wh.r; b.y=wh.cy+Math.sin(a)*wh.r;
+      b.wob+=dt*3; continue;
+    }
+    const aa=(-PEND_G*Math.sin(b.ang)+w*720*Math.cos(b.ang))/b.rope;
+    b.av+=aa*dt; b.av*=(1-.62*dt); b.ang+=b.av*dt;
+    const lim=Math.min(.45, Math.asin(clamp((b.maxX-Math.abs(b.ax))/b.rope,0,1)));
+    if(b.ang>lim){b.ang=lim;b.av*=-.3;} if(b.ang<-lim){b.ang=-lim;b.av*=-.3;}
+    b.wob+=dt*3;
+    b.x=b.ax+Math.sin(b.ang)*b.rope; b.y=CEIL+Math.cos(b.ang)*b.rope;
+  }
+  // bağlı çift: aradaki ip gerilince ikisini birbirine çeker
+  for(const pr of pairs){
+    const a=pr.a, c=pr.b;
+    if(!a.alive||!c.alive||a.free||c.free||a.onWheel||c.onWheel) continue;
+    const d=Math.hypot(c.x-a.x,c.y-a.y);
+    if(d<=pr.len) continue;
+    const p=Math.min(.6,(d-pr.len)/pr.len), s=(c.x-a.x)>=0?1:-1;
+    a.ang+=s*p*.10; c.ang-=s*p*.10;
+    a.av +=s*p*2.0; c.av -=s*p*2.0;
+    a.x=a.ax+Math.sin(a.ang)*a.rope; a.y=CEIL+Math.cos(a.ang)*a.rope;
+    c.x=c.ax+Math.sin(c.ang)*c.rope; c.y=CEIL+Math.cos(c.ang)*c.rope;
+  }
+  // aynı derinlikte üst üste binmesin
+  for(let i=0;i<balloons.length;i++){ const a=balloons[i];
+    if(!a.alive||a.onWheel||a.free) continue;
+    for(let j=i+1;j<balloons.length;j++){ const c=balloons[j];
+      if(!c.alive||c.onWheel||c.free||Math.abs(a.z-c.z)>40) continue;
+      const dx=c.x-a.x, dy=c.y-a.y, d=Math.hypot(dx,dy), mn=(a.r+c.r)*1.03;
+      if(d>.001&&d<mn){ const p=(mn-d)/mn, s=dx>=0?1:-1;
+        a.ang-=s*p*.05; c.ang+=s*p*.05; a.av-=s*p*.9; c.av+=s*p*.9;
+        a.x=a.ax+Math.sin(a.ang)*a.rope; c.x=c.ax+Math.sin(c.ang)*c.rope; } } }
+
+  // yapraklar
+  for(const p of petals){
+    p.x+=(w*200+22)*p.sp*dt; p.y+=(26+Math.sin(time*1.7+p.ph)*20)*p.sp*dt;
+    p.ph+=dt*2.2; p.z-=40*dt;
+    if(p.z<320){ p.z=1780; p.y=-420; }
+    if(p.y>GY){ p.y=-420; p.x=(Math.random()-.5)*1000; }
+    if(p.x>560) p.x=-560; if(p.x<-560) p.x=560;
+  }
+
+  // odak kesişi
+  if(slash){
+    const prev=slash.head;
+    slash.t+=rdt;
+    const p=clamp(slash.t/slash.dur,0,1);
+    slash.head=1-Math.pow(1-p,2.3);              // hızlı çık, sonunda yavaşla
+    while(slash.idx<slash.hits.length && slash.hits[slash.idx].u<=slash.head){
+      const h=slash.hits[slash.idx++];
+      h.tp=slash.t; h.ang=slashPointAt(slash,h.u).ax;
+      if(h.b.alive){ hitBalloon(h.b,null,true); Snd.cut(); }
+    }
+    if(p<1 && slash.head>prev){                  // uçtan savrulan kıvılcımlar
+      const hp=slashPointAt(slash,slash.head);
+      for(let i=0;i<2;i++){
+        const a=hp.ax+(Math.random()-.5)*2.4, v=90+Math.random()*230;
+        slash.sparks.push({x:hp.x,y:hp.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-40,
+          life:.28+Math.random()*.3, m:.28+Math.random()*.3});
+      }
+    }
+    for(const k of slash.sparks){ k.vy+=520*rdt; k.x+=k.vx*rdt; k.y+=k.vy*rdt; k.life-=rdt; }
+    slash.sparks=slash.sparks.filter(k=>k.life>0);
+    if(p>=1 && !slash.done){ slash.done=true; hitStop=Math.max(hitStop,.05); }
+    if(slash.t>slash.dur+.75) slash=null;
+  }
+
+  // shurikenler
+  for(const k of knives){
+    if(k.dead) continue;
+    const SUB=3, sdt=dt/SUB;
+    for(let s=0;s<SUB&&!k.dead;s++){
+      const pz=k.z, pxx=k.x, pyy=k.y;
+      k.vx+=w*WIND_ON_KNIFE*sdt;                    // sapma sadece yatayda
+      k.t+=sdt;
+      k.x+=k.vx*sdt; k.y+=k.vy*sdt; k.z+=k.vz*sdt;
+      k.rot+=k.spin*sdt;
+      k.trail.push({x:k.x,y:k.y,z:k.z}); if(k.trail.length>7) k.trail.shift();
+      for(const b of balloons){
+        if(!b.alive) continue;
+        if((pz-b.z)*(k.z-b.z)>0) continue;
+        const t=(b.z-pz)/((k.z-pz)||1);
+        const hx=pxx+(k.x-pxx)*t, hy=pyy+(k.y-pyy)*t;
+        const d=Math.hypot(hx-b.x, hy-b.y);
+        const ex=(hx-b.x)/(b.r+SHK_RX), ey=(hy-b.y)/(b.r+SHK_RY);
+        if(ex*ex+ey*ey < 1){
+          if(b.type==='cage'){
+            // sadece parmaklıkların boşluğundan geçer
+            const a=Math.atan2(hy-b.y, hx-b.x);
+            let da=Math.abs(((a-b.gapA+Math.PI)%6.2832+6.2832)%6.2832-Math.PI);
+            if(da > CAGE_GAP/2){
+              k.dead=true; Snd.woodHit(); shake=Math.max(shake,7);
+              stuck.push({x:hx,y:hy,z:b.z,rot:(Math.random()-.5)*.5,wob:0,gnd:false,life:STUCK_LIFE});
+              for(let i=0;i<8;i++){ const q=Math.random()*6.28;
+                parts.push({x:hx,y:hy,z:b.z,vx:Math.cos(q)*200,vy:Math.sin(q)*200-40,
+                  life:.35,col:'#a89347',w:6,h:4,rot:0,spin:8,type:'shred'}); }
+              break;
+            }
+          }
+          hitBalloon(b,k); k.hits++;
+        }
+        else if(level.rope && !b.free && !b.onWheel && d < b.r+130){
+          // ip kesme: ipin üstünde mi?
+          const rd=segDist(hx,hy,{x:b.ax,y:CEIL},{x:b.x,y:b.y-b.r*.9});
+          if(rd.d<20){ cutRope(b); k.hits++; }
+        }
+      }
+      // bağlı çiftin ipi: kesen shuriken ikisini birden patlatır
+      for(const pr of pairs){
+        const sg=linkSeg(pr);
+        if(!sg) continue;
+        if((pz-sg.z)*(k.z-sg.z)>0) continue;
+        const t=(sg.z-pz)/((k.z-pz)||1);
+        const hx=pxx+(k.x-pxx)*t, hy=pyy+(k.y-pyy)*t;
+        if(segDist(hx,hy,sg.p1,sg.p2).d < 24+SHK_RY){ snapLink(pr); k.hits++; }
+      }
+      let blocked=false;
+      for(const sc2 of screens){
+        if((pz-sc2.z)*(k.z-sc2.z)>0) continue;
+        const t=(sc2.z-pz)/((k.z-pz)||1);
+        const hx=pxx+(k.x-pxx)*t, hy=pyy+(k.y-pyy)*t;
+        if(Math.abs(hx-sc2.x)<sc2.w/2 && hy>sc2.y && hy<sc2.y+sc2.h){
+          k.dead=true; blocked=true; sc2.hit=.5;
+          stuck.push({x:hx,y:hy,z:sc2.z,rot:(Math.random()-.5)*.4,wob:0,gnd:false,life:STUCK_LIFE});
+          Snd.thunk(); shake=Math.max(shake,5);
+          for(let i=0;i<9;i++){ const a=Math.random()*6.28;
+            parts.push({x:hx,y:hy,z:sc2.z,vx:Math.cos(a)*180,vy:Math.sin(a)*180-40,
+              life:.5,col:'#f3e3c4',w:7,h:5,rot:0,spin:7,type:'shred'}); }
+          break;
+        }
+      }
+      if(blocked) break;
+      if(k.y>GY){ k.dead=true; stuck.push({x:k.x,y:GY,z:k.z,rot:(Math.random()-.5)*.6,wob:0,gnd:true,life:STUCK_LIFE}); Snd.thunk(); }
+      else {
+        /* TAVAN ARTIK DUVAR DEĞİL, KAFES.
+           Eskiden y<CEIL olan her nokta shurikeni yutuyordu; tavan sonsuz bir
+           düzlemdi. Oysa görselde tavan bambu kirişlerden oluşan bir ızgara ve
+           kirişler sadece balon sıralarının derinliğinde var. Shuriken kirişe
+           denk gelirse saplanıyor, aralıktan geçerse gökyüzüne süzülüyor.
+           Kaçan balona yukarıdan nişan alan atış artık kirişte ölmüyor. */
+        if(k.y<CEIL+6 && !k.thru){
+          k.thru=true;
+          if(beamAt(k.z)){
+            k.dead=true; stuck.push({x:k.x,y:CEIL+6,z:k.z,rot:Math.PI,wob:0,gnd:false,life:STUCK_LIFE});
+            Snd.thunk(); shake=Math.max(shake,4);
+          } else Snd.whoosh();
+        }
+        if(!k.dead && (k.z>1900 || Math.abs(k.x)>1200 || k.y<CEIL-1500)) k.dead=true;
+      }
+    }
+  }
+  knives=knives.filter(k=>!k.dead);
+  for(const s of stuck){
+    s.wob+=dt; s.life-=dt;
+    if(s.life<STUCK_FADE && s.gnd) s.y+=26*dt;      // yere batıyormuş gibi
+  }
+  stuck=stuck.filter(s=>s.life>0);
+
+  for(const p of parts){
+    p.vy+=(p.g===undefined?1500:p.g)*dt; p.vx+=w*140*dt;
+    p.x+=p.vx*dt; p.y+=p.vy*dt; p.z+=(p.vz||0)*dt;
+    p.rot+=p.spin*dt; p.life-=rdt;
+    if(p.y>GY&&p.vy>0){ p.vy*=-.3; p.vx*=.6; p.y=GY; }
+  }
+  parts=parts.filter(p=>p.life>0);
+  if(shake>0) shake=Math.max(0,shake-rdt*38);
+
+  if(state==='play'){
+    const alive=balloons.filter(b=>b.alive).length;
+    if(alive===0 && lost===0 && !slash) endLevel(true);
+    else if(knivesLeft===0 && frenzyT<=0 && knives.length===0 && !slash && parts.length<12 && alive>0) endLevel(false);
+  }
+}
+
+function hitBalloon(b,k,fromSlash){
+  if(b.type==='armor' && b.hp>1){
+    b.hp--; Snd.clank(); shake=Math.max(shake,9); b.wob=0;
+    // kabuk parçalanıyor: demir kırıkları
+    for(let i=0;i<16;i++){ const a=Math.random()*6.28, sp=180+Math.random()*260;
+      parts.push({x:b.x,y:b.y,z:b.z,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-70,
+        vz:(Math.random()-.5)*120, life:.45+Math.random()*.4,
+        col:['#8d99a2','#5d686f','#b6c2ca'][i%3], w:6+Math.random()*8, h:4+Math.random()*5,
+        rot:Math.random()*6.28, spin:(Math.random()-.5)*14, type:'shred'}); }
+    parts.push({x:b.x,y:b.y,z:b.z,vx:0,vy:0,g:0,life:.26,col:'#fff',r:b.r*.9,type:'ring',rot:0,spin:0});
+    toast('ZIRH KIRILDI', true);
+    return;
+  }
+  popBalloon(b,k,fromSlash);
+}
+function popBalloon(b,k,fromSlash){
+  if(!b.alive) return;
+  b.alive=false;
+  Snd.balloon(b.type,b.r,b.z);        // ses imzasi tipe gore
+  shake=Math.max(shake, 10*sc(b.z)); if(!fromSlash) hitStop=.045;
+  burst(b);
+  if(b.type==='bomb'){
+    Snd.boom(); shake=Math.max(shake,26);
+    parts.push({x:b.x,y:b.y,z:b.z,vx:0,vy:0,g:0,life:.42,col:'#ffd08a',r:b.r*1.2,type:'ring',rot:0,spin:0});
+    const R=260;
+    for(const o of balloons){
+      if(!o.alive||o===b) continue;
+      if(Math.abs(o.z-b.z)>340) continue;
+      if(Math.hypot(o.x-b.x,o.y-b.y)<R+o.r){
+        const d=Math.hypot(o.x-b.x,o.y-b.y);
+        setTimeout(()=>{ if(o.alive){ o.hp=1; popBalloon(o,null,true); syncHUD(); } }, 70+d*.4);
+      }
+    }
+  }
+  if(b.type==='split'){
+    for(const s of [-1,1]){
+      balloons.push({ onWheel:b.onWheel, wheelA:b.wheelA+s*.28,
+        ax0:b.ax+s*70, ax:b.ax+s*70, z:b.z, rope:b.rope*.72, r:b.r*.6,
+        ang:s*.2, av:s*1.2, wob:Math.random()*6.28, type:'plain', hp:1,
+        col:b.col, alive:true, free:false, freeT:0,
+        x:b.ax+s*70, y:CEIL+b.rope*.72, cut:false });
+    }
+  }
+  if(!b.onWheel && !b.free)
+    parts.push({x:b.ax,y:CEIL,z:b.z,vx:0,vy:0,g:300,life:1.1,col:'#e6dcc4',
+      len:b.rope,type:'rope',sway:Math.random()*6.28,rot:0,spin:0});
+  if(b.free){ knivesLeft++; toast('YAKALADIN! +1 shuriken'); }
+  if(b.type==='gift'){ knivesLeft+=GIFT_BONUS; toast('HEDİYE  +'+GIFT_BONUS+' shuriken'); Snd.chime();
+    for(let i=0;i<14;i++){ const a=Math.random()*6.28, sp=120+Math.random()*260;
+      parts.push({x:b.x,y:b.y,z:b.z,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-120,
+        life:.9,col:'#ffd24a',w:7,h:9,g:700,rot:0,spin:9,type:'confetti'}); } }
+  syncHUD();
+  if(k && k.hits>=1){ const c=k.hits+1;
+    if(c>=2) toast(c===2?'ÇİFT':c===3?'ÜÇLÜ':'USTA İŞİ'); }
+}
+function burst(b){
+  for(let i=0;i<15;i++){ const a=Math.random()*6.28, sp=140+Math.random()*350;
+    parts.push({x:b.x,y:b.y,z:b.z,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-90,vz:(Math.random()-.5)*150,
+      life:.5+Math.random()*.5,col:b.col.c,w:6+Math.random()*9,h:4+Math.random()*6,
+      rot:Math.random()*6.28,spin:(Math.random()-.5)*16,type:'shred'}); }
+  for(let i=0;i<8;i++){ const a=Math.random()*6.28, sp=70+Math.random()*200;
+    parts.push({x:b.x,y:b.y,z:b.z,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-150,vz:(Math.random()-.5)*120,
+      life:.9+Math.random()*.6,col:b.col.g,w:7,h:9,g:760,
+      rot:Math.random()*6.28,spin:(Math.random()-.5)*12,type:'confetti'}); }
+  parts.push({x:b.x,y:b.y,z:b.z,vx:0,vy:0,g:0,life:.3,col:'#fff',r:b.r,type:'ring',rot:0,spin:0});
+}
+/* Bağın SERBEST parçası: balon gövdelerinin içi sayılmaz, yoksa
+   balona nişan almakla bağa nişan almak aynı şey olurdu. */
+function linkSeg(pr){
+  const a=pr.a, c=pr.b;
+  if(!a.alive||!c.alive||a.free||c.free||a.onWheel||c.onWheel) return null;
+  const dx=c.x-a.x, dy=c.y-a.y, dl=Math.hypot(dx,dy);
+  if(dl < a.r+c.r+36) return null;             // çok yakınlar, ip görünmüyor
+  const ux=dx/dl, uy=dy/dl;
+  return { z:a.z,
+    p1:{x:a.x+ux*(a.r+10), y:a.y+uy*(a.r+10)},
+    p2:{x:c.x-ux*(c.r+10), y:c.y-uy*(c.r+10)} };
+}
+function snapLink(pr){
+  const a=pr.a, c=pr.b;
+  if(!a.alive||!c.alive) return;
+  Snd.twang(); shake=Math.max(shake,13);
+  const mx=(a.x+c.x)/2, my=(a.y+c.y)/2;
+  parts.push({x:mx,y:my,z:a.z,vx:0,vy:0,g:0,life:.3,col:'#ffd6a0',r:70,type:'ring',rot:0,spin:0});
+  for(let i=0;i<12;i++){ const q=Math.random()*6.28;
+    parts.push({x:mx,y:my,z:a.z,vx:Math.cos(q)*220,vy:Math.sin(q)*220-60,
+      life:.5,col:'#d9524a',w:8,h:4,rot:0,spin:10,type:'shred'}); }
+  a.hp=1; c.hp=1;                    // bağ koptu: zırh da beraber gitti
+  popBalloon(a,null,true);
+  setTimeout(()=>{ if(c.alive){ c.hp=1; popBalloon(c,null,true); syncHUD(); } },90);
+  toast('BAĞ KOPTU — ikisi birden!', true);
+  syncHUD();
+}
+function cutRope(b){
+  if(b.free||b.cut) return;
+  b.cut=true; b.free=true; b.freeT=0;
+  Snd.cut(); Snd.alarm();
+  parts.push({x:b.ax,y:CEIL,z:b.z,vx:0,vy:0,g:300,life:1.1,col:'#e6dcc4',
+    len:b.rope*.8,type:'rope',sway:Math.random()*6.28,rot:0,spin:0});
+  toast('İP KESİLDİ — kaçmadan vur!');
+}
+/* Süresi dolan balon tavandaki aralıktan sıyrılıp gider: yukarı doğru
+   dağılan bir tutam kâğıt. Ekranı terk etmediği için animasyon gerekiyor. */
+function puffAway(b){
+  Snd.whoosh();
+  for(let i=0;i<14;i++){ const a=Math.random()*6.28, sp=60+Math.random()*180;
+    parts.push({x:b.x,y:b.y,z:b.z,vx:Math.cos(a)*sp,vy:-260-Math.random()*220,
+      vz:(Math.random()-.5)*90, g:-260, life:.6+Math.random()*.4,
+      col:b.col.c, w:6+Math.random()*7, h:5+Math.random()*5,
+      rot:Math.random()*6.28, spin:(Math.random()-.5)*12, type:'shred'}); }
+  parts.push({x:b.x,y:b.y,z:b.z,vx:0,vy:0,g:0,life:.32,col:'#fff',r:b.r*1.1,type:'ring',rot:0,spin:0});
+}
+function escapeFail(b){
+  if(state!=='play') return;
+  state='lose'; syncHUD();
+  const drift = b && b.type==='drift';
+  el('loseKick').textContent='BALON KAÇTI';
+  el('loseTitle').textContent='Kaçırdın';
+  el('loseMsg').textContent = drift
+    ? 'Kaçak balon ipsiz doğar ve tavana doğru yükselir. Tavana yaslandığında hâlâ vurulabilir — '+
+      'ama süre dolunca aradan sıyrılıp gider. Önce onu hallet.'
+    : 'İpi kesilen balon yukarı kaçtı. İp kesmek risklidir: kestiysen '+
+      ESCAPE_TIME.toFixed(1)+' saniye içinde vurman gerekir. Ödülü de büyük — yakalarsan shuriken geri gelir.';
+  setTimeout(()=>el('lose').classList.add('show'),420);
+}
+function endLevel(won){
+  if(state!=='play') return;
+  state=won?'win':'lose';
+  try{ Analytics.result(levelIdx, won, {
+    shots:shotsFired, knives_left:knivesLeft, ms:Date.now()-levelT0,
+    balloons_left:balloons.filter(b=>b.alive).length,
+    stars: won ? (unlimited?0:(knivesLeft/level.knives>=.34?3:knivesLeft/level.knives>=.15?2:1)) : 0
+  }); }catch(e){}
+  if(won){
+    Snd.win();
+    const ratio=knivesLeft/level.knives;
+    const stars=unlimited?0:(ratio>=.34?3:ratio>=.15?2:1);
+    if(!unlimited){ progress['l'+levelIdx]=Math.max(progress['l'+levelIdx]||0,stars); saveProg(); }
+    el('winKick').textContent=(unlimited?'TEST MODU · ':'')+'BÖLÜM '+(levelIdx+1)+' · '+(level.name||autoBadge(level)).toUpperCase();
+    el('winTitle').textContent=unlimited?'Bölüm bitti':['Kıl payı','Temiz iş','Kusursuz'][stars-1];
+    const st=el('winStars'); st.innerHTML='';
+    for(let i=0;i<3;i++){ const s=document.createElement('span'); s.textContent='★';
+      if(i<stars){ s.className='on'; s.style.animationDelay=(i*.14)+'s'; } st.appendChild(s); }
+    el('winMsg').textContent=unlimited
+      ? 'Sınırsız mod açık — yıldız verilmiyor. Hak sınırını ∞ butonundan geri açabilirsin.'
+      : (knivesLeft>0?knivesLeft+' shuriken kaldı.':'Son shuriken ile bitirdin.');
+    el('nextBtn').style.display=levelIdx<LEVELS.length-1?'block':'none';
+    if(levelIdx===LEVELS.length-1){
+      el('winTitle').textContent='Bahçe sessiz';
+      el('winMsg').textContent='Bütün fenerler indi. Yeni bölümler yolda.'; }
+    setTimeout(()=>el('win').classList.add('show'),520);
+  } else {
+    const left=balloons.filter(b=>b.alive).length;
+    const tips=['Uzak hedefte rüzgâr çok daha fazla sürükler — önden nişan al.',
+      'Salınımın uç noktasında balon bir an durur.',
+      'Fitilli balonu en kalabalık yerde patlat.',
+      'Basılı tutup odak anını kullan: tek shuriken ile birçok balon.',
+      'Zırhlı balon iki vuruş ister, ilkini erken harca.'];
+    el('loseKick').textContent='SHURIKEN BİTTİ';
+    el('loseTitle').textContent='Az kaldı';
+    el('loseMsg').textContent=left+' balon kaldı. '+tips[(Math.random()*tips.length)|0];
+    setTimeout(()=>el('lose').classList.add('show'),420);
+  }
+}
+
+/* ================= ÇİZİM ================= */
+function draw(){
+  ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,cv.width,cv.height);
+  const sx=(Math.random()-.5)*shake, sy=(Math.random()-.5)*shake;
+  ctx.setTransform(scale,0,0,scale, offX+sx*scale, offY+sy*scale);
+
+  drawSky(); drawInkHills(); drawGarden(); drawProps(); drawShadows();
+
+  const items=[];
+  const rows=[...new Set(balloons.filter(b=>!b.onWheel).map(b=>b.z))].sort((a,b)=>b-a);
+  for(const z of rows) items.push({z:z+40, fn:()=>drawFrame(z)});
+  if(level && level.wheel) items.push({z:level.wheel.z+30, fn:drawWheel});
+  for(const o of screens) items.push({z:o.z, fn:()=>drawScreen(o)});
+  for(const pr of pairs) if(linkSeg(pr)||(pr.a.alive&&pr.b.alive))
+    items.push({z:pr.a.z+2, fn:()=>{ if(pr.a.alive&&pr.b.alive) drawLink(pr); }});
+  for(const b of balloons) if(b.alive) items.push({z:b.z, fn:()=>{ if(!b.onWheel&&!b.free) drawRope(b); drawBalloon(b); }});
+  for(const s of stuck) items.push({z:s.z, fn:()=>drawStuck(s)});
+  for(const p of parts) items.push({z:p.z, fn:()=>drawPart(p)});
+  for(const k of knives) items.push({z:k.z, fn:()=>drawKnife(k)});
+  for(const p of petals) items.push({z:p.z, fn:()=>drawPetal(p)});
+  items.sort((a,b)=>b.z-a.z);
+  for(const it of items) it.fn();
+
+  drawLanterns();
+  drawAbilityHUD();
+  drawVeranda();
+  if(slash) drawSlash();
+  if(focusMode) drawFocusPath();
+  if(aiming && !focusMode) drawAim();
+}
+
+function drawSky(){
+  const g=ctx.createLinearGradient(0,-40,0,CY+30);
+  for(const [s,c] of SKY) g.addColorStop(s,c);
+  ctx.fillStyle=g; ctx.fillRect(-40,-40,W+80,CY+70);
+  // batan güneş
+  const sunY=CY-46;
+  const r=ctx.createRadialGradient(CX+120,sunY,10,CX+120,sunY,300);
+  r.addColorStop(0,'rgba(255,238,196,.95)'); r.addColorStop(.4,'rgba(255,206,140,.35)');
+  r.addColorStop(1,'rgba(255,206,140,0)');
+  ctx.fillStyle=r; ctx.fillRect(0,0,W,CY+40);
+  ctx.fillStyle='rgba(255,246,214,.9)';
+  ctx.beginPath(); ctx.arc(CX+120,sunY,34,0,6.3); ctx.fill();
+}
+function drawInkHills(){
+  // uzak katman
+  ctx.fillStyle=INK_FAR;
+  ctx.beginPath(); ctx.moveTo(-40,CY+4);
+  ctx.quadraticCurveTo(90,CY-92,220,CY-24);
+  ctx.quadraticCurveTo(330,CY-120,470,CY-18);
+  ctx.quadraticCurveTo(600,CY-78,W+40,CY+4);
+  ctx.lineTo(W+40,CY+24); ctx.lineTo(-40,CY+24); ctx.fill();
+  // yakın katman + kiraz ağacı silüeti
+  ctx.fillStyle=INK_NEAR;
+  ctx.beginPath(); ctx.moveTo(-40,CY+12);
+  ctx.quadraticCurveTo(160,CY-40,380,CY+6);
+  ctx.quadraticCurveTo(560,CY-34,W+40,CY+12);
+  ctx.lineTo(W+40,CY+30); ctx.lineTo(-40,CY+30); ctx.fill();
+  inkTree(28, CY+12, .95);
+  inkTree(702, CY+8, .78);
+}
+function inkTree(x,y,s){
+  ctx.fillStyle=INK_NEAR;
+  ctx.beginPath(); ctx.moveTo(x-5*s,y);
+  ctx.quadraticCurveTo(x-3*s,y-46*s, x-12*s,y-78*s);
+  ctx.lineTo(x-4*s,y-80*s);
+  ctx.quadraticCurveTo(x+2*s,y-48*s, x+6*s,y); ctx.fill();
+  // dallar
+  ctx.strokeStyle=INK_NEAR; ctx.lineWidth=3*s; ctx.lineCap='round';
+  for(const [ax,ay] of [[-42,-104],[34,-112],[-16,-126],[52,-92]]){
+    ctx.beginPath(); ctx.moveTo(x-6*s,y-74*s);
+    ctx.quadraticCurveTo(x+ax*.45*s, y+ay*.7*s, x+ax*s, y+ay*s); ctx.stroke();
+  }
+  for(const [cx2,cy2,rr] of [[-40,-110,26],[30,-118,22],[-8,-134,20],[52,-96,17]]){
+    ctx.fillStyle='rgba(20,44,52,.72)';
+    ctx.beginPath(); ctx.arc(x+cx2*s, y+cy2*s, rr*s, 0,6.3); ctx.fill();
+  }
+}
+function drawGarden(){
+  // yosun zemin
+  const g=ctx.createLinearGradient(0,CY,0,H);
+  g.addColorStop(0,MOSS_A); g.addColorStop(.5,'#31513f'); g.addColorStop(1,MOSS_B);
+  ctx.fillStyle=g; ctx.fillRect(-40,CY,W+80,H-CY+40);
+  // taraklı çakıl yolu (merkezde, perspektifle daralır)
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(px(-215,300),py(GY,300)); ctx.lineTo(px(215,300),py(GY,300));
+  ctx.lineTo(px(215,2400),py(GY,2400)); ctx.lineTo(px(-215,2400),py(GY,2400));
+  ctx.closePath(); ctx.clip();
+  ctx.fillStyle=GRAVEL; ctx.globalAlpha=.34; ctx.fillRect(-40,CY-10,W+80,H); ctx.globalAlpha=1;
+  // tarak çizgileri: sabit z halkaları
+  ctx.strokeStyle='rgba(255,255,255,.16)'; ctx.lineWidth=2;
+  for(let z=320; z<2400; z+=95){
+    const y=py(GY,z);
+    ctx.beginPath(); ctx.moveTo(px(-225,z),y); ctx.lineTo(px(225,z),y); ctx.stroke();
+  }
+  ctx.strokeStyle='rgba(90,80,60,.14)'; ctx.lineWidth=3;
+  for(let x=-200;x<=200;x+=66){
+    ctx.beginPath(); ctx.moveTo(px(x,320),py(GY,320)); ctx.lineTo(px(x,2400),py(GY,2400)); ctx.stroke();
+  }
+  ctx.restore();
+  // basamak taşları
+  for(const [sx,sz] of [[-90,600],[110,780],[-70,1010],[60,1320]]){
+    const s=sc(sz);
+    ctx.fillStyle='rgba(15,28,26,.35)';
+    ctx.beginPath(); ctx.ellipse(px(sx,sz), py(GY,sz)+4*s, 44*s, 14*s, 0,0,6.3); ctx.fill();
+    ctx.fillStyle='#6d7566';
+    ctx.beginPath(); ctx.ellipse(px(sx,sz), py(GY,sz), 40*s, 13*s, 0,0,6.3); ctx.fill();
+    ctx.fillStyle='rgba(255,240,210,.18)';
+    ctx.beginPath(); ctx.ellipse(px(sx,sz), py(GY,sz)-3*s, 30*s, 7*s, 0,0,6.3); ctx.fill();
+  }
+  // yosun tümsekleri
+  for(const [mx,mz,ms] of [[-330,520,1],[350,640,.9],[-390,900,.8],[400,1150,.7]]){
+    const s=sc(mz)*ms;
+    ctx.fillStyle='#2f5142';
+    ctx.beginPath(); ctx.ellipse(px(mx,mz),py(GY,mz),90*s,30*s,0,0,6.3); ctx.fill();
+    ctx.fillStyle='rgba(120,180,120,.18)';
+    ctx.beginPath(); ctx.ellipse(px(mx,mz),py(GY,mz)-8*s,64*s,16*s,0,0,6.3); ctx.fill();
+  }
+}
+/* taş fener ve su taşı — orta alanı temayla doldurur, atış koridorunu kapatmaz */
+const PROPS=[{t:'lantern',x:-268,z:700},{t:'basin',x:276,z:930},{t:'lantern',x:300,z:1500}];
+function drawProps(){
+  for(const o of [...PROPS].sort((a,b)=>b.z-a.z)){
+    const s=sc(o.z), X=px(o.x,o.z), Y=py(GY,o.z);
+    ctx.fillStyle='rgba(8,22,20,.34)';
+    ctx.beginPath(); ctx.ellipse(X,Y+4*s,(o.t==='lantern'?46:52)*s,15*s,0,0,6.3); ctx.fill();
+    if(o.t==='lantern'){
+      const st='#5c6459', lt='rgba(255,226,178,.16)';
+      ctx.fillStyle=st; ctx.fillRect(X-13*s, Y-96*s, 26*s, 96*s);          // ayak
+      ctx.fillRect(X-30*s, Y-116*s, 60*s, 22*s);                            // taban
+      ctx.fillStyle='#6b7366'; ctx.fillRect(X-26*s, Y-160*s, 52*s, 46*s);   // ateş kutusu
+      // ışık
+      const gg=ctx.createRadialGradient(X,Y-137*s,2*s,X,Y-137*s,60*s);
+      gg.addColorStop(0,'rgba(255,196,120,.55)'); gg.addColorStop(1,'rgba(255,196,120,0)');
+      ctx.fillStyle=gg; ctx.beginPath(); ctx.arc(X,Y-137*s,60*s,0,6.3); ctx.fill();
+      ctx.fillStyle='rgba(255,214,150,'+(.7+Math.sin(time*4+o.x)*.12)+')';
+      ctx.fillRect(X-12*s, Y-152*s, 24*s, 28*s);
+      ctx.fillStyle=st;
+      ctx.beginPath(); ctx.moveTo(X-42*s,Y-160*s); ctx.lineTo(X+42*s,Y-160*s);
+      ctx.lineTo(X+24*s,Y-186*s); ctx.lineTo(X-24*s,Y-186*s); ctx.closePath(); ctx.fill();
+      ctx.fillStyle=lt;
+      ctx.beginPath(); ctx.moveTo(X-42*s,Y-160*s); ctx.lineTo(X+42*s,Y-160*s);
+      ctx.lineTo(X+24*s,Y-186*s); ctx.lineTo(X-24*s,Y-186*s); ctx.closePath(); ctx.fill();
+      ctx.fillStyle=st;
+      ctx.beginPath(); ctx.arc(X,Y-192*s,9*s,0,6.3); ctx.fill();
+    } else {
+      ctx.fillStyle='#67705f';
+      ctx.beginPath(); ctx.ellipse(X,Y-24*s,52*s,26*s,0,0,6.3); ctx.fill();
+      ctx.fillStyle='#555d4d'; ctx.fillRect(X-46*s,Y-24*s,92*s,26*s);
+      ctx.fillStyle='#7f8a72';
+      ctx.beginPath(); ctx.ellipse(X,Y-30*s,46*s,20*s,0,0,6.3); ctx.fill();
+      ctx.fillStyle='rgba(180,225,235,.75)';
+      ctx.beginPath(); ctx.ellipse(X,Y-31*s,34*s,13*s,0,0,6.3); ctx.fill();
+      ctx.fillStyle='rgba(255,236,200,.5)';
+      ctx.beginPath(); ctx.ellipse(X-8*s,Y-33*s,12*s,4*s,0,0,6.3); ctx.fill();
+      // bambu oluk
+      ctx.strokeStyle='#8a7a44'; ctx.lineWidth=Math.max(2,9*s);
+      ctx.beginPath(); ctx.moveTo(X+56*s,Y-96*s); ctx.lineTo(X+14*s,Y-52*s); ctx.stroke();
+    }
+  }
+}
+function drawShadows(){
+  const list=[];
+  for(const b of balloons) if(b.alive&&!b.free) list.push({x:b.x,z:b.z,r:b.r*.85});
+  for(const k of knives) list.push({x:k.x,z:k.z,r:15});
+  list.sort((a,b)=>b.z-a.z);
+  for(const o of list){
+    const s=sc(o.z);
+    ctx.fillStyle='rgba(10,24,22,'+(.22*Math.min(1,s*1.4))+')';
+    ctx.beginPath(); ctx.ellipse(px(o.x,o.z), py(GY,o.z), o.r*s*1.1, o.r*s*.32, 0,0,6.3); ctx.fill();
+  }
+}
+/* bambu iskele */
+function drawFrame(z){
+  const s=sc(z), sh=clamp(1-(z-560)/2100,.5,1);
+  const X=470, ty=py(CEIL,z), by=py(GY,z);
+  const lx=px(-X,z), rx=px(X,z);
+  const pw=Math.max(2,15*s), bh=Math.max(3,17*s);
+  const C=(i)=>{ const c=BAMBOO[i]; const n=parseInt(c.slice(1),16);
+    const r=Math.round(((n>>16)&255)*sh), g=Math.round(((n>>8)&255)*sh), b=Math.round((n&255)*sh);
+    return 'rgb('+r+','+g+','+b+')'; };
+  // dikey bambular
+  for(const bx of [lx,rx]){
+    ctx.fillStyle=C(1); ctx.fillRect(bx-pw/2, ty, pw, by-ty);
+    ctx.fillStyle=C(0); ctx.fillRect(bx-pw/2, ty, pw*.42, by-ty);
+    ctx.fillStyle=C(2);
+    for(let y=ty+34*s; y<by; y+=64*s) ctx.fillRect(bx-pw/2-1, y, pw+2, Math.max(1.5,4*s));
+  }
+  // yatay bambu kiriş
+  ctx.fillStyle=C(1); ctx.fillRect(lx-pw/2, ty-bh, (rx-lx)+pw, bh);
+  ctx.fillStyle=C(0); ctx.fillRect(lx-pw/2, ty-bh, (rx-lx)+pw, bh*.38);
+  ctx.fillStyle='rgba(255,208,150,'+(.30*sh)+')'; ctx.fillRect(lx-pw/2, ty-bh, (rx-lx)+pw, Math.max(1,2.5*s));
+  ctx.fillStyle=C(2);
+  for(let x=-X+120;x<X;x+=190){ const xx=px(x,z);
+    ctx.fillRect(xx, ty-bh-1, Math.max(1.5,4*s), bh+2); }
+  // ip bağlar
+  ctx.strokeStyle='rgba(60,44,26,'+(.55*sh)+')'; ctx.lineWidth=Math.max(1,3*s);
+  for(const bx of [lx,rx]){
+    for(let i=0;i<3;i++){ const y=ty-bh+bh*.2+i*bh*.3;
+      ctx.beginPath(); ctx.moveTo(bx-pw*.8,y); ctx.lineTo(bx+pw*.8,y); ctx.stroke(); }
+  }
+}
+function drawLanterns(){
+  for(const [lx,ph] of [[62,0],[658,2.1]]){
+    const sw=Math.sin(time*1.05+ph)*9 + wind.cur*26;
+    const ay=-10, by=232, bx=lx+sw;
+    ctx.strokeStyle='rgba(38,28,18,.8)'; ctx.lineWidth=3;
+    ctx.beginPath(); ctx.moveTo(lx,ay); ctx.quadraticCurveTo(lx+sw*.4,by*.5,bx,by-52); ctx.stroke();
+    const R=40, Hh=54;
+    const halo=ctx.createRadialGradient(bx,by,R*.5,bx,by,R*3.2);
+    halo.addColorStop(0,'rgba(255,190,116,.26)'); halo.addColorStop(1,'rgba(255,190,116,0)');
+    ctx.fillStyle=halo; ctx.beginPath(); ctx.arc(bx,by,R*3.2,0,6.3); ctx.fill();
+    const g=ctx.createLinearGradient(bx-R,0,bx+R,0);
+    g.addColorStop(0,'#a85a26'); g.addColorStop(.32,'#ffcf90'); g.addColorStop(.6,'#f7bd78'); g.addColorStop(1,'#8c4a1e');
+    ctx.fillStyle=g;
+    ctx.beginPath(); ctx.ellipse(bx,by,R,Hh,0,0,6.3); ctx.fill();
+    ctx.strokeStyle='rgba(110,54,22,.32)'; ctx.lineWidth=2;
+    for(let i=-2;i<=2;i++){ const yy=by+i*Hh*.33, w=R*Math.sqrt(Math.max(.04,1-Math.pow(i*.33,2)));
+      ctx.beginPath(); ctx.moveTo(bx-w,yy); ctx.lineTo(bx+w,yy); ctx.stroke(); }
+    ctx.fillStyle='#2f2118';
+    ctx.fillRect(bx-R*.44,by-Hh-4,R*.88,8);
+    ctx.fillRect(bx-R*.44,by+Hh-4,R*.88,8);
+    ctx.fillStyle='#c8402f'; ctx.font='700 26px "Shippori Mincho", serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText('忍', bx, by);
+    ctx.textAlign='left'; ctx.textBaseline='alphabetic';
+    ctx.strokeStyle='#c8402f'; ctx.lineWidth=3;
+    ctx.beginPath(); ctx.moveTo(bx,by+Hh+4); ctx.lineTo(bx+Math.sin(time*2+ph)*6, by+Hh+30); ctx.stroke();
+  }
+}
+function drawScreen(o){
+  const s=sc(o.z);
+  const x1=px(o.x-o.w/2,o.z), x2=px(o.x+o.w/2,o.z);
+  const y1=py(o.y,o.z), y2=py(o.y+o.h,o.z);
+  // arkadan sızan sıcak ışık
+  const g=ctx.createLinearGradient(0,y1,0,y2);
+  g.addColorStop(0,'rgba(247,229,193,.93)'); g.addColorStop(.55,'rgba(238,214,175,.9)');
+  g.addColorStop(1,'rgba(206,180,142,.92)');
+  ctx.fillStyle=g; ctx.fillRect(x1,y1,x2-x1,y2-y1);
+  // kâğıt dokusu: yatay lif
+  ctx.strokeStyle='rgba(180,150,110,.16)'; ctx.lineWidth=Math.max(.6,1.2*s);
+  for(let y=y1+6*s; y<y2; y+=9*s){ ctx.beginPath(); ctx.moveTo(x1,y); ctx.lineTo(x2,y); ctx.stroke(); }
+  // bambu kafes
+  ctx.strokeStyle='#6d5f31'; ctx.lineWidth=Math.max(1.5,7*s);
+  ctx.strokeRect(x1,y1,x2-x1,y2-y1);
+  ctx.lineWidth=Math.max(1,4*s);
+  for(let i=1;i<4;i++){ const xx=x1+(x2-x1)*i/4;
+    ctx.beginPath(); ctx.moveTo(xx,y1); ctx.lineTo(xx,y2); ctx.stroke(); }
+  for(let i=1;i<3;i++){ const yy=y1+(y2-y1)*i/3;
+    ctx.beginPath(); ctx.moveTo(x1,yy); ctx.lineTo(x2,yy); ctx.stroke(); }
+  // isabet titremesi
+  if(o.hit>0){
+    ctx.strokeStyle='rgba(200,64,47,'+(o.hit*.9)+')'; ctx.lineWidth=Math.max(2,9*s)*o.hit;
+    ctx.strokeRect(x1,y1,x2-x1,y2-y1);
+    o.hit=Math.max(0,o.hit-.03);
+  }
+}
+function drawWheel(){
+  const wh=level.wheel, z=wh.z, s=sc(z);
+  const cx=px(wh.cx,z), cy=py(wh.cy,z), R=wh.r*s;
+  ctx.save();
+  ctx.translate(cx,cy); ctx.rotate(wheelPhase);
+  // dış çember
+  ctx.strokeStyle='#8a7838'; ctx.lineWidth=Math.max(3,16*s);
+  ctx.beginPath(); ctx.arc(0,0,R,0,6.3); ctx.stroke();
+  ctx.strokeStyle='#cbb96f'; ctx.lineWidth=Math.max(1.5,6*s);
+  ctx.beginPath(); ctx.arc(0,0,R-5*s,0,6.3); ctx.stroke();
+  // parmaklıklar
+  ctx.strokeStyle='#a89347'; ctx.lineWidth=Math.max(2,9*s);
+  for(let i=0;i<8;i++){ const a=i*Math.PI/4;
+    ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(Math.cos(a)*R,Math.sin(a)*R); ctx.stroke(); }
+  ctx.fillStyle='#6d5a28';
+  ctx.beginPath(); ctx.arc(0,0,Math.max(4,26*s),0,6.3); ctx.fill();
+  ctx.fillStyle='#c8402f';
+  ctx.beginPath(); ctx.arc(0,0,Math.max(2,12*s),0,6.3); ctx.fill();
+  ctx.restore();
+  // direk
+  ctx.fillStyle='#7d6a30';
+  ctx.fillRect(cx-Math.max(2,12*s), cy, Math.max(4,24*s), py(GY,z)-cy);
+}
+function drawRope(b){
+  const s=sc(b.z);
+  ctx.strokeStyle='rgba(224,206,172,'+clamp(.3+s*.4,.3,.72)+')';
+  ctx.lineWidth=Math.max(1,3.2*s); ctx.lineCap='round';
+  const ax=px(b.ax,b.z), ay=py(CEIL,b.z), bx=px(b.x,b.z), by=py(b.y-b.r*.9,b.z);
+  ctx.beginPath(); ctx.moveTo(ax,ay);
+  ctx.quadraticCurveTo((ax+bx)/2+wind.cur*14*s,(ay+by)/2+8*s,bx,by); ctx.stroke();
+}
+/* Bağlı çiftin kırmızı kordonu: balonlardan farklı renk, çünkü hedef O.
+   Gevşedikçe sarkar, gerildikçe düzleşir — vurulabilirliği gözle okunur. */
+function drawLink(pr){
+  const a=pr.a, c=pr.b, s=sc(a.z);
+  const d=Math.hypot(c.x-a.x,c.y-a.y);
+  const sag=(clamp((pr.len-d)/pr.len,0,1)*52+9)*s;
+  const ax=px(a.x,a.z), ay=py(a.y,a.z), bx=px(c.x,c.z), by=py(c.y,c.z);
+  const mx=(ax+bx)/2, my=(ay+by)/2+sag;
+  ctx.lineCap='round';
+  ctx.strokeStyle='rgba(12,26,30,.30)'; ctx.lineWidth=Math.max(2,7.4*s);
+  ctx.beginPath(); ctx.moveTo(ax,ay); ctx.quadraticCurveTo(mx,my+2*s,bx,by); ctx.stroke();
+  ctx.strokeStyle='#cf4a44'; ctx.lineWidth=Math.max(1.5,4.6*s);
+  ctx.beginPath(); ctx.moveTo(ax,ay); ctx.quadraticCurveTo(mx,my,bx,by); ctx.stroke();
+  ctx.strokeStyle='rgba(255,206,180,.55)'; ctx.lineWidth=Math.max(1,1.6*s);
+  ctx.beginPath(); ctx.moveTo(ax,ay); ctx.quadraticCurveTo(mx,my-1.6*s,bx,by); ctx.stroke();
+  ctx.fillStyle='#f2dcae';
+  for(const P of [[ax,ay],[bx,by]]){
+    ctx.beginPath(); ctx.arc(P[0],P[1],Math.max(1.6,4.2*s),0,6.3); ctx.fill(); }
+}
+function drawBalloon(b){
+  const s=sc(b.z), R=b.r*s, wob=Math.sin(b.wob)*.022;
+  const X=px(b.x,b.z), Y=py(b.y,b.z);
+  ctx.save(); ctx.translate(X,Y);
+  ctx.rotate((b.onWheel?0:b.ang*.5)+wob);
+  const rx=R*.87*(1+wob*1.6), ry=R*(1-wob*1.2);
+  // içten ışıklı fener hissi
+  const halo=ctx.createRadialGradient(0,0,rx*.4,0,0,rx*2.1);
+  halo.addColorStop(0,'rgba(255,220,170,.22)'); halo.addColorStop(1,'rgba(255,220,170,0)');
+  ctx.fillStyle=halo; ctx.beginPath(); ctx.arc(0,0,rx*2.1,0,6.3); ctx.fill();
+  const g=ctx.createRadialGradient(-rx*.28,-ry*.34,rx*.08,0,ry*.15,rx*1.5);
+  g.addColorStop(0,b.col.g); g.addColorStop(.32,b.col.c); g.addColorStop(1,b.col.d);
+  ctx.fillStyle=g; ctx.beginPath(); ctx.ellipse(0,0,rx,ry,0,0,6.3); ctx.fill();
+  // alacakaranlık kenar ışığı
+  ctx.strokeStyle='rgba(255,214,160,.55)'; ctx.lineWidth=Math.max(1,2.6*s);
+  ctx.beginPath(); ctx.ellipse(-rx*.06,-ry*.05,rx*.98,ry*.98,0,-2.5,.35); ctx.stroke();
+  ctx.strokeStyle='rgba(10,24,28,.28)'; ctx.lineWidth=Math.max(1,2*s);
+  ctx.beginPath(); ctx.ellipse(0,0,rx,ry,0,0,6.3); ctx.stroke();
+  ctx.fillStyle='rgba(255,246,225,.5)';
+  ctx.beginPath(); ctx.ellipse(-rx*.32,-ry*.36,rx*.17,ry*.26,-.5,0,6.3); ctx.fill();
+
+  if(b.type==='armor' && b.hp>1){
+    // Balonu TAMAMEN örten demir kabuk. Renk görünmüyor: "bu farklı" mesajı net.
+    const g2=ctx.createRadialGradient(-rx*.34,-ry*.4,rx*.1,0,0,rx*1.25);
+    g2.addColorStop(0,'#9aa6ae'); g2.addColorStop(.45,'#68737c');
+    g2.addColorStop(1,'#39424a');
+    ctx.fillStyle=g2; ctx.beginPath(); ctx.ellipse(0,0,rx*1.04,ry*1.04,0,0,6.3); ctx.fill();
+    ctx.strokeStyle='rgba(20,26,31,.65)'; ctx.lineWidth=Math.max(1.5,4*s);
+    ctx.beginPath(); ctx.ellipse(0,0,rx*1.04,ry*1.04,0,0,6.3); ctx.stroke();
+    // perçinli bantlar
+    ctx.strokeStyle='rgba(28,34,40,.5)'; ctx.lineWidth=Math.max(1.5,6*s);
+    for(const a of [-.6,.15]){ ctx.beginPath();
+      ctx.ellipse(0,0,rx*1.02,ry*1.02,0,a-.5,a+.5); ctx.stroke(); }
+    ctx.fillStyle='rgba(190,204,214,.55)';
+    for(let i=0;i<6;i++){ const a=i*1.047;
+      ctx.beginPath(); ctx.arc(Math.cos(a)*rx*.78, Math.sin(a)*ry*.78, Math.max(1,3*s),0,6.3); ctx.fill(); }
+    ctx.fillStyle='rgba(255,246,225,.45)';
+    ctx.beginPath(); ctx.ellipse(-rx*.34,-ry*.4,rx*.2,ry*.24,-.5,0,6.3); ctx.fill();
+  }
+  if(b.type==='cage'){
+    // bambu parmaklık: boşluk dışında her yer kapalı
+    ctx.save(); ctx.rotate(-((b.onWheel?0:b.ang*.5)+wob));   // kafes balonla dönmesin
+    const R=Math.max(rx,ry)*1.16, g0=b.gapA-CAGE_GAP/2, g1=b.gapA+CAGE_GAP/2;
+    ctx.strokeStyle='#a89347'; ctx.lineWidth=Math.max(2,7*s);
+    ctx.beginPath(); ctx.arc(0,0,R,g1,g0+6.2832); ctx.stroke();
+    ctx.strokeStyle='#6d5f31'; ctx.lineWidth=Math.max(1.5,5*s);
+    for(let i=0;i<10;i++){
+      const a=g1+(g0+6.2832-g1)*(i/9);
+      ctx.beginPath(); ctx.moveTo(Math.cos(a)*R*.62, Math.sin(a)*R*.62);
+      ctx.lineTo(Math.cos(a)*R, Math.sin(a)*R); ctx.stroke();
+    }
+    // boşluğun ağzı yeşil işaretli — nereden gireceğin belli olsun
+    ctx.strokeStyle='rgba(120,230,150,.9)'; ctx.lineWidth=Math.max(2,5*s);
+    ctx.beginPath(); ctx.arc(0,0,R*1.1,g0,g1); ctx.stroke();
+    ctx.restore();
+  }
+  if(b.type==='gift'){
+    ctx.strokeStyle='rgba(255,214,74,.95)'; ctx.lineWidth=Math.max(2,6*s);
+    ctx.beginPath(); ctx.ellipse(0,0,rx*1.06,ry*1.06,0,0,6.3); ctx.stroke();
+    ctx.fillStyle='rgba(255,226,120,'+(.5+.3*Math.sin(time*5))+')';
+    ctx.font='900 '+(rx*.95)+'px "Zen Kaku Gothic New",sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText('+', 0, 0); ctx.textAlign='left'; ctx.textBaseline='alphabetic';
+  }
+  if(b.type==='bomb'){
+    ctx.fillStyle='rgba(24,20,18,.55)';
+    ctx.beginPath(); ctx.ellipse(0,0,rx*.99,ry*.99,0,0,6.3); ctx.fill();
+    // fitil
+    ctx.strokeStyle='#cbb96f'; ctx.lineWidth=Math.max(1.4,4*s);
+    ctx.beginPath(); ctx.moveTo(0,-ry);
+    ctx.quadraticCurveTo(rx*.35,-ry*1.4, rx*.18,-ry*1.75); ctx.stroke();
+    const fl=.6+Math.abs(Math.sin(time*11))*.5;
+    ctx.fillStyle='#ffd08a';
+    ctx.beginPath(); ctx.arc(rx*.18,-ry*1.78, 6*s*fl, 0,6.3); ctx.fill();
+    ctx.fillStyle='rgba(255,120,60,.6)';
+    ctx.beginPath(); ctx.arc(rx*.18,-ry*1.78, 12*s*fl, 0,6.3); ctx.fill();
+  }
+  if(b.type==='split'){
+    ctx.strokeStyle='rgba(255,246,225,.7)'; ctx.lineWidth=Math.max(1,3*s);
+    ctx.setLineDash([6*s,6*s]);
+    ctx.beginPath(); ctx.moveTo(0,-ry); ctx.lineTo(0,ry); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+  ctx.fillStyle=b.col.d;
+  ctx.beginPath(); ctx.moveTo(-6*s,ry*.95); ctx.lineTo(6*s,ry*.95); ctx.lineTo(0,ry*1.15); ctx.fill();
+  ctx.restore();
+
+  if(b.free){
+    const t=clamp(1-b.freeT/freeLim(b),0,1);
+    ctx.strokeStyle='rgba(200,64,47,'+(.55+.4*Math.sin(time*16))+')';
+    ctx.lineWidth=Math.max(2,5*s);
+    ctx.beginPath(); ctx.arc(X,Y,R*1.5,-1.57,-1.57+6.283*t); ctx.stroke();
+  }
+}
+/* --------- KUNAI: yaprak ağızlı, kordonlu, halkalı --------- */
+/* --------- SHURIKEN: altı uçlu, uçuş ekseninde döner ---------
+   Perspektif kamerada mermi +z'ye gittiği için yüzü hep bize bakar:
+   dönüş ekranda saf bir dönme olarak okunur, mesafeyle küçülür.     */
+function shurikenBody(k){
+  const R=34*k, r0=10*k;
+  ctx.beginPath();
+  for(let i=0;i<6;i++){
+    const a=i*Math.PI/3;
+    const back=a-0.52, tip=a-0.30, front=a+0.40;
+    ctx.moveTo(Math.cos(back)*r0*1.02, Math.sin(back)*r0*1.02);
+    ctx.lineTo(Math.cos(tip)*R, Math.sin(tip)*R);
+    ctx.quadraticCurveTo(Math.cos(a+0.16)*R*0.38, Math.sin(a+0.16)*R*0.38,
+                         Math.cos(front)*r0*1.20, Math.sin(front)*r0*1.20);
+    ctx.closePath();
+  }
+}
+function shuriken(k, rot, blur, squash){
+  const R=34*k, r0=10*k;
+  const sq = (squash===undefined) ? .88 : squash;
+  ctx.save();
+  ctx.scale(1, sq);                       // 1'e yakın = yüzü bize dönük, 0'a yakın = kenardan
+  /* Dönme bulanıklığı: üç ağır hayalet ekranda çamura dönüyordu.
+     İki ince hayalet + dönüş diskinin sıcak kenarı daha okunur. */
+  if(blur){
+    for(let i=1;i<=2;i++){
+      ctx.save(); ctx.rotate(rot-i*0.21);
+      ctx.globalAlpha=.13/i; ctx.fillStyle='#2a333c';
+      shurikenBody(k); ctx.fill(); ctx.restore();
+    }
+    ctx.globalAlpha=.16; ctx.strokeStyle='rgba(255,214,164,1)'; ctx.lineWidth=Math.max(.3,1.4*k);
+    ctx.beginPath(); ctx.arc(0,0,R*.97,0,6.3); ctx.stroke(); ctx.globalAlpha=1;
+  }
+  ctx.rotate(rot);
+  // gövde: karartılmış çelik + gün batımı kenar ışığı
+  const g=ctx.createLinearGradient(-R*.7,-R*.7,R*.6,R*.8);
+  g.addColorStop(0,'#2c343b'); g.addColorStop(.42,'#161c21');
+  g.addColorStop(.75,'#10151a'); g.addColorStop(1,'#080b0e');
+  ctx.fillStyle=g; shurikenBody(k); ctx.fill();
+  // tek yönlü ince gün batımı kenarı (üst-sol)
+  ctx.save(); ctx.beginPath();
+  ctx.moveTo(-R*1.3,-R*1.3); ctx.lineTo(R*1.3,-R*1.3); ctx.lineTo(-R*1.3,R*1.3); ctx.closePath(); ctx.clip();
+  ctx.strokeStyle='rgba(255,204,150,.34)'; ctx.lineWidth=Math.max(.5,1.1*k);
+  shurikenBody(k); ctx.stroke(); ctx.restore();
+  // uç parlamaları: küçük ve seyrek
+  ctx.fillStyle='rgba(226,238,246,.35)';
+  for(let i=0;i<6;i++){
+    const a=i*Math.PI/3-0.26;
+    ctx.beginPath();
+    ctx.moveTo(Math.cos(a)*R, Math.sin(a)*R);
+    ctx.lineTo(Math.cos(a-0.035)*R*.86, Math.sin(a-0.035)*R*.86);
+    ctx.lineTo(Math.cos(a+0.03)*R*.89, Math.sin(a+0.03)*R*.89);
+    ctx.closePath(); ctx.fill();
+  }
+  // göbek: kademeli halkalar
+  const h=ctx.createRadialGradient(-r0*.35,-r0*.35,r0*.1,0,0,r0*1.5);
+  h.addColorStop(0,'#262e35'); h.addColorStop(.62,'#141a1f'); h.addColorStop(1,'#0a0e11');
+  ctx.fillStyle=h; ctx.beginPath(); ctx.arc(0,0,r0*1.38,0,6.3); ctx.fill();
+  ctx.strokeStyle='rgba(140,158,172,.12)'; ctx.lineWidth=Math.max(.4,.8*k);
+  for(let i=1;i<=3;i++){ ctx.beginPath(); ctx.arc(0,0,r0*(.5+i*.28),0,6.3); ctx.stroke(); }
+  ctx.fillStyle='#05080a'; ctx.beginPath(); ctx.arc(0,0,r0*.36,0,6.3); ctx.fill();
+  ctx.strokeStyle='rgba(255,206,150,.22)'; ctx.lineWidth=Math.max(.4,.9*k);
+  ctx.beginPath(); ctx.arc(0,0,r0*.36,-2.5,-.5); ctx.stroke();
+  ctx.restore();
+  /* KENARDAN BAKIŞ — eskiden düz beyaz bir çubuktu.
+     İki hata vardı: (1) çizgi ctx.restore()'dan SONRA, yani DÖNMEYEN çerçevede
+     yatay çiziliyordu; gövde dönerken çizgi dönmüyor ve bıçağın olmadığı yere
+     beyaz bir sopa gibi taşıyordu — "ortası neden beyaz" bu. (2) kalınlıkları
+     Math.max(2, 7*k) gibi mutlak tabanlardaydı, uzakta küçülmüyordu; balon
+     16 px'ken shuriken beyaz bir çizgiye dönüşüyordu.
+
+     Yeni hâli dönüş diskini olduğu gibi anlatıyor: ortası KARANLIK (göbek),
+     uçlar parlak. Bütün ölçüler k ile küçülüyor, mutlak taban yok. */
+  if(sq < .5){
+    const halo = R * (.92 + .08 * Math.abs(Math.cos(rot * 3)));
+    const th   = Math.max(.35, R * sq * .34);          // disk kalınlığı, k ile küçülür
+    // uçlarda parlayan, merkeze doğru sönen iğ
+    const g2 = ctx.createLinearGradient(-halo, 0, halo, 0);
+    g2.addColorStop(0,   'rgba(255,236,200,0)');
+    g2.addColorStop(.10, 'rgba(255,244,214,.72)');
+    g2.addColorStop(.30, 'rgba(255,226,180,.16)');
+    g2.addColorStop(.50, 'rgba(255,226,180,.04)');     // GÖBEK: neredeyse şeffaf
+    g2.addColorStop(.70, 'rgba(255,226,180,.16)');
+    g2.addColorStop(.90, 'rgba(255,244,214,.72)');
+    g2.addColorStop(1,   'rgba(255,236,200,0)');
+    ctx.fillStyle = g2;
+    ctx.beginPath(); ctx.ellipse(0, 0, halo, th, 0, 0, 6.2832); ctx.fill();
+    // uç PARILTISI: uçlar yataydan geçerken keskin bir çakım
+    const fl = Math.pow(Math.abs(Math.cos(rot * 3)), 8);
+    if(fl > .05){
+      const g3 = ctx.createRadialGradient(0,0,0, 0,0, R*1.06);
+      g3.addColorStop(0,  'rgba(255,255,255,0)');
+      g3.addColorStop(.72,'rgba(255,246,224,' + (.10 * fl) + ')');
+      g3.addColorStop(1,  'rgba(255,236,196,' + (.62 * fl) + ')');
+      ctx.fillStyle = g3;
+      ctx.beginPath(); ctx.ellipse(0, 0, R*1.06, Math.max(.4, R*sq*.5), 0, 0, 6.2832); ctx.fill();
+    }
+    // göbeğin altına ince karanlık: disk hacimli dursun
+    ctx.strokeStyle = 'rgba(10,14,18,.5)'; ctx.lineWidth = Math.max(.3, th * .7);
+    ctx.beginPath(); ctx.moveTo(-R*.5, th*.9); ctx.lineTo(R*.5, th*.9); ctx.stroke();
+  }
+}
+/* Elin ekrandaki yeri — atış şöleni buradan çıkıyor. */
+const HAND_SX = px(HAND.x, NEAR), HAND_SY = py(HAND.y, NEAR);
+
+function drawKnife(k){
+  const s=sc(k.z), X=px(k.x,k.z), Y=py(k.y,k.z);
+
+  /* ATIŞ ŞÖLENİ — yalnızca görsel, yola dokunmuyor.
+     Nişan stilinde shuriken dokunulan pikselde doğuyor: ekranda hiç yol
+     almıyor, sadece küçülüyor. Nişan doğru ama atış "fırlatma" gibi
+     hissettirmiyordu. Fizik ışında kalsın diye YOLA dokunmuyoruz; elden
+     çıkan izi VFX olarak çiziyoruz. Hem tam dokunduğun yere gidiyor, hem de
+     bir şey fırlatmış oluyorsun. */
+  if(k.t < .17){
+    const f = 1 - k.t / .17, e = f * f * f;            // sert sönüm: "şak" hissi
+    const ux = X - HAND_SX, uy = Y - HAND_SY, ul = Math.hypot(ux, uy) || 1;
+    const nx = -uy / ul, ny = ux / ul;
+    const w0 = 30 * e, w1 = Math.max(1.5, 9 * s * e);  // elde geniş, bıçakta dar
+    // elden bıçağa daralan bir savurma dilimi
+    const g = ctx.createLinearGradient(HAND_SX, HAND_SY, X, Y);
+    g.addColorStop(0,   'rgba(255,208,150,0)');
+    g.addColorStop(.45, 'rgba(255,228,184,' + (.16 * e) + ')');
+    g.addColorStop(1,   'rgba(255,250,232,' + (.58 * e) + ')');
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.moveTo(HAND_SX + nx * w0, HAND_SY + ny * w0);
+    ctx.lineTo(X + nx * w1, Y + ny * w1);
+    ctx.lineTo(X - nx * w1, Y - ny * w1);
+    ctx.lineTo(HAND_SX - nx * w0, HAND_SY - ny * w0);
+    ctx.closePath(); ctx.fill();
+    // elin üstünde kısa bir parlama: shuriken oradan çıkmış gibi
+    const rr = 64 * e + 8;
+    const fg = ctx.createRadialGradient(HAND_SX, HAND_SY, 0, HAND_SX, HAND_SY, rr);
+    fg.addColorStop(0, 'rgba(255,242,212,' + (.42 * e) + ')');
+    fg.addColorStop(1, 'rgba(255,214,160,0)');
+    ctx.fillStyle = fg;
+    ctx.beginPath(); ctx.arc(HAND_SX, HAND_SY, rr, 0, 6.2832); ctx.fill();
+  }
+
+  /* İz: uçta shurikenle aynı kalınlıkta, kuyruğa doğru inceliyor. */
+  if(k.trail.length > 1){
+    for(let i = 1; i < k.trail.length; i++){
+      const a = i / k.trail.length, p0 = k.trail[i-1], p1 = k.trail[i];
+      ctx.strokeStyle = 'rgba(255,230,196,' + (.34 * a) + ')';
+      ctx.lineWidth = Math.max(.5, 5.5 * s * a); ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(px(p0.x,p0.z), py(p0.y,p0.z)); ctx.lineTo(px(p1.x,p1.z), py(p1.y,p1.z));
+      ctx.stroke();
+    }
+    const lp = k.trail[k.trail.length-1];
+    ctx.strokeStyle = 'rgba(255,240,214,.42)'; ctx.lineWidth = Math.max(.6, 6 * s);
+    ctx.beginPath(); ctx.moveTo(px(lp.x,lp.z), py(lp.y,lp.z)); ctx.lineTo(X, Y); ctx.stroke();
+  }
+
+  /* Ardıl görüntüler: dönen bıçağın strobe hissi. */
+  for(let i = 1; i <= 2 && k.trail.length > i; i++){
+    const p = k.trail[k.trail.length - i];
+    ctx.save(); ctx.globalAlpha = .2 / i;
+    ctx.translate(px(p.x,p.z), py(p.y,p.z));
+    shuriken(sc(p.z) * 1.2, k.rot - i * .45, false, k.squash);
+    ctx.restore();
+  }
+  ctx.globalAlpha = 1;
+
+  ctx.save(); ctx.translate(X,Y);
+  /* ÇİZİM ÖLÇEĞİ 1.75 -> 1.2.
+     Perspektif kanunu shuriken ve balonda AYNI (ikisi de sc(z)=F/z), yani
+     "uzakta küçülmüyor" hissi ölçek farkından değil MUTLAK BOYUTTAN geliyordu:
+     çizim yarıçapı 34*1.75 = 59.5 dünya birimi, levellerdeki balon yarıçapının
+     ortancası ise 36. Shuriken, vurduğu balondan 1.65 kat büyüktü — uzakta
+     balon 17 px'e inerken shuriken 31 px'te kalıyor ve göz bunu "küçülmedi"
+     diye okuyor. 1.2 ile çizim yarıçapı 41: ortanca balonla hemen hemen aynı.
+
+     ÇARPIŞMA KUTUSU (SHK_RX/RY) BİLEREK KÜÇÜLTÜLMEDİ. Ölçüldü (12 levellik
+     örneklem): kutuyu çizimle birlikte küçültmek zorluğu DÜZGÜN artırmıyor --
+     ODAK yeteneği kendi yarıçapını kullandığı için odak-ağırlıklı leveller
+     hiç etkilenmiyor (%100'de kalıyor), nişan-ağırlıklı leveller ise çöküyor
+     (%79 -> %14). Ortalama eğri sapması %32'den %46'ya çıkıyor. Yani kutu,
+     zorluk kolu değil; onu küçültmek dengeyi düzeltmez, dağıtır. */
+  shuriken(s*1.2, k.rot, true, k.squash+.04*Math.sin(k.t*9)); ctx.restore();
+}
+function drawStuck(s){
+  const k=sc(s.z), w=Math.sin(s.wob*16)*Math.max(0,.16-s.wob*.36);
+  ctx.save(); ctx.translate(px(s.x,s.z),py(s.y,s.z));
+  ctx.rotate(s.rot*.3+w); ctx.globalAlpha=.95*clamp(s.life/STUCK_FADE,0,1);
+  shuriken(k*1.2, s.rot*2.2, false, s.gnd?.15:.3); ctx.restore();   // saplanan da aynı ölçekte
+  ctx.globalAlpha=1;
+}
+function drawPart(p){
+  const s=sc(p.z), X=px(p.x,p.z), Y=py(p.y,p.z);
+  if(p.type==='ring'){
+    const t=1-p.life/(p.col==='#ffd08a'?.42:.3);
+    ctx.strokeStyle=(p.col==='#ffd08a'?'rgba(255,208,138,':'rgba(255,255,255,')+(.8*(1-t))+')';
+    ctx.lineWidth=(9*(1-t)+2)*s;
+    ctx.beginPath(); ctx.arc(X,Y,(p.r+t*(p.col==='#ffd08a'?230:80))*s,0,6.3); ctx.stroke(); return;
+  }
+  if(p.type==='rope'){
+    ctx.globalAlpha=Math.min(1,p.life); ctx.strokeStyle=p.col; ctx.lineWidth=Math.max(1,3*s);
+    ctx.beginPath(); ctx.moveTo(X,Y);
+    ctx.quadraticCurveTo(X+Math.sin(p.sway+time*7)*22*s, Y+p.len*.5*s,
+                         X+Math.sin(p.sway+time*5)*34*s, Y+p.len*.85*s);
+    ctx.stroke(); ctx.globalAlpha=1; return;
+  }
+  ctx.save(); ctx.translate(X,Y); ctx.rotate(p.rot);
+  ctx.globalAlpha=Math.min(1,p.life*2.2); ctx.fillStyle=p.col;
+  if(p.type==='shred'){ ctx.beginPath(); ctx.ellipse(0,0,p.w/2*s,p.h/2*s,0,0,6.3); ctx.fill(); }
+  else ctx.fillRect(-p.w/2*s,-p.h/2*s,p.w*s,p.h*s);
+  ctx.restore(); ctx.globalAlpha=1;
+}
+function drawPetal(p){
+  const s=sc(p.z);
+  ctx.globalAlpha=clamp(s*.55,.1,.5); ctx.fillStyle='#ffd9df';
+  ctx.save(); ctx.translate(px(p.x,p.z),py(p.y,p.z)); ctx.rotate(p.ph);
+  ctx.beginPath(); ctx.ellipse(0,0,p.sz*s*2.2,p.sz*s*1.05,0,0,6.3); ctx.fill();
+  ctx.restore(); ctx.globalAlpha=1;
+}
+/* ön plandaki veranda kenarı — "buradasın" çıpası */
+function drawVeranda(){
+  const vg=ctx.createLinearGradient(0,H-430,0,H-70);
+  vg.addColorStop(0,'rgba(8,20,20,0)'); vg.addColorStop(1,'rgba(8,20,20,.42)');
+  ctx.fillStyle=vg; ctx.fillRect(-40,H-430,W+80,380);
+  const y=H-96;
+  ctx.fillStyle='rgba(8,16,18,.35)'; ctx.fillRect(-40,y-20,W+80,24);
+  const g=ctx.createLinearGradient(0,y,0,H);
+  g.addColorStop(0,'#43342a'); g.addColorStop(.18,'#5b4535'); g.addColorStop(1,'#2c211a');
+  ctx.fillStyle=g; ctx.fillRect(-40,y,W+80,H-y+40);
+  ctx.fillStyle='rgba(255,214,160,.13)'; ctx.fillRect(-40,y,W+80,5);
+  ctx.strokeStyle='rgba(20,12,8,.4)'; ctx.lineWidth=2;
+  for(let x=-20;x<W+40;x+=88){ ctx.beginPath(); ctx.moveTo(x,y+5); ctx.lineTo(x,H); ctx.stroke(); }
+  // duran shurikenler
+  if(state==='play'){
+    const bob=Math.sin(time*2.4)*3;
+    ctx.save(); ctx.translate(W-126, y+10+bob);
+    ctx.globalAlpha=knivesLeft>0?1:.25; shuriken(1.85, time*.42, false, .52); ctx.restore();
+    ctx.globalAlpha=1;
+  }
+}
+function drawAbilityHUD(){
+  if(frenzyT>0){
+    const w=270, x=CX-w/2, y=250;
+    ctx.fillStyle='rgba(10,18,22,.6)'; roundRect(x-7,y-22,w+14,36,5); ctx.fill();
+    ctx.font='900 12px "Zen Kaku Gothic New",sans-serif'; ctx.textAlign='center';
+    ctx.fillStyle='#ffd7c8'; ctx.fillText('SAĞANAK — SINIRSIZ ATIŞ', CX, y-8);
+    ctx.textAlign='left';
+    ctx.fillStyle='rgba(243,232,214,.22)'; roundRect(x,y,w,8,4); ctx.fill();
+    ctx.fillStyle='#c8402f'; roundRect(x,y,w*(frenzyT/FRENZY_TIME),8,4); ctx.fill();
+  }
+  const n=twinShots;
+  if(n>0){
+    const lab='ÇİFTE';
+    ctx.font='900 13px "Zen Kaku Gothic New",sans-serif'; ctx.textAlign='center';
+    ctx.fillStyle='rgba(10,18,22,.6)';
+    const tw=ctx.measureText(lab+' ×'+n).width+26;
+    roundRect(CX-tw/2, 236, tw, 26, 4); ctx.fill();
+    ctx.fillStyle='#ffd7c8'; ctx.fillText(lab+' ×'+n, CX, 254);
+    ctx.textAlign='left';
+  }
+}
+function drawAim(){
+  if(!optAim||!aimPt) return;
+  const t=time*7;
+  ctx.strokeStyle='rgba(255,238,214,.9)'; ctx.lineWidth=2.5;
+  ctx.beginPath(); ctx.arc(aimPt.x,aimPt.y,20+Math.sin(t)*2,0,6.3); ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(aimPt.x-32,aimPt.y); ctx.lineTo(aimPt.x-25,aimPt.y);
+  ctx.moveTo(aimPt.x+25,aimPt.y); ctx.lineTo(aimPt.x+32,aimPt.y);
+  ctx.moveTo(aimPt.x,aimPt.y-32); ctx.lineTo(aimPt.x,aimPt.y-25);
+  ctx.moveTo(aimPt.x,aimPt.y+25); ctx.lineTo(aimPt.x,aimPt.y+32);
+  ctx.stroke();
+  if(optDrift && wind.on){
+    let z=null,best=1e9;
+    for(const b of balloons){ if(!b.alive) continue;
+      const d=Math.hypot(px(b.x,b.z)-aimPt.x, py(b.y,b.z)-aimPt.y);
+      if(d<best){best=d; z=b.z;} }
+    if(z===null) z=R1;
+    const dx=driftAt(z,wind.cur);
+    if(Math.abs(dx)>6){
+      ctx.strokeStyle='rgba(255,238,214,.4)'; ctx.setLineDash([5,7]); ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(aimPt.x,aimPt.y); ctx.lineTo(aimPt.x+dx,aimPt.y); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.strokeStyle='#c8402f'; ctx.lineWidth=3;
+      ctx.beginPath(); ctx.arc(aimPt.x+dx,aimPt.y,12,0,6.3); ctx.stroke();
+    }
+  }
+  // odak ipucu
+
+}
+function drawFocusPath(){
+  if(focusPath.length<1) return;
+  // mürekkep ve süre çubukları
+  const bw=250, bx=CX-bw/2, by=232;
+  ctx.fillStyle='rgba(10,18,22,.55)'; roundRect(bx-6,by-6,bw+12,34,5); ctx.fill();
+  ctx.fillStyle='rgba(243,232,214,.22)'; roundRect(bx,by,bw,9,4); ctx.fill();
+  ctx.fillStyle=focusInk>0?'#f3e8d6':'#c8402f';
+  roundRect(bx,by,bw*Math.max(0,focusInk/FOCUS_INK),9,4); ctx.fill();
+  ctx.fillStyle='rgba(243,232,214,.22)'; roundRect(bx,by+15,bw,7,3); ctx.fill();
+  ctx.fillStyle='#c8402f'; roundRect(bx,by+15,bw*Math.max(0,focusT/FOCUS_TIME),7,3); ctx.fill();
+  ctx.font='700 11px "Zen Kaku Gothic New",sans-serif'; ctx.textAlign='left';
+  ctx.fillStyle='rgba(243,232,214,.6)';
+  ctx.fillText(focusInk>0?'ÇİZGİ':'ÇİZGİ BİTTİ', bx, by-10);
+  ctx.textAlign='left';
+  ctx.strokeStyle='rgba(255,255,255,.28)'; ctx.lineWidth=26; ctx.lineCap='round'; ctx.lineJoin='round';
+  ctx.beginPath();
+  focusPath.forEach((p,i)=>{ i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y); });
+  if(aimPt && focusInk>0) ctx.lineTo(aimPt.x,aimPt.y);
+  ctx.stroke();
+  ctx.strokeStyle=focusInk>0?'#fff6ea':'#ffb3a6'; ctx.lineWidth=4; ctx.stroke();
+  if(focusEnd){   // mürekkep bittiği nokta
+    ctx.strokeStyle='#c8402f'; ctx.lineWidth=3;
+    ctx.beginPath(); ctx.arc(focusEnd.x,focusEnd.y,11,0,6.3); ctx.stroke();
+  }
+  // çizginin keseceği balonları işaretle
+  for(const b of balloons){
+    if(!b.alive) continue;
+    const bx=px(b.x,b.z), by=py(b.y,b.z), R=b.r*sc(b.z)+14;
+    let best=1e9;
+    for(let i=0;i<focusPath.length-1;i++) best=Math.min(best,segDist(bx,by,focusPath[i],focusPath[i+1]).d);
+    if(best<R){ ctx.strokeStyle='#c8402f'; ctx.lineWidth=3;
+      ctx.beginPath(); ctx.arc(bx,by,R*1.12,0,6.3); ctx.stroke(); }
+  }
+}
+/* Odak kesişi: sumi-e fırça darbesi.
+   Uçtan başlayıp arkada bırakılan, ortası kalın uçları incelen bir leke;
+   üstünde krem çekirdek, altında sıcak kızıl hâle. Sonra kuyruktan silinir. */
+function slashShape(u){ return Math.pow(Math.sin(Math.PI*clamp(u,0,1)), .45); }
+function slashBand(sl, from, to, wScale){
+  const pts=sl.samples.filter(q=>q.u>=from-1e-6 && q.u<=to+1e-6);
+  if(pts.length<2) return false;
+  const L=[],R=[];
+  for(let i=0;i<pts.length;i++){
+    const a=pts[Math.max(0,i-1)], b=pts[Math.min(pts.length-1,i+1)];
+    let nx=-(b.y-a.y), ny=(b.x-a.x);
+    const m=Math.hypot(nx,ny)||1; nx/=m; ny/=m;
+    // uçta sivrilsin: baş tarafta hızlı incelme
+    const lead=Math.min(1,(to-pts[i].u)/.055);
+    const tailF=Math.min(1,(pts[i].u-from)/.05);
+    const w=wScale*slashShape(pts[i].u)*lead*tailF;
+    L.push({x:pts[i].x+nx*w, y:pts[i].y+ny*w});
+    R.push({x:pts[i].x-nx*w, y:pts[i].y-ny*w});
+  }
+  ctx.beginPath(); ctx.moveTo(L[0].x,L[0].y);
+  for(let i=1;i<L.length;i++) ctx.lineTo(L[i].x,L[i].y);
+  for(let i=R.length-1;i>=0;i--) ctx.lineTo(R[i].x,R[i].y);
+  ctx.closePath(); return true;
+}
+function drawSlash(){
+  const p=clamp(slash.t/slash.dur,0,1);
+  const head=slash.head;
+  const tail=clamp((slash.t-slash.dur)/.6, 0, 1);   // kuyruktan silinme
+  const from=Math.min(tail, head-.02), fade=1-tail;
+
+  // 1) sıcak hâle
+  ctx.globalCompositeOperation='lighter';
+  if(slashBand(slash, from, head, 26)){ ctx.fillStyle='rgba(200,72,48,'+(.20*fade)+')'; ctx.fill(); }
+  if(slashBand(slash, from, head, 14)){ ctx.fillStyle='rgba(255,150,96,'+(.26*fade)+')'; ctx.fill(); }
+  ctx.globalCompositeOperation='source-over';
+  // 2) mürekkep gövde
+  if(slashBand(slash, from, head, 8.5)){ ctx.fillStyle='rgba(60,26,20,'+(.42*fade)+')'; ctx.fill(); }
+  // 3) krem çekirdek
+  if(slashBand(slash, from, head, 4.2)){ ctx.fillStyle='rgba(255,248,236,'+(.96*fade)+')'; ctx.fill(); }
+
+  // 4) baştaki shuriken + parlama
+  if(p<1){
+    const hp=slashPointAt(slash,head);
+    const fl=ctx.createRadialGradient(hp.x,hp.y,1,hp.x,hp.y,54);
+    fl.addColorStop(0,'rgba(255,246,225,.85)'); fl.addColorStop(.4,'rgba(255,190,130,.35)');
+    fl.addColorStop(1,'rgba(255,190,130,0)');
+    ctx.fillStyle=fl; ctx.beginPath(); ctx.arc(hp.x,hp.y,54,0,6.3); ctx.fill();
+    ctx.save(); ctx.translate(hp.x,hp.y); ctx.rotate(hp.ax);
+    shuriken(1.5, time*15, true, .32); ctx.restore();
+  }
+  // 5) kıvılcımlar
+  ctx.globalCompositeOperation='lighter';
+  for(const k of slash.sparks){
+    const a=Math.min(1,k.life/k.m);
+    ctx.strokeStyle='rgba(255,226,178,'+(.75*a)+')';
+    ctx.lineWidth=2.2*a; ctx.lineCap='round';
+    ctx.beginPath(); ctx.moveTo(k.x,k.y);
+    ctx.lineTo(k.x-k.vx*.022, k.y-k.vy*.022); ctx.stroke();
+  }
+  ctx.globalCompositeOperation='source-over';
+
+  // 6) her balonda dik kesik çizgisi
+  for(const h of slash.hits){
+    if(h.tp===null) continue;
+    const dt=slash.t-h.tp; if(dt>.26) continue;
+    const f=1-dt/.26, b=h.b;
+    const X=px(b.x,b.z), Y=py(b.y,b.z), R=(b.r*sc(b.z))*(1.5+ (1-f)*1.1);
+    const nx=Math.cos(h.ang+Math.PI/2), ny=Math.sin(h.ang+Math.PI/2);
+    ctx.strokeStyle='rgba(255,255,255,'+(.85*f)+')';
+    ctx.lineWidth=3.5*f+1; ctx.lineCap='round';
+    ctx.beginPath();
+    ctx.moveTo(X-nx*R, Y-ny*R); ctx.lineTo(X+nx*R, Y+ny*R); ctx.stroke();
+  }
+}
+function roundRect(x,y,w,h,r){
+  ctx.beginPath(); ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+}
+
+/* --------- döngü --------- */
+let last=performance.now(), hudT=0;
+/* DÖNGÜ KENDİNİ TOPARLAR.
+   Prototipte tek bir hata (bkz. showPicker/TypeError) rAF zincirini
+   kopardığı an oyun donuyordu: ekranda hiçbir şey olmuyor, oyuncu
+   uygulamayı kapatıyor. Yayında bunun olmaması için update/draw
+   try/catch içinde ve bir sonraki kare HER durumda isteniyor.
+   Aynı karede üst üste hata birikirse menüye dönüyoruz — donmuş bir
+   ekran yerine oynanabilir bir yer. */
+let loopErr = 0;
+function loop(now){
+  try{
+    let dt=(now-last)/1000; last=now; dt=Math.min(dt,1/24);
+    if(hitStop>0){ hitStop-=dt; dt*=.12; }
+    if(level) update(dt);
+    draw();
+    hudT+=dt; if(hudT>.12){ hudT=0; syncWind(); }
+    if(loopErr) loopErr=0;
+  }catch(e){
+    loopErr++;
+    if(loopErr===1){ console.error('kare hatasi:', e); try{ Analytics.error(e && e.message); }catch(x){} }
+    if(loopErr>12){ loopErr=0;
+      try{ knives=[]; parts=[]; slash=null; focusMode=false; timeScale=1; openMenu();
+           toast('Bir aksaklık oldu, menüye döndük'); }catch(e2){}
+    }
+  }
+  requestAnimationFrame(loop);
+}
+/* Döngü dışındaki hatalar da sessiz kalmasın. */
+window.addEventListener('error', e=>{ try{ console.error('hata:', e.message); }catch(x){} });
+window.addEventListener('unhandledrejection', e=>{ try{ console.error('soz reddi:', e.reason); }catch(x){} });
+
+/* --------- ANALİTİK ---------
+   Sözleşme Morph Jam'in analitik spec'iyle AYNI iskelette: kimlik
+   (install / session / attempt), monoton sıra numarası, sağlayıcı-bağımsız
+   kuyruk. Sebebi basit — analitik "kaç kişi indirdi" tablosu değil, ürün
+   kararlarını cevaplayan bir ölçüm. Balloon Dojo'da cevaplaması gereken şey
+   şu an tek ve çok net:
+
+     BOT ÖLÇÜMÜ BİR VEKİL. Hangi bölümde gerçek oyuncu düşüyor?
+
+   Bu veri gelince ertelenen eğri kararı (FOCUS_INK mı, plato mu) kendiliğinden
+   çözülür. O yüzden olay listesi kasten küçük: her olay bir soruya hizmet
+   ediyor, "her ihtimale karşı" veri toplamıyoruz.
+
+   TAŞIYICI SAĞLAYICI-BAĞIMSIZ. `window.BD_ANALYTICS = {url}` tanımlıysa
+   olaylar oraya toplu (batch) POST ediliyor; tanımlı değilse hiçbir yere
+   gitmiyor. GameAnalytics / PostHog / kendi ucumuz — hepsi bu tek `url`in
+   arkasında değişir, oyun kodu değişmez.
+
+   İnternet yoksa kuyruk localStorage'da bekliyor: oyuncunun ilk oturumu
+   (en değerli veri) uçakta oynadı diye kaybolmasın.                      */
+const Analytics = (()=>{
+  const KEY='kb_evq', MAX=200;
+  let seq=0, sessionId='', attemptId='', queue=[], sending=false;
+  try{ queue=JSON.parse(localStorage.getItem(KEY)||'[]'); }catch(e){ queue=[]; }
+  const uuid=()=>{ try{ return crypto.randomUUID(); }catch(e){}
+    return 'x-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,10); };
+  const save=()=>{ try{ localStorage.setItem(KEY, JSON.stringify(queue.slice(-MAX))); }catch(e){} };
+  const cfg=()=> (typeof window!=='undefined' && window.BD_ANALYTICS) || null;
+
+  function track(name, props){
+    const e = { event:name, install_id:playerId, session_id:sessionId,
+      seq:++seq, ts:Date.now(), v:GAME_VERSION, levels:LEVELS.length };
+    if(attemptId) e.attempt_id=attemptId;
+    Object.assign(e, props||{});
+    queue.push(e); save();
+    if(queue.length>=20) flush();
+  }
+  async function flush(useBeacon){
+    const c=cfg(); if(!c||!c.url||!queue.length||sending) return;
+    const batch=queue.slice(0,50);
+    try{
+      const body=JSON.stringify({ batch });
+      if(useBeacon && navigator.sendBeacon){
+        if(!navigator.sendBeacon(c.url, new Blob([body],{type:'application/json'}))) return;
+      } else {
+        sending=true;
+        const r=await fetch(c.url,{method:'POST',headers:{'content-type':'application/json'},body,keepalive:true});
+        sending=false;
+        if(!r.ok) return;                       // basarisizsa kuyrukta kalsin
+      }
+      queue=queue.slice(batch.length); save();
+    }catch(e){ sending=false; }                 // agsizsa kuyruk bekler
+  }
+  return {
+    start(){ sessionId=uuid(); track('session_start'); },
+    level(i, L){ attemptId=uuid();
+      track('level_start', { level:i+1, knives:L.knives, ability:L.focus|0,
+        badge:(L.name||autoBadge(L)), balloons:L.b.length }); },
+    result(i, won, o){ track('level_end', Object.assign({ level:i+1, won:!!won }, o||{}));
+      attemptId=''; },
+    ability(k){ track('ability_use', { ability:k }); },
+    quit(i){ if(attemptId) track('level_quit', { level:i+1 }); attemptId=''; },
+    error(msg){ track('client_error', { msg:String(msg).slice(0,180) }); },
+    flush
+  };
+})();
+document.addEventListener('visibilitychange', ()=>{ if(document.hidden) Analytics.flush(true); });
+window.addEventListener('pagehide', ()=>Analytics.flush(true));
+
+/* --------- LEVEL KAYNAĞI ---------
+   Gömülü LEVELS her zaman var: çevrimdışı, `file://` ile açılmış ve ilk kare
+   için gereken güvenli taban bu. Açılışta ayrıca `levels/levels.json`
+   çekiliyor; gelirse gömülü setin ÜZERİNE yazılıyor.
+
+   Bunun anlamı: YENİ BÖLÜM YAYINLAMAK İÇİN OYUNU YENİDEN PAKETLEMEK
+   GEREKMİYOR. Tek bir JSON dosyasını sunucuya koymak yeterli; açık olan
+   oyuncular bir sonraki açılışta yeni bölümleri görür.
+
+   Gelen set bozuksa (boş, balonsuz, bütçesiz) gömülü set korunuyor —
+   sessizce oynanamaz bir oyun açmaktansa eski setle devam etmek iyidir. */
+function levelsFromJSON(data){
+  const D = data.depths || { R0:620, R1:880, R2:1160, R3:1440 };
+  const z = v => (typeof v === 'string' ? D[v] : v);
+  return (data.levels||[]).map(L=>{
+    const o = { name:String(L.name||''), knives:L.knives|0, focus:L.ability|0,
+      wind: L.wind ? { base:+L.wind.base, gust:+L.wind.gust, period:+L.wind.period } : null,
+      rope: !!L.rope };
+    if(L.hint) o.hint = String(L.hint);
+    if(L.wheel) o.wheel = { z:z(L.wheel.z), cx:L.wheel.cx, cy:L.wheel.cy, r:L.wheel.r, speed:L.wheel.speed };
+    if(L.screens && L.screens.length)
+      o.screens = L.screens.map(t=>({ x:t.x, z:t.z, w:t.w, h:t.h, y:CEIL+t.yFromCeil }));
+    o.b = (L.balloons||[]).map(b=>{
+      const q = {};
+      if(b.wheelA !== undefined) q.wheelA = b.wheelA;
+      else { q.x = b.x; q.z = z(b.z); q.rope = b.rope; }
+      q.r = b.r;
+      if(b.type && b.type !== 'plain') q.t = b.type;
+      if(b.link !== undefined && b.link !== null) q.link = b.link|0;
+      return q;
+    });
+    return o;
+  });
+}
+async function loadRemoteLevels(){
+  try{
+    const res = await fetch('levels/levels.json', { cache:'no-cache' });
+    if(!res.ok) return;
+    const arr = levelsFromJSON(await res.json());
+    if(!arr.length || arr.some(L => !L.b || !L.b.length || !(L.knives > 0))) return;
+    if(arr.length === LEVELS.length && JSON.stringify(arr) === JSON.stringify(LEVELS)) return;
+    LEVELS.length = 0; LEVELS.push(...arr);
+    if(state === 'menu') buildGrid();
+    console.log('level seti sunucudan guncellendi: ' + LEVELS.length + ' bolum');
+  }catch(e){ /* cevrimdisi ya da dosyadan acilmis: gomulu set gecerli */ }
+}
+
+/* --------- menü --------- */
+function buildGrid(){
+  const g=el('grid'); g.innerHTML=''; let open=true;
+  LEVELS.forEach((L,i)=>{
+    const b=document.createElement('button');
+    const st=progress['l'+i]||0;
+    b.innerHTML='<span>'+(i+1)+'</span>'+(st?'<span class="s">'+'★'.repeat(st)+'</span>':'');
+    if(st) b.className='done'; else if(open){ b.className='next'; open=false; }
+    /* KİLİT: bir bölüm ancak öncekini bitirince açılır. Prototipte hepsi
+       açıktı; yayında ilerleme duygusunu taşıyan şey bu kilit. Test modu
+       açıkken kilit yok (bölüm denerken engel olmasın). */
+    const locked = !unlimited && i > 0 && !progress['l' + (i - 1)];
+    if(locked){ b.classList.add('lock'); b.innerHTML = '<span>' + (i+1) + '</span>'; }
+    b.onclick=()=>{ if(locked){ toast('Önce ' + i + '. bölümü bitir'); return; }
+                    closeAll(); loadLevel(i); };
+    g.appendChild(b);
+  });
+  /* Izgara kendi icinde kayiyor: acilista siradaki bolumu ortala, yoksa
+     40. bolumdeki oyuncu her seferinde elle asagi kaydirmak zorunda kalir.
+     scrollIntoView kullanmiyoruz -- o disaridaki perdeyi de kaydiriyor. */
+  const nx=g.querySelector('button.next') || g.querySelector('button.done:last-of-type');
+  if(nx) g.scrollTop=Math.max(0, nx.offsetTop - g.clientHeight/2 + nx.offsetHeight/2);
+}
+const closeAll=()=>['menu','win','lose','fhelp','pick'].forEach(i=>el(i).classList.remove('show'));
+function openMenu(){ closeAll(); buildGrid(); el('menu').classList.add('show'); state='menu'; }
+el('playBtn').onclick=()=>{ Snd.unlock(); let n=0;
+  for(let i=0;i<LEVELS.length;i++){ if(!progress['l'+i]){ n=i; break; } if(i===LEVELS.length-1) n=i; }
+  closeAll(); loadLevel(n); };
+el('menuBtn').onclick=openMenu;
+el('nextBtn').onclick=()=>{ closeAll(); loadLevel(levelIdx+1); };
+el('retryBtn').onclick=()=>{ closeAll(); loadLevel(levelIdx); };
+el('winMenu').onclick=openMenu; el('loseMenu').onclick=openMenu;
+el('fhelpBtn').onclick=()=>{ el('fhelp').classList.remove('show');
+  if(level && level.focus>0 && unlockedAbilities().length>1) showPicker();
+  else if(level&&level.hint) toast(level.hint,true); };
+function showPicker(){
+  /* setTimeout(showPicker,260) ile çağrılıyor: o 260ms içinde oyuncu menüye
+     dönüp yeteneksiz bir bölüme başlarsa open boş kalıyor ve open[0].k
+     render döngüsünü öldürüyordu. Koşulu çağrı anında değil BURADA doğrula. */
+  const open=unlockedAbilities();
+  if(!level || level.focus<=0 || open.length<2) return;
+  const list=el('pickList'); list.innerHTML='';
+  el('pickLvl').textContent=levelIdx+1;
+  if(!open.some(a=>a.k===ability)) ability=open[0].k;
+  for(const A of ABILITIES){
+    const locked=!open.includes(A);
+    const d=document.createElement('div');
+    d.className='abi'+(A.k===ability&&!locked?' on':'')+(locked?' lock':'');
+    d.innerHTML='<div class="ic">'+A.icon+'</div><div><div class="nm">'+A.name+
+      (locked?' · '+A.unlock+'. bölümde açılır':'')+'</div><div class="ds">'+A.desc+
+      '</div><div class="tp">'+A.tip+'</div></div>';
+    if(!locked) d.onclick=()=>{ ability=A.k; saveOpt(); showPicker(); };
+    list.appendChild(d);
+  }
+  el('pick').classList.add('show'); state='pick';
+}
+el('pickGo').onclick=()=>{ el('pick').classList.remove('show'); state='play';
+  syncHUD(); if(level&&level.hint) toast(level.hint,true); };
+el('focusPill').onclick=()=>{ Snd.unlock(); useAbility(); };
+el('sndBtn').onclick=()=>{ Snd.unlock(); el('sndBtn').textContent=Snd.toggle()?'♪':'✕'; };
+el('swAim').onclick=e=>{ optAim=!optAim; e.currentTarget.classList.toggle('on',optAim); saveOpt(); };
+el('swDrift').onclick=e=>{ optDrift=!optDrift; e.currentTarget.classList.toggle('on',optDrift); saveOpt(); };
+function syncSeg(){
+  el('seg').querySelectorAll('button').forEach(b=>b.classList.toggle('on', +b.dataset.i===throwStyle));
+}
+
+el('seg').querySelectorAll('button').forEach(b=>{ b.onclick=()=>{
+  throwStyle=+b.dataset.i; saveOpt(); syncSeg(); }; });
+syncSeg();
+/* Gizli geliştirici kapısı: sürüm etiketine 1.2 sn basılı tut. */
+(()=>{ const v=el('verTag'); if(!v) return; let t=null;
+  const open=()=>{ el('devRow').hidden=false; toast('Test modu görünür'); };
+  const down=()=>{ t=setTimeout(open,1200); }, up=()=>{ clearTimeout(t); };
+  v.addEventListener('pointerdown',down); v.addEventListener('pointerup',up);
+  v.addEventListener('pointerleave',up); v.addEventListener('pointercancel',up);
+  if(unlimited) el('devRow').hidden=false;      // acikken saklamayalim
+})();
+el('swInf').onclick=e=>{ unlimited=!unlimited; e.currentTarget.classList.toggle('on',unlimited);
+  saveOpt(); if(level) syncHUD(); };
+el('swInf').classList.toggle('on',unlimited);
+el('swAim').classList.toggle('on',optAim);
+el('swDrift').classList.toggle('on',optDrift);
+
+resize(); level=LEVELS[0]; balloons=[]; syncHUD(); buildGrid();
+Analytics.start();
+loadRemoteLevels();       // gomulu set zaten hazir, bu sadece uzerine yazar
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

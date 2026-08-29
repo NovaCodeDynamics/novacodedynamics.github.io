@@ -1,0 +1,10728 @@
+{
+ "_note": "Bu dosya Balloon Dojo levellerinin TEK kaynağıdır. Düzenledikten sonra: node tools/report.js",
+ "depths": {
+  "R0": 620,
+  "R1": 880,
+  "R2": 1160,
+  "R3": 1440
+ },
+ "levels": [
+  {
+   "id": 1,
+   "name": "",
+   "knives": 4,
+   "ability": 0,
+   "hint": "Dokunduğun yere shuriken gider. Balona dokun.",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -198,
+     "z": "R1",
+     "rope": 180,
+     "r": 50,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 395,
+     "r": 50,
+     "type": "plain"
+    },
+    {
+     "x": 198,
+     "z": "R1",
+     "rope": 250,
+     "r": 50,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "name": "Derinlik",
+   "knives": 6,
+   "ability": 0,
+   "hint": "Küçük görünen balon daha uzakta. Uzağı vurmak daha zor.",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -114,
+     "z": "R0",
+     "rope": 180,
+     "r": 48,
+     "type": "plain"
+    },
+    {
+     "x": 114,
+     "z": "R0",
+     "rope": 395,
+     "r": 48,
+     "type": "plain"
+    },
+    {
+     "x": -272,
+     "z": "R1",
+     "rope": 180,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 395,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": 272,
+     "z": "R1",
+     "rope": 250,
+     "r": 44,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "name": "",
+   "knives": 7,
+   "ability": 0,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": -136,
+     "z": "R1",
+     "rope": 200,
+     "r": 43,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 385,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 81,
+     "z": "R0",
+     "rope": 200,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": 272,
+     "z": "R1",
+     "rope": 385,
+     "r": 43,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "name": "",
+   "knives": 10,
+   "ability": 0,
+   "hint": "Fitilli balon patlayınca çevresindekileri de patlatır.",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": 55,
+     "z": "R1",
+     "rope": 215,
+     "r": 40,
+     "type": "bomb"
+    },
+    {
+     "x": -24,
+     "z": "R1",
+     "rope": 434,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -153,
+     "z": "R1",
+     "rope": 233,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -153,
+     "z": "R1",
+     "rope": 387,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -24,
+     "z": "R1",
+     "rope": 186,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -105,
+     "z": "R0",
+     "rope": 180,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": 105,
+     "z": "R0",
+     "rope": 395,
+     "r": 46,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "name": "",
+   "knives": 8,
+   "ability": 0,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -304,
+     "z": "R1",
+     "rope": 180,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -101,
+     "z": "R1",
+     "rope": 395,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 101,
+     "z": "R1",
+     "rope": 250,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 304,
+     "z": "R1",
+     "rope": 360,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 41,
+     "type": "plain"
+    },
+    {
+     "x": 361,
+     "z": "R2",
+     "rope": 200,
+     "r": 38,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "name": "",
+   "knives": 7,
+   "ability": 0,
+   "hint": "Rüzgâr shurikeni yana sürükler. Rüzgârın geldiği tarafa nişan al.",
+   "wind": {
+    "base": 0.28,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": 145,
+     "z": "R1",
+     "rope": 200,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": 40,
+     "z": "R1",
+     "rope": 420,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": -65,
+     "z": "R1",
+     "rope": 200,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": 40,
+     "z": "R1",
+     "rope": 360,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": -95,
+     "z": "R0",
+     "rope": 180,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": 95,
+     "z": "R0",
+     "rope": 395,
+     "r": 46,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "name": "",
+   "knives": 8,
+   "ability": 0,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -256,
+     "z": "R1",
+     "rope": 180,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 395,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": 256,
+     "z": "R1",
+     "rope": 250,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": -361,
+     "z": "R2",
+     "rope": 385,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 451,
+     "z": "R3",
+     "rope": 200,
+     "r": 37,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "name": "",
+   "knives": 10,
+   "ability": 0,
+   "hint": "Altın halkalı balon +2 shuriken verir. Uzakta ama değer.",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": 40,
+     "z": "R1",
+     "rope": 215,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -70,
+     "z": "R1",
+     "rope": 435,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -180,
+     "z": "R1",
+     "rope": 215,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -70,
+     "z": "R1",
+     "rope": 375,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 380,
+     "z": "R2",
+     "rope": 250,
+     "r": 34,
+     "type": "gift"
+    },
+    {
+     "x": -95,
+     "z": "R0",
+     "rope": 180,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": 95,
+     "z": "R0",
+     "rope": 395,
+     "r": 46,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "name": "",
+   "knives": 9,
+   "ability": 0,
+   "hint": "Zırhlı balonun demir kabuğu var: iki vuruş ister.",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -80,
+     "z": "R1",
+     "rope": 300,
+     "r": 48,
+     "type": "armor"
+    },
+    {
+     "x": -304,
+     "z": "R1",
+     "rope": 180,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -101,
+     "z": "R1",
+     "rope": 395,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 101,
+     "z": "R1",
+     "rope": 250,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 304,
+     "z": "R1",
+     "rope": 360,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 400,
+     "z": "R2",
+     "rope": 230,
+     "r": 34,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "name": "",
+   "knives": 15,
+   "ability": 0,
+   "hint": "",
+   "wind": {
+    "base": 0.32,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -160,
+     "z": "R1",
+     "rope": 260,
+     "r": 40,
+     "type": "armor"
+    },
+    {
+     "x": 430,
+     "z": "R3",
+     "rope": 215,
+     "r": 26,
+     "type": "gift"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -91,
+     "z": "R1",
+     "rope": 200,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 120,
+     "z": "R2",
+     "rope": 385,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 162,
+     "z": "R0",
+     "rope": 200,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -297,
+     "z": "R2",
+     "rope": 180,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 298,
+     "z": "R2",
+     "rope": 395,
+     "r": 34,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "name": "Odak",
+   "knives": 10,
+   "ability": 1,
+   "hint": "ODAK: ağır çekimde bir çizgi çiz, değdiğin balonlar patlar.",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -160,
+     "z": "R1",
+     "rope": 395,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 250,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 160,
+     "z": "R1",
+     "rope": 360,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 215,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -361,
+     "z": "R2",
+     "rope": 385,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R3",
+     "rope": 200,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 361,
+     "z": "R2",
+     "rope": 385,
+     "r": 32,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "name": "",
+   "knives": 12,
+   "ability": 2,
+   "hint": "",
+   "wind": {
+    "base": 0.38,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": 159,
+     "z": "R2",
+     "rope": 300,
+     "r": 36,
+     "type": "armor"
+    },
+    {
+     "x": -93,
+     "z": "R2",
+     "rope": 215,
+     "r": 30,
+     "type": "bomb"
+    },
+    {
+     "x": -226,
+     "z": "R2",
+     "rope": 435,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": -359,
+     "z": "R2",
+     "rope": 215,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": -226,
+     "z": "R2",
+     "rope": 375,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -150,
+     "z": "R3",
+     "rope": 200,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "x": 150,
+     "z": "R3",
+     "rope": 385,
+     "r": 26,
+     "type": "plain"
+    },
+    {
+     "x": 273,
+     "z": "R1",
+     "rope": 200,
+     "r": 32,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "name": "",
+   "knives": 9,
+   "ability": 1,
+   "hint": "Kafesli balonu ancak YEŞİL ağızdan geçen shuriken vurur.",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -40,
+     "z": "R1",
+     "rope": 295,
+     "r": 48,
+     "type": "cage"
+    },
+    {
+     "x": -304,
+     "z": "R1",
+     "rope": 180,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -101,
+     "z": "R1",
+     "rope": 395,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 101,
+     "z": "R1",
+     "rope": 250,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 304,
+     "z": "R1",
+     "rope": 360,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -361,
+     "z": "R2",
+     "rope": 385,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 361,
+     "z": "R2",
+     "rope": 200,
+     "r": 37,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 14,
+   "name": "",
+   "knives": 10,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": -160,
+     "z": "R1",
+     "rope": 395,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 250,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": 160,
+     "z": "R1",
+     "rope": 360,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 215,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": -105,
+     "z": "R0",
+     "rope": 180,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": 105,
+     "z": "R0",
+     "rope": 395,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": 410,
+     "z": "R2",
+     "rope": 240,
+     "r": 34,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 15,
+   "name": "",
+   "knives": 11,
+   "ability": 1,
+   "hint": "Çark döner. Balonu değil, geleceği yeri vur.",
+   "wind": null,
+   "rope": false,
+   "wheel": {
+    "z": "R1",
+    "cx": 0,
+    "cy": -100,
+    "r": 200,
+    "speed": 0.55
+   },
+   "balloons": [
+    {
+     "wheelA": 0,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.26,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.51,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.77,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.03,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 200,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 162,
+     "z": "R0",
+     "rope": 385,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 420,
+     "z": "R2",
+     "rope": 245,
+     "r": 31,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 16,
+   "name": "",
+   "knives": 10,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": 90,
+     "z": "R1",
+     "rope": 300,
+     "r": 46,
+     "type": "cage"
+    },
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -160,
+     "z": "R1",
+     "rope": 395,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 250,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 160,
+     "z": "R1",
+     "rope": 360,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 215,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 361,
+     "z": "R2",
+     "rope": 200,
+     "r": 37,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 17,
+   "name": "",
+   "knives": 9,
+   "ability": 1,
+   "hint": "Kaçak balon ipsiz doğar, tavana yaslanır ve gider. Önce onu vur.",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -270,
+     "z": "R1",
+     "rope": 300,
+     "r": 44,
+     "type": "drift"
+    },
+    {
+     "x": -198,
+     "z": "R1",
+     "rope": 180,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": -66,
+     "z": "R1",
+     "rope": 395,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": 66,
+     "z": "R1",
+     "rope": 250,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": 198,
+     "z": "R1",
+     "rope": 360,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": -361,
+     "z": "R2",
+     "rope": 385,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 451,
+     "z": "R3",
+     "rope": 200,
+     "r": 35,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 18,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.31,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -150,
+     "z": "R1",
+     "rope": 275,
+     "r": 41,
+     "type": "armor"
+    },
+    {
+     "x": 440,
+     "z": "R3",
+     "rope": 220,
+     "r": 27,
+     "type": "gift"
+    },
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 40,
+     "type": "cage"
+    },
+    {
+     "x": -107,
+     "z": "R1",
+     "rope": 395,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 107,
+     "z": "R1",
+     "rope": 250,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 360,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 200,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 162,
+     "z": "R0",
+     "rope": 385,
+     "r": 29,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 19,
+   "name": "",
+   "knives": 11,
+   "ability": 1,
+   "hint": "Kâğıt perde shurikeni yutar. Açını değiştir, etrafından dolaş.",
+   "wind": null,
+   "rope": false,
+   "screens": [
+    {
+     "x": 20,
+     "z": 810,
+     "w": 200,
+     "h": 140,
+     "yFromCeil": 240
+    }
+   ],
+   "balloons": [
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": -160,
+     "z": "R1",
+     "rope": 395,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 250,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": 160,
+     "z": "R1",
+     "rope": 360,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 215,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": -120,
+     "z": "R2",
+     "rope": 200,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -285,
+     "z": "R2",
+     "rope": 416,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -285,
+     "z": "R2",
+     "rope": 174,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 430,
+     "z": "R2",
+     "rope": 250,
+     "r": 34,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 20,
+   "name": "",
+   "knives": 17,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.34,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "screens": [
+    {
+     "x": -380,
+     "z": 810,
+     "w": 200,
+     "h": 140,
+     "yFromCeil": 220
+    },
+    {
+     "x": -320,
+     "z": 690,
+     "w": 235,
+     "h": 140,
+     "yFromCeil": 300
+    }
+   ],
+   "balloons": [
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 180,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -212,
+     "z": "R2",
+     "rope": 395,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 250,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 213,
+     "z": "R2",
+     "rope": 360,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 425,
+     "z": "R2",
+     "rope": 215,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -150,
+     "z": "R3",
+     "rope": 200,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "x": 150,
+     "z": "R3",
+     "rope": 385,
+     "r": 26,
+     "type": "plain"
+    },
+    {
+     "x": 273,
+     "z": "R1",
+     "rope": 200,
+     "r": 32,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 21,
+   "name": "",
+   "knives": 10,
+   "ability": 1,
+   "hint": "Kırmızı kordonu kes: bağlı iki balon birden patlar.",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -230,
+     "z": "R1",
+     "rope": 300,
+     "r": 42,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 60,
+     "z": "R1",
+     "rope": 300,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -256,
+     "z": "R1",
+     "rope": 180,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -85,
+     "z": "R1",
+     "rope": 395,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 85,
+     "z": "R1",
+     "rope": 250,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 256,
+     "z": "R1",
+     "rope": 360,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 420,
+     "z": "R2",
+     "rope": 250,
+     "r": 34,
+     "type": "gift"
+    },
+    {
+     "x": 0,
+     "z": "R0",
+     "rope": 180,
+     "r": 46,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 22,
+   "name": "",
+   "knives": 11,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.26,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "wheel": {
+    "z": "R1",
+    "cx": 0,
+    "cy": -110,
+    "r": 195,
+    "speed": 0.68
+   },
+   "balloons": [
+    {
+     "wheelA": 0.3,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.55,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.8,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.05,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.3,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 200,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 451,
+     "z": "R3",
+     "rope": 385,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 430,
+     "z": "R2",
+     "rope": 235,
+     "r": 31,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 23,
+   "name": "",
+   "knives": 11,
+   "ability": 1,
+   "hint": "İpi kesilen balon kaçar. Kaçarken vurursan +1 shuriken.",
+   "wind": null,
+   "rope": true,
+   "balloons": [
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -163,
+     "z": "R1",
+     "rope": 200,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -72,
+     "z": "R2",
+     "rope": 385,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 90,
+     "z": "R3",
+     "rope": 200,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 97,
+     "z": "R0",
+     "rope": 385,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 272,
+     "z": "R1",
+     "rope": 200,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -224,
+     "z": "R1",
+     "rope": 180,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 395,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 224,
+     "z": "R1",
+     "rope": 250,
+     "r": 40,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 24,
+   "name": "",
+   "knives": 12,
+   "ability": 2,
+   "hint": "",
+   "wind": {
+    "base": 0.34,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "wheel": {
+    "z": "R1",
+    "cx": 0,
+    "cy": -105,
+    "r": 190,
+    "speed": 0.72
+   },
+   "balloons": [
+    {
+     "wheelA": 0.5,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.75,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.25,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.5,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "x": -374,
+     "z": "R3",
+     "rope": 260,
+     "r": 40,
+     "type": "cage"
+    },
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 40,
+     "type": "cage"
+    },
+    {
+     "x": -150,
+     "z": "R3",
+     "rope": 200,
+     "r": 26,
+     "type": "plain"
+    },
+    {
+     "x": 150,
+     "z": "R3",
+     "rope": 385,
+     "r": 26,
+     "type": "plain"
+    },
+    {
+     "x": 273,
+     "z": "R1",
+     "rope": 200,
+     "r": 26,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 25,
+   "name": "",
+   "knives": 11,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.22,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "screens": [
+    {
+     "x": 380,
+     "z": 720,
+     "w": 170,
+     "h": 165,
+     "yFromCeil": 120
+    }
+   ],
+   "balloons": [
+    {
+     "x": -424,
+     "z": "R2",
+     "rope": 180,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -142,
+     "z": "R2",
+     "rope": 395,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 142,
+     "z": "R2",
+     "rope": 250,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 424,
+     "z": "R2",
+     "rope": 360,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -362,
+     "z": "R2",
+     "rope": 385,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -181,
+     "z": "R2",
+     "rope": 200,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 385,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "x": 181,
+     "z": "R2",
+     "rope": 200,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 362,
+     "z": "R2",
+     "rope": 385,
+     "r": 29,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 26,
+   "name": "",
+   "knives": 11,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "screens": [
+    {
+     "x": 20,
+     "z": 720,
+     "w": 235,
+     "h": 140,
+     "yFromCeil": 320
+    }
+   ],
+   "balloons": [
+    {
+     "x": 240,
+     "z": "R1",
+     "rope": 215,
+     "r": 39,
+     "type": "bomb"
+    },
+    {
+     "x": 157,
+     "z": "R1",
+     "rope": 434,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 23,
+     "z": "R1",
+     "rope": 233,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 23,
+     "z": "R1",
+     "rope": 387,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 157,
+     "z": "R1",
+     "rope": 186,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 41,
+     "type": "plain"
+    },
+    {
+     "x": -120,
+     "z": "R2",
+     "rope": 200,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 54,
+     "z": "R0",
+     "rope": 385,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 361,
+     "z": "R2",
+     "rope": 200,
+     "r": 41,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 27,
+   "name": "",
+   "knives": 10,
+   "ability": 1,
+   "hint": "Fırtına yön değiştirir. Sabit nişan tutmaz, ritmini bekle.",
+   "wind": {
+    "base": 0.3,
+    "gust": 0.34,
+    "period": 3.1
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -250,
+     "z": "R1",
+     "rope": 200,
+     "r": 42,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 50,
+     "z": "R1",
+     "rope": 370,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 335,
+     "z": "R2",
+     "rope": 165,
+     "r": 38,
+     "type": "bomb"
+    },
+    {
+     "x": 230,
+     "z": "R2",
+     "rope": 435,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 125,
+     "z": "R2",
+     "rope": 165,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 230,
+     "z": "R2",
+     "rope": 435,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -105,
+     "z": "R0",
+     "rope": 165,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": 105,
+     "z": "R0",
+     "rope": 435,
+     "r": 46,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 28,
+   "name": "",
+   "knives": 10,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -60,
+     "z": "R1",
+     "rope": 300,
+     "r": 45,
+     "type": "cage"
+    },
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 43,
+     "type": "plain"
+    },
+    {
+     "x": -160,
+     "z": "R1",
+     "rope": 395,
+     "r": 43,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 250,
+     "r": 43,
+     "type": "plain"
+    },
+    {
+     "x": 160,
+     "z": "R1",
+     "rope": 360,
+     "r": 43,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 215,
+     "r": 43,
+     "type": "plain"
+    },
+    {
+     "x": -95,
+     "z": "R0",
+     "rope": 180,
+     "r": 45,
+     "type": "plain"
+    },
+    {
+     "x": 95,
+     "z": "R0",
+     "rope": 395,
+     "r": 45,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 29,
+   "name": "",
+   "knives": 12,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.28,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": 110,
+     "z": "R1",
+     "rope": 290,
+     "r": 42,
+     "type": "cage"
+    },
+    {
+     "x": -220,
+     "z": "R1",
+     "rope": 255,
+     "r": 40,
+     "type": "armor"
+    },
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 40,
+     "type": "cage"
+    },
+    {
+     "x": -107,
+     "z": "R1",
+     "rope": 395,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 107,
+     "z": "R1",
+     "rope": 250,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 360,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 200,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 162,
+     "z": "R0",
+     "rope": 385,
+     "r": 30,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 30,
+   "name": "",
+   "knives": 13,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.14,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -239,
+     "z": "R2",
+     "rope": 285,
+     "r": 46,
+     "type": "cage"
+    },
+    {
+     "x": 231,
+     "z": "R2",
+     "rope": 195,
+     "r": 46,
+     "type": "armor"
+    },
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -142,
+     "z": "R2",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 142,
+     "z": "R2",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 425,
+     "z": "R2",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -121,
+     "z": "R2",
+     "rope": 200,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 121,
+     "z": "R2",
+     "rope": 385,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 273,
+     "z": "R1",
+     "rope": 200,
+     "r": 33,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 31,
+   "name": "",
+   "knives": 13,
+   "ability": 1,
+   "hint": "Bölünen balon patlayınca iki küçük doğurur. Üç vuruş eder.",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -40,
+     "z": "R1",
+     "rope": 300,
+     "r": 50,
+     "type": "split"
+    },
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -160,
+     "z": "R1",
+     "rope": 395,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 250,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 160,
+     "z": "R1",
+     "rope": 360,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 215,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 425,
+     "z": "R2",
+     "rope": 240,
+     "r": 34,
+     "type": "gift"
+    },
+    {
+     "x": -95,
+     "z": "R0",
+     "rope": 180,
+     "r": 46,
+     "type": "plain"
+    },
+    {
+     "x": 95,
+     "z": "R0",
+     "rope": 395,
+     "r": 46,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 32,
+   "name": "",
+   "knives": 12,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.32,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "wheel": {
+    "z": "R1",
+    "cx": 0,
+    "cy": -105,
+    "r": 195,
+    "speed": 0.62
+   },
+   "balloons": [
+    {
+     "wheelA": 0,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.26,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.51,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.77,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.03,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -320,
+     "z": "R2",
+     "rope": 265,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 430,
+     "z": "R2",
+     "rope": 195,
+     "r": 28,
+     "type": "gift"
+    },
+    {
+     "x": -152,
+     "z": "R0",
+     "rope": 180,
+     "r": 40,
+     "type": "cage"
+    },
+    {
+     "x": 0,
+     "z": "R0",
+     "rope": 395,
+     "r": 40,
+     "type": "cage"
+    },
+    {
+     "x": 152,
+     "z": "R0",
+     "rope": 250,
+     "r": 38,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 33,
+   "name": "",
+   "knives": 12,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.36,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "wheel": {
+    "z": "R2",
+    "cx": 0,
+    "cy": -100,
+    "r": 210,
+    "speed": 0.58
+   },
+   "balloons": [
+    {
+     "wheelA": 0.4,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.65,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.9,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.15,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.4,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -181,
+     "z": "R2",
+     "rope": 200,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R3",
+     "rope": 385,
+     "r": 27,
+     "type": "plain"
+    },
+    {
+     "x": 136,
+     "z": "R1",
+     "rope": 200,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 361,
+     "z": "R2",
+     "rope": 385,
+     "r": 30,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 34,
+   "name": "",
+   "knives": 16,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.31,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -70,
+     "z": "R1",
+     "rope": 295,
+     "r": 43,
+     "type": "split"
+    },
+    {
+     "x": 250,
+     "z": "R1",
+     "rope": 250,
+     "r": 39,
+     "type": "armor"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -181,
+     "z": "R2",
+     "rope": 200,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R3",
+     "rope": 385,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "x": 81,
+     "z": "R0",
+     "rope": 200,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 361,
+     "z": "R2",
+     "rope": 385,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -144,
+     "z": "R1",
+     "rope": 180,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 144,
+     "z": "R1",
+     "rope": 395,
+     "r": 37,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 35,
+   "name": "",
+   "knives": 11,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "screens": [
+    {
+     "x": 280,
+     "z": 810,
+     "w": 170,
+     "h": 140,
+     "yFromCeil": 180
+    }
+   ],
+   "balloons": [
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": -160,
+     "z": "R1",
+     "rope": 395,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 250,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": 160,
+     "z": "R1",
+     "rope": 360,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 215,
+     "r": 44,
+     "type": "plain"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 200,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 162,
+     "z": "R0",
+     "rope": 385,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -430,
+     "z": "R2",
+     "rope": 245,
+     "r": 32,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 36,
+   "name": "Çifte",
+   "knives": 12,
+   "ability": 1,
+   "hint": "ÇİFTE: üç atış boyunca her dokunuşta iki shuriken gider.",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -260,
+     "z": "R1",
+     "rope": 200,
+     "r": 42,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 20,
+     "z": "R1",
+     "rope": 355,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -170,
+     "z": "R2",
+     "rope": 395,
+     "r": 40,
+     "type": "plain",
+     "link": 3
+    },
+    {
+     "x": 230,
+     "z": "R2",
+     "rope": 235,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -150,
+     "z": "R3",
+     "rope": 200,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 54,
+     "z": "R0",
+     "rope": 385,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 451,
+     "z": "R3",
+     "rope": 200,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -112,
+     "z": "R1",
+     "rope": 180,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 112,
+     "z": "R1",
+     "rope": 395,
+     "r": 42,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 37,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.34,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -90,
+     "z": "R1",
+     "rope": 300,
+     "r": 39,
+     "type": "cage"
+    },
+    {
+     "x": 240,
+     "z": "R2",
+     "rope": 255,
+     "r": 35,
+     "type": "armor"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -181,
+     "z": "R2",
+     "rope": 200,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R3",
+     "rope": 385,
+     "r": 27,
+     "type": "plain"
+    },
+    {
+     "x": 81,
+     "z": "R0",
+     "rope": 200,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 361,
+     "z": "R2",
+     "rope": 385,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": -128,
+     "z": "R1",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 128,
+     "z": "R1",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 38,
+   "name": "",
+   "knives": 13,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.34,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "wheel": {
+    "z": "R1",
+    "cx": 0,
+    "cy": -105,
+    "r": 190,
+    "speed": 0.66
+   },
+   "balloons": [
+    {
+     "wheelA": 0.2,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.45,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.7,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.95,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.2,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -181,
+     "z": "R3",
+     "rope": 205,
+     "r": 29,
+     "type": "bomb"
+    },
+    {
+     "x": -312,
+     "z": "R3",
+     "rope": 425,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "x": -443,
+     "z": "R3",
+     "rope": 205,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "x": -312,
+     "z": "R3",
+     "rope": 365,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "x": -160,
+     "z": "R1",
+     "rope": 180,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 160,
+     "z": "R1",
+     "rope": 395,
+     "r": 33,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 39,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.33,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -60,
+     "z": "R1",
+     "rope": 300,
+     "r": 42,
+     "type": "split"
+    },
+    {
+     "x": 250,
+     "z": "R1",
+     "rope": 255,
+     "r": 40,
+     "type": "cage"
+    },
+    {
+     "x": -195,
+     "z": "R1",
+     "rope": 390,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -65,
+     "z": "R1",
+     "rope": 215,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 65,
+     "z": "R2",
+     "rope": 400,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 195,
+     "z": "R2",
+     "rope": 230,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R3",
+     "rope": 200,
+     "r": 31,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 40,
+   "name": "",
+   "knives": 12,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.26,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "screens": [
+    {
+     "x": 140,
+     "z": 810,
+     "w": 170,
+     "h": 140,
+     "yFromCeil": 260
+    },
+    {
+     "x": 420,
+     "z": 810,
+     "w": 170,
+     "h": 165,
+     "yFromCeil": 120
+    }
+   ],
+   "balloons": [
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 180,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "x": -142,
+     "z": "R2",
+     "rope": 395,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "x": 142,
+     "z": "R2",
+     "rope": 250,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "x": 425,
+     "z": "R2",
+     "rope": 360,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 26,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R3",
+     "rope": 200,
+     "r": 26,
+     "type": "plain"
+    },
+    {
+     "x": 273,
+     "z": "R1",
+     "rope": 385,
+     "r": 26,
+     "type": "plain"
+    },
+    {
+     "x": -536,
+     "z": "R3",
+     "rope": 300,
+     "r": 26,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 41,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -110,
+     "z": "R1",
+     "rope": 300,
+     "r": 43,
+     "type": "split"
+    },
+    {
+     "x": 200,
+     "z": "R1",
+     "rope": 250,
+     "r": 40,
+     "type": "cage"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -136,
+     "z": "R1",
+     "rope": 200,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 385,
+     "r": 29,
+     "type": "plain"
+    },
+    {
+     "x": 225,
+     "z": "R3",
+     "rope": 200,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 162,
+     "z": "R0",
+     "rope": 385,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -112,
+     "z": "R1",
+     "rope": 180,
+     "r": 40,
+     "type": "cage"
+    },
+    {
+     "x": 112,
+     "z": "R1",
+     "rope": 395,
+     "r": 37,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 42,
+   "name": "Sağanak",
+   "knives": 15,
+   "ability": 1,
+   "hint": "SAĞANAK: dört saniye boyunca attığın shurikenler bedava.",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -270,
+     "z": "R1",
+     "rope": 195,
+     "r": 39,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 10,
+     "z": "R1",
+     "rope": 360,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -200,
+     "z": "R2",
+     "rope": 400,
+     "r": 37,
+     "type": "plain",
+     "link": 3
+    },
+    {
+     "x": 250,
+     "z": "R2",
+     "rope": 225,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 120,
+     "z": "R1",
+     "rope": 290,
+     "r": 43,
+     "type": "split"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -120,
+     "z": "R2",
+     "rope": 200,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 150,
+     "z": "R3",
+     "rope": 385,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 272,
+     "z": "R1",
+     "rope": 200,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -120,
+     "z": "R0",
+     "rope": 175,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 150,
+     "z": "R0",
+     "rope": 330,
+     "r": 39,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 43,
+   "name": "",
+   "knives": 12,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "wheel": {
+    "z": "R1",
+    "cx": 0,
+    "cy": -105,
+    "r": 204,
+    "speed": 0.6
+   },
+   "balloons": [
+    {
+     "wheelA": 0.52,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.57,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.61,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.66,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.71,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.76,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 180,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -318,
+     "z": "R3",
+     "rope": 395,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -106,
+     "z": "R3",
+     "rope": 250,
+     "r": 37,
+     "type": "bomb"
+    },
+    {
+     "x": -503,
+     "z": "R3",
+     "rope": 257,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 44,
+   "name": "",
+   "knives": 13,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": 282,
+     "z": "R2",
+     "rope": 190,
+     "r": 36,
+     "type": "bomb"
+    },
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 180,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -331,
+     "z": "R2",
+     "rope": 395,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -236,
+     "z": "R2",
+     "rope": 250,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -142,
+     "z": "R2",
+     "rope": 360,
+     "r": 40,
+     "type": "armor"
+    },
+    {
+     "x": -47,
+     "z": "R2",
+     "rope": 215,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 47,
+     "z": "R2",
+     "rope": 430,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 142,
+     "z": "R2",
+     "rope": 180,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 236,
+     "z": "R2",
+     "rope": 395,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 371,
+     "z": "R2",
+     "rope": 250,
+     "r": 40,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 45,
+   "name": "",
+   "knives": 12,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -504,
+     "z": "R3",
+     "rope": 236,
+     "r": 30,
+     "type": "gift"
+    },
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 180,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -319,
+     "z": "R2",
+     "rope": 395,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -160,
+     "z": "R1",
+     "rope": 250,
+     "r": 34,
+     "type": "drift"
+    },
+    {
+     "x": -106,
+     "z": "R2",
+     "rope": 360,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 215,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 106,
+     "z": "R2",
+     "rope": 430,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 213,
+     "z": "R2",
+     "rope": 180,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 319,
+     "z": "R2",
+     "rope": 395,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 425,
+     "z": "R2",
+     "rope": 250,
+     "r": 37,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 46,
+   "name": "",
+   "knives": 12,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "screens": [
+    {
+     "x": -380,
+     "z": 810,
+     "w": 235,
+     "h": 140,
+     "yFromCeil": 120
+    }
+   ],
+   "balloons": [
+    {
+     "x": -256,
+     "z": "R1",
+     "rope": 235,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -199,
+     "z": "R1",
+     "rope": 415,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -142,
+     "z": "R1",
+     "rope": 235,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -85,
+     "z": "R1",
+     "rope": 415,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -28,
+     "z": "R1",
+     "rope": 235,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 28,
+     "z": "R1",
+     "rope": 415,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 85,
+     "z": "R1",
+     "rope": 235,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 142,
+     "z": "R1",
+     "rope": 415,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 199,
+     "z": "R1",
+     "rope": 235,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 256,
+     "z": "R1",
+     "rope": 415,
+     "r": 39,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 47,
+   "name": "",
+   "knives": 12,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -156,
+     "z": "R0",
+     "rope": 200,
+     "r": 37,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 23,
+     "z": "R0",
+     "rope": 360,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -234,
+     "z": "R2",
+     "rope": 340,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 306,
+     "z": "R2",
+     "rope": 235,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -361,
+     "z": "R2",
+     "rope": 180,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -217,
+     "z": "R2",
+     "rope": 435,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -54,
+     "z": "R1",
+     "rope": 250,
+     "r": 36,
+     "type": "drift"
+    },
+    {
+     "x": 72,
+     "z": "R2",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 217,
+     "z": "R2",
+     "rope": 215,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 361,
+     "z": "R2",
+     "rope": 430,
+     "r": 36,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 48,
+   "name": "",
+   "knives": 15,
+   "ability": 2,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0.26,
+    "period": 3.1
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": 29,
+     "z": "R1",
+     "rope": 180,
+     "r": 37,
+     "type": "cage"
+    },
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -262,
+     "z": "R1",
+     "rope": 395,
+     "r": 35,
+     "type": "armor"
+    },
+    {
+     "x": -204,
+     "z": "R1",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -145,
+     "z": "R1",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -87,
+     "z": "R1",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -29,
+     "z": "R1",
+     "rope": 430,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 87,
+     "z": "R1",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 145,
+     "z": "R1",
+     "rope": 250,
+     "r": 35,
+     "type": "bomb"
+    },
+    {
+     "x": 204,
+     "z": "R1",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 262,
+     "z": "R1",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -503,
+     "z": "R3",
+     "rope": 278,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 49,
+   "name": "",
+   "knives": 11,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.22,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": 216,
+     "z": "R2",
+     "rope": 190,
+     "r": 39,
+     "type": "bomb"
+    },
+    {
+     "x": 92,
+     "z": "R2",
+     "rope": 435,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -77,
+     "z": "R2",
+     "rope": 229,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -141,
+     "z": "R2",
+     "rope": 410,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -18,
+     "z": "R2",
+     "rope": 165,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 151,
+     "z": "R2",
+     "rope": 371,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -256,
+     "z": "R1",
+     "rope": 180,
+     "r": 41,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 395,
+     "r": 41,
+     "type": "plain"
+    },
+    {
+     "x": 256,
+     "z": "R1",
+     "rope": 250,
+     "r": 41,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 50,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 200,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -339,
+     "z": "R2",
+     "rope": 200,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -365,
+     "z": "R2",
+     "rope": 270,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -193,
+     "z": "R2",
+     "rope": 270,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -86,
+     "z": "R2",
+     "rope": 340,
+     "r": 37,
+     "type": "split"
+    },
+    {
+     "x": 86,
+     "z": "R2",
+     "rope": 340,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 193,
+     "z": "R2",
+     "rope": 410,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 365,
+     "z": "R2",
+     "rope": 355,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 339,
+     "z": "R2",
+     "rope": 435,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 425,
+     "z": "R2",
+     "rope": 435,
+     "r": 31,
+     "type": "armor"
+    }
+   ]
+  },
+  {
+   "id": 51,
+   "name": "",
+   "knives": 12,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "screens": [
+    {
+     "x": -400,
+     "z": 810,
+     "w": 170,
+     "h": 140,
+     "yFromCeil": 120
+    }
+   ],
+   "balloons": [
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -249,
+     "z": "R1",
+     "rope": 395,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -178,
+     "z": "R1",
+     "rope": 250,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -107,
+     "z": "R1",
+     "rope": 360,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -36,
+     "z": "R1",
+     "rope": 215,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 36,
+     "z": "R1",
+     "rope": 430,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 107,
+     "z": "R1",
+     "rope": 180,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 178,
+     "z": "R1",
+     "rope": 395,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 249,
+     "z": "R1",
+     "rope": 250,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 360,
+     "r": 40,
+     "type": "bomb"
+    }
+   ]
+  },
+  {
+   "id": 52,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -282,
+     "z": "R2",
+     "rope": 200,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -201,
+     "z": "R2",
+     "rope": 385,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -120,
+     "z": "R2",
+     "rope": 200,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -30,
+     "z": "R1",
+     "rope": 385,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 30,
+     "z": "R1",
+     "rope": 200,
+     "r": 33,
+     "type": "drift"
+    },
+    {
+     "x": 150,
+     "z": "R3",
+     "rope": 385,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 250,
+     "z": "R3",
+     "rope": 200,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 212,
+     "z": "R1",
+     "rope": 385,
+     "r": 36,
+     "type": "cage"
+    },
+    {
+     "x": -504,
+     "z": "R3",
+     "rope": 237,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 53,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -435,
+     "z": "R3",
+     "rope": 200,
+     "r": 34,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 64,
+     "z": "R3",
+     "rope": 360,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -258,
+     "z": "R2",
+     "rope": 200,
+     "r": 32,
+     "type": "bomb"
+    },
+    {
+     "x": -116,
+     "z": "R1",
+     "rope": 385,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": -52,
+     "z": "R2",
+     "rope": 200,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 39,
+     "z": "R1",
+     "rope": 385,
+     "r": 32,
+     "type": "drift"
+    },
+    {
+     "x": 155,
+     "z": "R2",
+     "rope": 200,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": 194,
+     "z": "R1",
+     "rope": 385,
+     "r": 35,
+     "type": "cage"
+    },
+    {
+     "x": 361,
+     "z": "R2",
+     "rope": 200,
+     "r": 32,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 54,
+   "name": "",
+   "knives": 12,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "wheel": {
+    "z": "R2",
+    "cx": 0,
+    "cy": -105,
+    "r": 195,
+    "speed": 0.57
+   },
+   "balloons": [
+    {
+     "wheelA": 0.22,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.27,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.31,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.36,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.41,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.46,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 180,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -114,
+     "z": "R0",
+     "rope": 395,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -38,
+     "z": "R0",
+     "rope": 250,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 181,
+     "z": "R0",
+     "rope": 221,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 55,
+   "name": "",
+   "knives": 13,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": 208,
+     "z": "R2",
+     "rope": 190,
+     "r": 31,
+     "type": "bomb"
+    },
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -249,
+     "z": "R1",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -178,
+     "z": "R1",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -107,
+     "z": "R1",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -36,
+     "z": "R1",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 36,
+     "z": "R1",
+     "rope": 430,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 107,
+     "z": "R1",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 178,
+     "z": "R1",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 249,
+     "z": "R1",
+     "rope": 250,
+     "r": 35,
+     "type": "armor"
+    }
+   ]
+  },
+  {
+   "id": 56,
+   "name": "",
+   "knives": 12,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -240,
+     "z": "R1",
+     "rope": 395,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -160,
+     "z": "R1",
+     "rope": 250,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": -80,
+     "z": "R1",
+     "rope": 360,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 215,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 80,
+     "z": "R1",
+     "rope": 430,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 160,
+     "z": "R1",
+     "rope": 180,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 240,
+     "z": "R1",
+     "rope": 395,
+     "r": 42,
+     "type": "drift"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 195,
+     "r": 42,
+     "type": "plain"
+    },
+    {
+     "x": 304,
+     "z": "R1",
+     "rope": 361,
+     "r": 33,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 57,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "screens": [
+    {
+     "x": -340,
+     "z": 810,
+     "w": 235,
+     "h": 140,
+     "yFromCeil": 200
+    }
+   ],
+   "balloons": [
+    {
+     "x": -256,
+     "z": "R1",
+     "rope": 235,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -205,
+     "z": "R1",
+     "rope": 415,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -153,
+     "z": "R1",
+     "rope": 235,
+     "r": 40,
+     "type": "split"
+    },
+    {
+     "x": -103,
+     "z": "R1",
+     "rope": 415,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -51,
+     "z": "R1",
+     "rope": 235,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 415,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 51,
+     "z": "R1",
+     "rope": 235,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 103,
+     "z": "R1",
+     "rope": 415,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 153,
+     "z": "R1",
+     "rope": 235,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 205,
+     "z": "R1",
+     "rope": 415,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 504,
+     "z": "R3",
+     "rope": 313,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 58,
+   "name": "",
+   "knives": 18,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -262,
+     "z": "R1",
+     "rope": 200,
+     "r": 34,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 38,
+     "z": "R1",
+     "rope": 360,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -233,
+     "z": "R2",
+     "rope": 340,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 306,
+     "z": "R2",
+     "rope": 235,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -361,
+     "z": "R2",
+     "rope": 180,
+     "r": 34,
+     "type": "cage"
+    },
+    {
+     "x": -241,
+     "z": "R2",
+     "rope": 435,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -120,
+     "z": "R2",
+     "rope": 250,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 360,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 150,
+     "z": "R3",
+     "rope": 215,
+     "r": 33,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 59,
+   "name": "",
+   "knives": 20,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 430,
+     "r": 40,
+     "type": "cage"
+    },
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 180,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -340,
+     "z": "R2",
+     "rope": 395,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -255,
+     "z": "R2",
+     "rope": 250,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -170,
+     "z": "R2",
+     "rope": 360,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -85,
+     "z": "R2",
+     "rope": 215,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 212,
+     "z": "R3",
+     "rope": 395,
+     "r": 38,
+     "type": "armor"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 215,
+     "r": 38,
+     "type": "drift"
+    }
+   ]
+  },
+  {
+   "id": 60,
+   "name": "",
+   "knives": 14,
+   "ability": 2,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0.26,
+    "period": 3.1
+   },
+   "rope": false,
+   "wheel": {
+    "z": "R2",
+    "cx": 0,
+    "cy": -105,
+    "r": 195,
+    "speed": 0.55
+   },
+   "balloons": [
+    {
+     "x": 76,
+     "z": "R1",
+     "rope": 190,
+     "r": 31,
+     "type": "bomb"
+    },
+    {
+     "x": -16,
+     "z": "R1",
+     "rope": 435,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -144,
+     "z": "R1",
+     "rope": 229,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -192,
+     "z": "R1",
+     "rope": 410,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -100,
+     "z": "R1",
+     "rope": 165,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 28,
+     "z": "R1",
+     "rope": 371,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 0.31,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.36,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.4,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.45,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.5,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.55,
+     "r": 30,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 61,
+   "name": "",
+   "knives": 13,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 165,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -255,
+     "z": "R1",
+     "rope": 200,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 270,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -197,
+     "z": "R1",
+     "rope": 325,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -117,
+     "z": "R1",
+     "rope": 340,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 13,
+     "z": "R1",
+     "rope": 340,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 93,
+     "z": "R1",
+     "rope": 410,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 223,
+     "z": "R1",
+     "rope": 300,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 255,
+     "z": "R1",
+     "rope": 380,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 435,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 304,
+     "z": "R1",
+     "rope": 240,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 62,
+   "name": "",
+   "knives": 13,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "screens": [
+    {
+     "x": 380,
+     "z": 810,
+     "w": 235,
+     "h": 140,
+     "yFromCeil": 120
+    }
+   ],
+   "balloons": [
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -256,
+     "z": "R1",
+     "rope": 395,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -192,
+     "z": "R1",
+     "rope": 250,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -128,
+     "z": "R1",
+     "rope": 360,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -64,
+     "z": "R1",
+     "rope": 215,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 430,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 64,
+     "z": "R1",
+     "rope": 180,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 128,
+     "z": "R1",
+     "rope": 395,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 192,
+     "z": "R1",
+     "rope": 250,
+     "r": 37,
+     "type": "bomb"
+    },
+    {
+     "x": 256,
+     "z": "R1",
+     "rope": 360,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -504,
+     "z": "R3",
+     "rope": 295,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 63,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 41,
+     "type": "plain"
+    },
+    {
+     "x": -212,
+     "z": "R1",
+     "rope": 200,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -201,
+     "z": "R2",
+     "rope": 385,
+     "r": 42,
+     "type": "split"
+    },
+    {
+     "x": -150,
+     "z": "R3",
+     "rope": 200,
+     "r": 41,
+     "type": "plain"
+    },
+    {
+     "x": -18,
+     "z": "R0",
+     "rope": 385,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 30,
+     "z": "R1",
+     "rope": 200,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 120,
+     "z": "R2",
+     "rope": 385,
+     "r": 41,
+     "type": "plain"
+    },
+    {
+     "x": 250,
+     "z": "R3",
+     "rope": 200,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 126,
+     "z": "R0",
+     "rope": 385,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -503,
+     "z": "R3",
+     "rope": 316,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 64,
+   "name": "",
+   "knives": 13,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -434,
+     "z": "R3",
+     "rope": 200,
+     "r": 36,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 64,
+     "z": "R3",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -204,
+     "z": "R1",
+     "rope": 200,
+     "r": 34,
+     "type": "drift"
+    },
+    {
+     "x": -136,
+     "z": "R1",
+     "rope": 385,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -90,
+     "z": "R2",
+     "rope": 200,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 385,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 90,
+     "z": "R2",
+     "rope": 200,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 136,
+     "z": "R1",
+     "rope": 385,
+     "r": 37,
+     "type": "cage"
+    },
+    {
+     "x": 271,
+     "z": "R2",
+     "rope": 200,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 273,
+     "z": "R1",
+     "rope": 385,
+     "r": 31,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 65,
+   "name": "",
+   "knives": 13,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "wheel": {
+    "z": "R1",
+    "cx": 0,
+    "cy": -105,
+    "r": 207,
+    "speed": 0.75
+   },
+   "balloons": [
+    {
+     "wheelA": 0.71,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.76,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.8,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.85,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.9,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.95,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -353,
+     "z": "R3",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -107,
+     "z": "R1",
+     "rope": 250,
+     "r": 35,
+     "type": "drift"
+    },
+    {
+     "x": 0,
+     "z": "R3",
+     "rope": 360,
+     "r": 37,
+     "type": "cage"
+    },
+    {
+     "x": 0,
+     "z": "R3",
+     "rope": 180,
+     "r": 33,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 66,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": 110,
+     "z": "R1",
+     "rope": 165,
+     "r": 35,
+     "type": "bomb"
+    },
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -256,
+     "z": "R1",
+     "rope": 395,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -192,
+     "z": "R1",
+     "rope": 250,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -128,
+     "z": "R1",
+     "rope": 360,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -64,
+     "z": "R1",
+     "rope": 215,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 430,
+     "r": 39,
+     "type": "cage"
+    },
+    {
+     "x": 24,
+     "z": "R1",
+     "rope": 235,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 128,
+     "z": "R1",
+     "rope": 395,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 192,
+     "z": "R1",
+     "rope": 250,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 304,
+     "z": "R1",
+     "rope": 248,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 67,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": 404,
+     "z": "R2",
+     "rope": 255,
+     "r": 30,
+     "type": "gift"
+    },
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 180,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -148,
+     "z": "R0",
+     "rope": 395,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -106,
+     "z": "R0",
+     "rope": 250,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -63,
+     "z": "R0",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -21,
+     "z": "R0",
+     "rope": 215,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 21,
+     "z": "R0",
+     "rope": 430,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 63,
+     "z": "R0",
+     "rope": 180,
+     "r": 36,
+     "type": "armor"
+    },
+    {
+     "x": 106,
+     "z": "R0",
+     "rope": 395,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 148,
+     "z": "R0",
+     "rope": 250,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 190,
+     "z": "R0",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 68,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "screens": [
+    {
+     "x": -340,
+     "z": 810,
+     "w": 235,
+     "h": 140,
+     "yFromCeil": 240
+    }
+   ],
+   "balloons": [
+    {
+     "x": -340,
+     "z": "R2",
+     "rope": 235,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -272,
+     "z": "R2",
+     "rope": 415,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -205,
+     "z": "R2",
+     "rope": 235,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -135,
+     "z": "R2",
+     "rope": 415,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -68,
+     "z": "R2",
+     "rope": 235,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 415,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 68,
+     "z": "R2",
+     "rope": 235,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 135,
+     "z": "R2",
+     "rope": 415,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 205,
+     "z": "R2",
+     "rope": 235,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 272,
+     "z": "R2",
+     "rope": 415,
+     "r": 34,
+     "type": "armor"
+    },
+    {
+     "x": 504,
+     "z": "R3",
+     "rope": 342,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 69,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -348,
+     "z": "R2",
+     "rope": 165,
+     "r": 35,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 51,
+     "z": "R2",
+     "rope": 305,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -234,
+     "z": "R2",
+     "rope": 340,
+     "r": 33,
+     "type": "plain",
+     "link": 3
+    },
+    {
+     "x": 306,
+     "z": "R2",
+     "rope": 235,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -361,
+     "z": "R2",
+     "rope": 235,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -241,
+     "z": "R2",
+     "rope": 435,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -90,
+     "z": "R1",
+     "rope": 250,
+     "r": 34,
+     "type": "drift"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 415,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 150,
+     "z": "R3",
+     "rope": 215,
+     "r": 39,
+     "type": "split"
+    },
+    {
+     "x": 301,
+     "z": "R3",
+     "rope": 430,
+     "r": 34,
+     "type": "bomb"
+    },
+    {
+     "x": -504,
+     "z": "R3",
+     "rope": 309,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 70,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -256,
+     "z": "R1",
+     "rope": 395,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -192,
+     "z": "R1",
+     "rope": 250,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -128,
+     "z": "R1",
+     "rope": 360,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -64,
+     "z": "R1",
+     "rope": 215,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 430,
+     "r": 41,
+     "type": "cage"
+    },
+    {
+     "x": 64,
+     "z": "R1",
+     "rope": 180,
+     "r": 39,
+     "type": "drift"
+    },
+    {
+     "x": 128,
+     "z": "R1",
+     "rope": 395,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 192,
+     "z": "R1",
+     "rope": 250,
+     "r": 39,
+     "type": "bomb"
+    },
+    {
+     "x": 256,
+     "z": "R1",
+     "rope": 360,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 404,
+     "z": "R2",
+     "rope": 334,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 71,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "wheel": {
+    "z": "R1",
+    "cx": 0,
+    "cy": -105,
+    "r": 192,
+    "speed": 0.61
+   },
+   "balloons": [
+    {
+     "x": 354,
+     "z": "R3",
+     "rope": 190,
+     "r": 35,
+     "type": "bomb"
+    },
+    {
+     "x": 202,
+     "z": "R3",
+     "rope": 435,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -10,
+     "z": "R3",
+     "rope": 229,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -89,
+     "z": "R3",
+     "rope": 410,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 63,
+     "z": "R3",
+     "rope": 165,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 275,
+     "z": "R3",
+     "rope": 371,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "wheelA": 0.77,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.82,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.86,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.91,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.96,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -503,
+     "z": "R3",
+     "rope": 269,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 72,
+   "name": "",
+   "knives": 14,
+   "ability": 2,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 200,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -125,
+     "z": "R0",
+     "rope": 200,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 270,
+     "r": 33,
+     "type": "cage"
+    },
+    {
+     "x": -125,
+     "z": "R0",
+     "rope": 270,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -170,
+     "z": "R0",
+     "rope": 340,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -40,
+     "z": "R0",
+     "rope": 340,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 40,
+     "z": "R0",
+     "rope": 410,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 170,
+     "z": "R0",
+     "rope": 245,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 125,
+     "z": "R0",
+     "rope": 325,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 190,
+     "z": "R0",
+     "rope": 325,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 125,
+     "z": "R0",
+     "rope": 435,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 190,
+     "z": "R0",
+     "rope": 435,
+     "r": 31,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 73,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "screens": [
+    {
+     "x": 160,
+     "z": 720,
+     "w": 200,
+     "h": 140,
+     "yFromCeil": 320
+    }
+   ],
+   "balloons": [
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -262,
+     "z": "R1",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -204,
+     "z": "R1",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -145,
+     "z": "R1",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -87,
+     "z": "R1",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -29,
+     "z": "R1",
+     "rope": 430,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 29,
+     "z": "R1",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 87,
+     "z": "R1",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 145,
+     "z": "R1",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 204,
+     "z": "R1",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 262,
+     "z": "R1",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 430,
+     "r": 35,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 74,
+   "name": "",
+   "knives": 18,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 39,
+     "type": "split"
+    },
+    {
+     "x": -296,
+     "z": "R2",
+     "rope": 200,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -230,
+     "z": "R2",
+     "rope": 385,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -164,
+     "z": "R2",
+     "rope": 200,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -74,
+     "z": "R1",
+     "rope": 385,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -33,
+     "z": "R2",
+     "rope": 200,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 41,
+     "z": "R3",
+     "rope": 385,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 123,
+     "z": "R3",
+     "rope": 200,
+     "r": 35,
+     "type": "bomb"
+    },
+    {
+     "x": 123,
+     "z": "R1",
+     "rope": 385,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 230,
+     "z": "R2",
+     "rope": 200,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 369,
+     "z": "R3",
+     "rope": 385,
+     "r": 35,
+     "type": "armor"
+    },
+    {
+     "x": 451,
+     "z": "R3",
+     "rope": 200,
+     "r": 32,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 75,
+   "name": "",
+   "knives": 17,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -434,
+     "z": "R3",
+     "rope": 200,
+     "r": 33,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 64,
+     "z": "R3",
+     "rope": 360,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -282,
+     "z": "R2",
+     "rope": 200,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -152,
+     "z": "R1",
+     "rope": 385,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": -121,
+     "z": "R2",
+     "rope": 200,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -30,
+     "z": "R1",
+     "rope": 385,
+     "r": 31,
+     "type": "drift"
+    },
+    {
+     "x": 40,
+     "z": "R2",
+     "rope": 200,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": 91,
+     "z": "R1",
+     "rope": 385,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 201,
+     "z": "R2",
+     "rope": 200,
+     "r": 37,
+     "type": "split"
+    },
+    {
+     "x": 212,
+     "z": "R1",
+     "rope": 385,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": 361,
+     "z": "R2",
+     "rope": 200,
+     "r": 34,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 76,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "wheel": {
+    "z": "R1",
+    "cx": 0,
+    "cy": -105,
+    "r": 198,
+    "speed": 0.72
+   },
+   "balloons": [
+    {
+     "wheelA": 0.4,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.45,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.49,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.54,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.59,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.64,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -530,
+     "z": "R3",
+     "rope": 180,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -379,
+     "z": "R3",
+     "rope": 395,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -227,
+     "z": "R3",
+     "rope": 250,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -76,
+     "z": "R3",
+     "rope": 360,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -152,
+     "z": "R0",
+     "rope": 180,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 504,
+     "z": "R3",
+     "rope": 323,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 77,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 180,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -152,
+     "z": "R0",
+     "rope": 395,
+     "r": 40,
+     "type": "bomb"
+    },
+    {
+     "x": -114,
+     "z": "R0",
+     "rope": 250,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -76,
+     "z": "R0",
+     "rope": 360,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -38,
+     "z": "R0",
+     "rope": 215,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R0",
+     "rope": 430,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 38,
+     "z": "R0",
+     "rope": 180,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 76,
+     "z": "R0",
+     "rope": 395,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 114,
+     "z": "R0",
+     "rope": 250,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 152,
+     "z": "R0",
+     "rope": 360,
+     "r": 42,
+     "type": "split"
+    },
+    {
+     "x": -404,
+     "z": "R2",
+     "rope": 333,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 78,
+   "name": "",
+   "knives": 12,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -503,
+     "z": "R3",
+     "rope": 324,
+     "r": 30,
+     "type": "gift"
+    },
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -256,
+     "z": "R1",
+     "rope": 395,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -192,
+     "z": "R1",
+     "rope": 250,
+     "r": 34,
+     "type": "bomb"
+    },
+    {
+     "x": -128,
+     "z": "R1",
+     "rope": 360,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -64,
+     "z": "R1",
+     "rope": 215,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R1",
+     "rope": 430,
+     "r": 34,
+     "type": "cage"
+    },
+    {
+     "x": 64,
+     "z": "R1",
+     "rope": 180,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 128,
+     "z": "R1",
+     "rope": 395,
+     "r": 34,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 79,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "screens": [
+    {
+     "x": -320,
+     "z": 810,
+     "w": 170,
+     "h": 140,
+     "yFromCeil": 240
+    }
+   ],
+   "balloons": [
+    {
+     "x": -340,
+     "z": "R2",
+     "rope": 235,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -278,
+     "z": "R2",
+     "rope": 415,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -216,
+     "z": "R2",
+     "rope": 235,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -155,
+     "z": "R2",
+     "rope": 415,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -93,
+     "z": "R2",
+     "rope": 235,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -31,
+     "z": "R2",
+     "rope": 415,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 31,
+     "z": "R2",
+     "rope": 235,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 93,
+     "z": "R2",
+     "rope": 415,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 155,
+     "z": "R2",
+     "rope": 235,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 216,
+     "z": "R2",
+     "rope": 415,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 278,
+     "z": "R2",
+     "rope": 235,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 340,
+     "z": "R2",
+     "rope": 415,
+     "r": 36,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 80,
+   "name": "",
+   "knives": 18,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -348,
+     "z": "R2",
+     "rope": 165,
+     "r": 33,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 50,
+     "z": "R2",
+     "rope": 360,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -234,
+     "z": "R2",
+     "rope": 340,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 306,
+     "z": "R2",
+     "rope": 235,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -361,
+     "z": "R2",
+     "rope": 235,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -258,
+     "z": "R2",
+     "rope": 435,
+     "r": 32,
+     "type": "armor"
+    },
+    {
+     "x": -155,
+     "z": "R2",
+     "rope": 250,
+     "r": 37,
+     "type": "split"
+    },
+    {
+     "x": -52,
+     "z": "R2",
+     "rope": 360,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 65,
+     "z": "R3",
+     "rope": 215,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 193,
+     "z": "R3",
+     "rope": 430,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 322,
+     "z": "R3",
+     "rope": 180,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 450,
+     "z": "R3",
+     "rope": 395,
+     "r": 32,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 81,
+   "name": "",
+   "knives": 17,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": 39,
+     "z": "R2",
+     "rope": 180,
+     "r": 40,
+     "type": "cage"
+    },
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 180,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -348,
+     "z": "R2",
+     "rope": 395,
+     "r": 40,
+     "type": "split"
+    },
+    {
+     "x": -271,
+     "z": "R2",
+     "rope": 250,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -193,
+     "z": "R2",
+     "rope": 360,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -116,
+     "z": "R2",
+     "rope": 215,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -39,
+     "z": "R2",
+     "rope": 430,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 116,
+     "z": "R2",
+     "rope": 395,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 193,
+     "z": "R2",
+     "rope": 250,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 271,
+     "z": "R2",
+     "rope": 360,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 262,
+     "z": "R1",
+     "rope": 215,
+     "r": 38,
+     "type": "drift"
+    },
+    {
+     "x": 425,
+     "z": "R2",
+     "rope": 430,
+     "r": 38,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 82,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "wheel": {
+    "z": "R2",
+    "cx": 0,
+    "cy": -105,
+    "r": 209,
+    "speed": 0.67
+   },
+   "balloons": [
+    {
+     "x": 128,
+     "z": "R1",
+     "rope": 190,
+     "r": 32,
+     "type": "bomb"
+    },
+    {
+     "x": 35,
+     "z": "R1",
+     "rope": 435,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -93,
+     "z": "R1",
+     "rope": 229,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -141,
+     "z": "R1",
+     "rope": 410,
+     "r": 32,
+     "type": "drift"
+    },
+    {
+     "x": -49,
+     "z": "R1",
+     "rope": 165,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 79,
+     "z": "R1",
+     "rope": 371,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "wheelA": 0.43,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.48,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.52,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.57,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.62,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.67,
+     "r": 31,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 83,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 200,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -339,
+     "z": "R2",
+     "rope": 200,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 270,
+     "r": 33,
+     "type": "cage"
+    },
+    {
+     "x": -332,
+     "z": "R2",
+     "rope": 270,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -226,
+     "z": "R2",
+     "rope": 340,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -53,
+     "z": "R2",
+     "rope": 340,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 53,
+     "z": "R2",
+     "rope": 410,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 226,
+     "z": "R2",
+     "rope": 410,
+     "r": 31,
+     "type": "bomb"
+    },
+    {
+     "x": 332,
+     "z": "R2",
+     "rope": 325,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 325,
+     "r": 31,
+     "type": "drift"
+    },
+    {
+     "x": 339,
+     "z": "R2",
+     "rope": 435,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 425,
+     "z": "R2",
+     "rope": 435,
+     "r": 31,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 84,
+   "name": "",
+   "knives": 14,
+   "ability": 2,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "screens": [
+    {
+     "x": -380,
+     "z": 760,
+     "w": 235,
+     "h": 140,
+     "yFromCeil": 240
+    }
+   ],
+   "balloons": [
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -348,
+     "z": "R2",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -270,
+     "z": "R2",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -193,
+     "z": "R2",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -116,
+     "z": "R2",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -39,
+     "z": "R2",
+     "rope": 430,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 39,
+     "z": "R2",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 116,
+     "z": "R2",
+     "rope": 395,
+     "r": 35,
+     "type": "cage"
+    },
+    {
+     "x": 241,
+     "z": "R3",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 337,
+     "z": "R3",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 434,
+     "z": "R3",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 504,
+     "z": "R3",
+     "rope": 355,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 85,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.18,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 41,
+     "type": "plain"
+    },
+    {
+     "x": -223,
+     "z": "R1",
+     "rope": 200,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -230,
+     "z": "R2",
+     "rope": 385,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -205,
+     "z": "R3",
+     "rope": 200,
+     "r": 41,
+     "type": "plain"
+    },
+    {
+     "x": -44,
+     "z": "R0",
+     "rope": 385,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -25,
+     "z": "R1",
+     "rope": 200,
+     "r": 35,
+     "type": "armor"
+    },
+    {
+     "x": 33,
+     "z": "R2",
+     "rope": 385,
+     "r": 41,
+     "type": "plain"
+    },
+    {
+     "x": 123,
+     "z": "R3",
+     "rope": 200,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 73,
+     "z": "R0",
+     "rope": 385,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 173,
+     "z": "R1",
+     "rope": 200,
+     "r": 41,
+     "type": "plain"
+    },
+    {
+     "x": 296,
+     "z": "R2",
+     "rope": 385,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 451,
+     "z": "R3",
+     "rope": 200,
+     "r": 35,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 86,
+   "name": "",
+   "knives": 18,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -348,
+     "z": "R2",
+     "rope": 165,
+     "r": 36,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 50,
+     "z": "R2",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -282,
+     "z": "R2",
+     "rope": 255,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -152,
+     "z": "R1",
+     "rope": 385,
+     "r": 31,
+     "type": "armor"
+    },
+    {
+     "x": -121,
+     "z": "R2",
+     "rope": 200,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -30,
+     "z": "R1",
+     "rope": 385,
+     "r": 40,
+     "type": "split"
+    },
+    {
+     "x": 40,
+     "z": "R2",
+     "rope": 200,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 91,
+     "z": "R1",
+     "rope": 385,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 201,
+     "z": "R2",
+     "rope": 200,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 212,
+     "z": "R1",
+     "rope": 385,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 361,
+     "z": "R2",
+     "rope": 200,
+     "r": 37,
+     "type": "bomb"
+    }
+   ]
+  },
+  {
+   "id": 87,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "wheel": {
+    "z": "R0",
+    "cx": 0,
+    "cy": -105,
+    "r": 210,
+    "speed": 0.69
+   },
+   "balloons": [
+    {
+     "wheelA": 0.09,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.14,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.18,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.23,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.28,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.33,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 36,
+     "type": "drift"
+    },
+    {
+     "x": -304,
+     "z": "R2",
+     "rope": 395,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -227,
+     "z": "R3",
+     "rope": 250,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -76,
+     "z": "R3",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -424,
+     "z": "R3",
+     "rope": 180,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -504,
+     "z": "R3",
+     "rope": 345,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 88,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": 202,
+     "z": "R3",
+     "rope": 190,
+     "r": 31,
+     "type": "bomb"
+    },
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 180,
+     "r": 35,
+     "type": "armor"
+    },
+    {
+     "x": -156,
+     "z": "R0",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -271,
+     "z": "R2",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -193,
+     "z": "R2",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -116,
+     "z": "R2",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -39,
+     "z": "R2",
+     "rope": 430,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 87,
+     "z": "R1",
+     "rope": 395,
+     "r": 35,
+     "type": "drift"
+    },
+    {
+     "x": 504,
+     "z": "R3",
+     "rope": 291,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 89,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": 404,
+     "z": "R2",
+     "rope": 273,
+     "r": 30,
+     "type": "gift"
+    },
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 180,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -340,
+     "z": "R2",
+     "rope": 395,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -255,
+     "z": "R2",
+     "rope": 250,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -170,
+     "z": "R2",
+     "rope": 360,
+     "r": 36,
+     "type": "cage"
+    },
+    {
+     "x": -64,
+     "z": "R1",
+     "rope": 215,
+     "r": 36,
+     "type": "drift"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 430,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 85,
+     "z": "R2",
+     "rope": 180,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 212,
+     "z": "R3",
+     "rope": 395,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 318,
+     "z": "R3",
+     "rope": 250,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 424,
+     "z": "R3",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 530,
+     "z": "R3",
+     "rope": 215,
+     "r": 36,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 90,
+   "name": "",
+   "knives": 17,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -152,
+     "z": "R0",
+     "rope": 180,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -278,
+     "z": "R2",
+     "rope": 415,
+     "r": 34,
+     "type": "cage"
+    },
+    {
+     "x": -97,
+     "z": "R0",
+     "rope": 290,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -69,
+     "z": "R0",
+     "rope": 415,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -70,
+     "z": "R1",
+     "rope": 235,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -31,
+     "z": "R2",
+     "rope": 415,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 31,
+     "z": "R2",
+     "rope": 235,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 93,
+     "z": "R2",
+     "rope": 415,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 216,
+     "z": "R2",
+     "rope": 415,
+     "r": 34,
+     "type": "bomb"
+    }
+   ]
+  },
+  {
+   "id": 91,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.26,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -262,
+     "z": "R1",
+     "rope": 200,
+     "r": 39,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 38,
+     "z": "R1",
+     "rope": 360,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 180,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -115,
+     "z": "R0",
+     "rope": 395,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -69,
+     "z": "R0",
+     "rope": 250,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -52,
+     "z": "R2",
+     "rope": 360,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 52,
+     "z": "R2",
+     "rope": 215,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 155,
+     "z": "R2",
+     "rope": 430,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 194,
+     "z": "R1",
+     "rope": 180,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 272,
+     "z": "R1",
+     "rope": 395,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -176,
+     "z": "R1",
+     "rope": 395,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 304,
+     "z": "R1",
+     "rope": 239,
+     "r": 31,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 92,
+   "name": "",
+   "knives": 18,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": 29,
+     "z": "R1",
+     "rope": 180,
+     "r": 38,
+     "type": "cage"
+    },
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 180,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -155,
+     "z": "R0",
+     "rope": 395,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -121,
+     "z": "R0",
+     "rope": 250,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -193,
+     "z": "R2",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -88,
+     "z": "R1",
+     "rope": 215,
+     "r": 38,
+     "type": "split"
+    },
+    {
+     "x": -39,
+     "z": "R2",
+     "rope": 430,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 117,
+     "z": "R2",
+     "rope": 395,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 145,
+     "z": "R1",
+     "rope": 250,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 204,
+     "z": "R1",
+     "rope": 360,
+     "r": 36,
+     "type": "armor"
+    },
+    {
+     "x": 261,
+     "z": "R1",
+     "rope": 215,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 430,
+     "r": 36,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 93,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "wheel": {
+    "z": "R3",
+    "cx": 0,
+    "cy": -105,
+    "r": 206,
+    "speed": 0.72
+   },
+   "balloons": [
+    {
+     "x": 56,
+     "z": "R2",
+     "rope": 190,
+     "r": 31,
+     "type": "bomb"
+    },
+    {
+     "x": -66,
+     "z": "R2",
+     "rope": 435,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -236,
+     "z": "R2",
+     "rope": 229,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -300,
+     "z": "R2",
+     "rope": 410,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -178,
+     "z": "R2",
+     "rope": 165,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -6,
+     "z": "R1",
+     "rope": 371,
+     "r": 31,
+     "type": "drift"
+    },
+    {
+     "wheelA": 0.09,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.14,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.18,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.23,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.28,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.33,
+     "r": 30,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 94,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -366,
+     "z": "R2",
+     "rope": 165,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -236,
+     "z": "R2",
+     "rope": 190,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 237,
+     "z": "R2",
+     "rope": 275,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 458,
+     "z": "R3",
+     "rope": 275,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 37,
+     "type": "drift"
+    },
+    {
+     "x": -379,
+     "z": "R3",
+     "rope": 395,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -227,
+     "z": "R3",
+     "rope": 250,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -76,
+     "z": "R3",
+     "rope": 360,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -340,
+     "z": "R2",
+     "rope": 235,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -113,
+     "z": "R2",
+     "rope": 395,
+     "r": 35,
+     "type": "cage"
+    },
+    {
+     "x": 113,
+     "z": "R2",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 340,
+     "z": "R2",
+     "rope": 360,
+     "r": 35,
+     "type": "bomb"
+    }
+   ]
+  },
+  {
+   "id": 95,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "screens": [
+    {
+     "x": 380,
+     "z": 760,
+     "w": 235,
+     "h": 140,
+     "yFromCeil": 120
+    }
+   ],
+   "balloons": [
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -156,
+     "z": "R0",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -121,
+     "z": "R0",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -193,
+     "z": "R2",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -116,
+     "z": "R2",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -39,
+     "z": "R2",
+     "rope": 430,
+     "r": 35,
+     "type": "bomb"
+    },
+    {
+     "x": 29,
+     "z": "R1",
+     "rope": 180,
+     "r": 35,
+     "type": "drift"
+    },
+    {
+     "x": 116,
+     "z": "R2",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 193,
+     "z": "R2",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 271,
+     "z": "R2",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 348,
+     "z": "R2",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 425,
+     "z": "R2",
+     "rope": 430,
+     "r": 35,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 96,
+   "name": "",
+   "knives": 14,
+   "ability": 2,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0.26,
+    "period": 3.1
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 385,
+     "r": 36,
+     "type": "cage"
+    },
+    {
+     "x": -223,
+     "z": "R1",
+     "rope": 200,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -230,
+     "z": "R2",
+     "rope": 385,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": -205,
+     "z": "R3",
+     "rope": 200,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -44,
+     "z": "R0",
+     "rope": 385,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -25,
+     "z": "R1",
+     "rope": 200,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": 33,
+     "z": "R2",
+     "rope": 385,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 123,
+     "z": "R3",
+     "rope": 200,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 73,
+     "z": "R0",
+     "rope": 385,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": 173,
+     "z": "R1",
+     "rope": 200,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 296,
+     "z": "R2",
+     "rope": 385,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -304,
+     "z": "R1",
+     "rope": 350,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 97,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -348,
+     "z": "R2",
+     "rope": 200,
+     "r": 34,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 51,
+     "z": "R2",
+     "rope": 360,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -212,
+     "z": "R1",
+     "rope": 200,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -90,
+     "z": "R0",
+     "rope": 385,
+     "r": 30,
+     "type": "bomb"
+    },
+    {
+     "x": -91,
+     "z": "R1",
+     "rope": 200,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -30,
+     "z": "R1",
+     "rope": 385,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 30,
+     "z": "R1",
+     "rope": 200,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": 54,
+     "z": "R0",
+     "rope": 385,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 151,
+     "z": "R1",
+     "rope": 200,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 126,
+     "z": "R0",
+     "rope": 385,
+     "r": 30,
+     "type": "armor"
+    },
+    {
+     "x": -404,
+     "z": "R2",
+     "rope": 302,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 98,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "wheel": {
+    "z": "R1",
+    "cx": 0,
+    "cy": -105,
+    "r": 201,
+    "speed": 0.66
+   },
+   "balloons": [
+    {
+     "wheelA": 0.59,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.64,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.68,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.73,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.78,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.83,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -340,
+     "z": "R2",
+     "rope": 180,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -204,
+     "z": "R2",
+     "rope": 395,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -85,
+     "z": "R3",
+     "rope": 250,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 85,
+     "z": "R3",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 254,
+     "z": "R3",
+     "rope": 215,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 424,
+     "z": "R3",
+     "rope": 430,
+     "r": 36,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 99,
+   "name": "",
+   "knives": 17,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": 48,
+     "z": "R2",
+     "rope": 190,
+     "r": 32,
+     "type": "bomb"
+    },
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 180,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -348,
+     "z": "R2",
+     "rope": 395,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -270,
+     "z": "R2",
+     "rope": 250,
+     "r": 38,
+     "type": "split"
+    },
+    {
+     "x": -193,
+     "z": "R2",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -116,
+     "z": "R2",
+     "rope": 215,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -39,
+     "z": "R2",
+     "rope": 430,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 49,
+     "z": "R3",
+     "rope": 180,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 145,
+     "z": "R3",
+     "rope": 395,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 241,
+     "z": "R3",
+     "rope": 250,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 337,
+     "z": "R3",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 262,
+     "z": "R1",
+     "rope": 215,
+     "r": 36,
+     "type": "drift"
+    }
+   ]
+  },
+  {
+   "id": 100,
+   "name": "",
+   "knives": 13,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -504,
+     "z": "R3",
+     "rope": 342,
+     "r": 30,
+     "type": "gift"
+    },
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 180,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -152,
+     "z": "R0",
+     "rope": 395,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -192,
+     "z": "R1",
+     "rope": 250,
+     "r": 34,
+     "type": "drift"
+    },
+    {
+     "x": -170,
+     "z": "R2",
+     "rope": 360,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -85,
+     "z": "R2",
+     "rope": 215,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 430,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 85,
+     "z": "R2",
+     "rope": 180,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 170,
+     "z": "R2",
+     "rope": 395,
+     "r": 34,
+     "type": "cage"
+    },
+    {
+     "x": 255,
+     "z": "R2",
+     "rope": 250,
+     "r": 34,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 101,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "screens": [
+    {
+     "x": 340,
+     "z": 720,
+     "w": 200,
+     "h": 190,
+     "yFromCeil": 120
+    }
+   ],
+   "balloons": [
+    {
+     "x": -152,
+     "z": "R0",
+     "rope": 180,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -124,
+     "z": "R0",
+     "rope": 415,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -97,
+     "z": "R0",
+     "rope": 290,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -154,
+     "z": "R2",
+     "rope": 415,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -93,
+     "z": "R2",
+     "rope": 235,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -31,
+     "z": "R2",
+     "rope": 415,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 31,
+     "z": "R2",
+     "rope": 235,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 93,
+     "z": "R2",
+     "rope": 415,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 116,
+     "z": "R1",
+     "rope": 235,
+     "r": 36,
+     "type": "drift"
+    },
+    {
+     "x": 216,
+     "z": "R2",
+     "rope": 415,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 278,
+     "z": "R2",
+     "rope": 235,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 340,
+     "z": "R2",
+     "rope": 415,
+     "r": 36,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 102,
+   "name": "",
+   "knives": 18,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -156,
+     "z": "R0",
+     "rope": 165,
+     "r": 34,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 23,
+     "z": "R0",
+     "rope": 360,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -234,
+     "z": "R2",
+     "rope": 395,
+     "r": 32,
+     "type": "plain",
+     "link": 3
+    },
+    {
+     "x": 306,
+     "z": "R2",
+     "rope": 235,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -161,
+     "z": "R0",
+     "rope": 235,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -194,
+     "z": "R1",
+     "rope": 395,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -155,
+     "z": "R2",
+     "rope": 250,
+     "r": 34,
+     "type": "cage"
+    },
+    {
+     "x": -52,
+     "z": "R2",
+     "rope": 360,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 52,
+     "z": "R2",
+     "rope": 215,
+     "r": 33,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 103,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.18,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": 29,
+     "z": "R1",
+     "rope": 180,
+     "r": 42,
+     "type": "cage"
+    },
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 180,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -156,
+     "z": "R0",
+     "rope": 395,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -121,
+     "z": "R0",
+     "rope": 250,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -193,
+     "z": "R2",
+     "rope": 360,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -87,
+     "z": "R1",
+     "rope": 215,
+     "r": 40,
+     "type": "armor"
+    },
+    {
+     "x": -39,
+     "z": "R2",
+     "rope": 430,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 87,
+     "z": "R1",
+     "rope": 395,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 145,
+     "z": "R1",
+     "rope": 250,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 204,
+     "z": "R1",
+     "rope": 360,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": 262,
+     "z": "R1",
+     "rope": 215,
+     "r": 40,
+     "type": "plain"
+    },
+    {
+     "x": -503,
+     "z": "R3",
+     "rope": 246,
+     "r": 35,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 104,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "wheel": {
+    "z": "R2",
+    "cx": 0,
+    "cy": -105,
+    "r": 203,
+    "speed": 0.58
+   },
+   "balloons": [
+    {
+     "x": 107,
+     "z": "R0",
+     "rope": 190,
+     "r": 32,
+     "type": "bomb"
+    },
+    {
+     "x": 52,
+     "z": "R0",
+     "rope": 435,
+     "r": 32,
+     "type": "armor"
+    },
+    {
+     "x": -24,
+     "z": "R0",
+     "rope": 229,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -146,
+     "z": "R3",
+     "rope": 410,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 7,
+     "z": "R3",
+     "rope": 165,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 218,
+     "z": "R3",
+     "rope": 371,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "wheelA": 0.55,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.6,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.64,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.69,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.74,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 504,
+     "z": "R3",
+     "rope": 240,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 105,
+   "name": "",
+   "knives": 17,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -361,
+     "z": "R2",
+     "rope": 165,
+     "r": 40,
+     "type": "split"
+    },
+    {
+     "x": -189,
+     "z": "R2",
+     "rope": 190,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 189,
+     "z": "R2",
+     "rope": 275,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 361,
+     "z": "R2",
+     "rope": 275,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -340,
+     "z": "R2",
+     "rope": 235,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -243,
+     "z": "R2",
+     "rope": 395,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -146,
+     "z": "R2",
+     "rope": 250,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -49,
+     "z": "R2",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 61,
+     "z": "R3",
+     "rope": 215,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 182,
+     "z": "R3",
+     "rope": 430,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 303,
+     "z": "R3",
+     "rope": 180,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -504,
+     "z": "R3",
+     "rope": 340,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 106,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "screens": [
+    {
+     "x": -240,
+     "z": 760,
+     "w": 235,
+     "h": 140,
+     "yFromCeil": 300
+    }
+   ],
+   "balloons": [
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 180,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -156,
+     "z": "R0",
+     "rope": 395,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -121,
+     "z": "R0",
+     "rope": 250,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -193,
+     "z": "R2",
+     "rope": 360,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -87,
+     "z": "R1",
+     "rope": 215,
+     "r": 37,
+     "type": "drift"
+    },
+    {
+     "x": -39,
+     "z": "R2",
+     "rope": 430,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 39,
+     "z": "R2",
+     "rope": 180,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 116,
+     "z": "R2",
+     "rope": 395,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 193,
+     "z": "R2",
+     "rope": 250,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 271,
+     "z": "R2",
+     "rope": 360,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 348,
+     "z": "R2",
+     "rope": 215,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 425,
+     "z": "R2",
+     "rope": 430,
+     "r": 37,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 107,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -296,
+     "z": "R2",
+     "rope": 200,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -230,
+     "z": "R2",
+     "rope": 385,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -164,
+     "z": "R2",
+     "rope": 200,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -74,
+     "z": "R1",
+     "rope": 385,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -33,
+     "z": "R2",
+     "rope": 200,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 41,
+     "z": "R3",
+     "rope": 385,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 123,
+     "z": "R3",
+     "rope": 200,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 123,
+     "z": "R1",
+     "rope": 385,
+     "r": 31,
+     "type": "drift"
+    },
+    {
+     "x": 230,
+     "z": "R2",
+     "rope": 200,
+     "r": 37,
+     "type": "cage"
+    },
+    {
+     "x": 369,
+     "z": "R3",
+     "rope": 385,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 451,
+     "z": "R3",
+     "rope": 200,
+     "r": 31,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 108,
+   "name": "",
+   "knives": 14,
+   "ability": 2,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0.26,
+    "period": 3.1
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -435,
+     "z": "R3",
+     "rope": 200,
+     "r": 33,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 64,
+     "z": "R3",
+     "rope": 360,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -212,
+     "z": "R1",
+     "rope": 200,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -152,
+     "z": "R1",
+     "rope": 385,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": -91,
+     "z": "R1",
+     "rope": 200,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -18,
+     "z": "R0",
+     "rope": 385,
+     "r": 33,
+     "type": "cage"
+    },
+    {
+     "x": 30,
+     "z": "R1",
+     "rope": 200,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": 54,
+     "z": "R0",
+     "rope": 385,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 151,
+     "z": "R1",
+     "rope": 200,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 126,
+     "z": "R0",
+     "rope": 385,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": -503,
+     "z": "R3",
+     "rope": 267,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 109,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "wheel": {
+    "z": "R2",
+    "cx": 0,
+    "cy": -105,
+    "r": 193,
+    "speed": 0.63
+   },
+   "balloons": [
+    {
+     "wheelA": 0.28,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.33,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.37,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.42,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.47,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 5.52,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 165,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -229,
+     "z": "R1",
+     "rope": 395,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -81,
+     "z": "R0",
+     "rope": 250,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -27,
+     "z": "R0",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -256,
+     "z": "R1",
+     "rope": 235,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -181,
+     "z": "R0",
+     "rope": 328,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 110,
+   "name": "",
+   "knives": 18,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": 288,
+     "z": "R3",
+     "rope": 190,
+     "r": 31,
+     "type": "bomb"
+    },
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -156,
+     "z": "R0",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -121,
+     "z": "R0",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -193,
+     "z": "R2",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -116,
+     "z": "R2",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -39,
+     "z": "R2",
+     "rope": 430,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 39,
+     "z": "R2",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 116,
+     "z": "R2",
+     "rope": 395,
+     "r": 37,
+     "type": "split"
+    },
+    {
+     "x": 193,
+     "z": "R2",
+     "rope": 250,
+     "r": 35,
+     "type": "armor"
+    },
+    {
+     "x": 271,
+     "z": "R2",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 348,
+     "z": "R2",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 111,
+   "name": "",
+   "knives": 17,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -404,
+     "z": "R2",
+     "rope": 291,
+     "r": 30,
+     "type": "gift"
+    },
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 180,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -340,
+     "z": "R2",
+     "rope": 395,
+     "r": 39,
+     "type": "split"
+    },
+    {
+     "x": -114,
+     "z": "R0",
+     "rope": 250,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -76,
+     "z": "R0",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -85,
+     "z": "R2",
+     "rope": 215,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 430,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 85,
+     "z": "R2",
+     "rope": 180,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 170,
+     "z": "R2",
+     "rope": 395,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 255,
+     "z": "R2",
+     "rope": 250,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 340,
+     "z": "R2",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 215,
+     "r": 36,
+     "type": "drift"
+    }
+   ]
+  },
+  {
+   "id": 112,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -256,
+     "z": "R1",
+     "rope": 235,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -209,
+     "z": "R1",
+     "rope": 415,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -163,
+     "z": "R1",
+     "rope": 235,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -69,
+     "z": "R0",
+     "rope": 415,
+     "r": 38,
+     "type": "drift"
+    },
+    {
+     "x": -69,
+     "z": "R1",
+     "rope": 235,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": -24,
+     "z": "R1",
+     "rope": 415,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 14,
+     "z": "R0",
+     "rope": 235,
+     "r": 38,
+     "type": "bomb"
+    },
+    {
+     "x": 69,
+     "z": "R1",
+     "rope": 415,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 154,
+     "z": "R2",
+     "rope": 235,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 217,
+     "z": "R2",
+     "rope": 415,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 124,
+     "z": "R0",
+     "rope": 235,
+     "r": 38,
+     "type": "plain"
+    },
+    {
+     "x": 404,
+     "z": "R2",
+     "rope": 327,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 113,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": -262,
+     "z": "R1",
+     "rope": 200,
+     "r": 33,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 38,
+     "z": "R1",
+     "rope": 360,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -233,
+     "z": "R2",
+     "rope": 340,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 306,
+     "z": "R2",
+     "rope": 235,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -361,
+     "z": "R2",
+     "rope": 180,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -258,
+     "z": "R2",
+     "rope": 435,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -155,
+     "z": "R2",
+     "rope": 250,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -51,
+     "z": "R2",
+     "rope": 360,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 64,
+     "z": "R3",
+     "rope": 215,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 193,
+     "z": "R3",
+     "rope": 430,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 322,
+     "z": "R3",
+     "rope": 180,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 504,
+     "z": "R3",
+     "rope": 247,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 114,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": 39,
+     "z": "R2",
+     "rope": 180,
+     "r": 38,
+     "type": "cage"
+    },
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 180,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -156,
+     "z": "R0",
+     "rope": 395,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -121,
+     "z": "R0",
+     "rope": 250,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -145,
+     "z": "R1",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -116,
+     "z": "R2",
+     "rope": 215,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -39,
+     "z": "R2",
+     "rope": 430,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 116,
+     "z": "R2",
+     "rope": 395,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 193,
+     "z": "R2",
+     "rope": 250,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 270,
+     "z": "R2",
+     "rope": 360,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 348,
+     "z": "R2",
+     "rope": 215,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -404,
+     "z": "R2",
+     "rope": 275,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 115,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "wheel": {
+    "z": "R2",
+    "cx": 0,
+    "cy": -105,
+    "r": 200,
+    "speed": 0.63
+   },
+   "balloons": [
+    {
+     "x": 93,
+     "z": "R1",
+     "rope": 190,
+     "r": 31,
+     "type": "bomb"
+    },
+    {
+     "x": 1,
+     "z": "R1",
+     "rope": 435,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -127,
+     "z": "R1",
+     "rope": 229,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -175,
+     "z": "R1",
+     "rope": 410,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": -83,
+     "z": "R1",
+     "rope": 165,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "x": 45,
+     "z": "R1",
+     "rope": 371,
+     "r": 31,
+     "type": "plain"
+    },
+    {
+     "wheelA": 0.21,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.26,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.3,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.35,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.4,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": -181,
+     "z": "R0",
+     "rope": 270,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 116,
+   "name": "",
+   "knives": 18,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -361,
+     "z": "R2",
+     "rope": 165,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -229,
+     "z": "R2",
+     "rope": 190,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 189,
+     "z": "R2",
+     "rope": 275,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 361,
+     "z": "R2",
+     "rope": 275,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 235,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -304,
+     "z": "R2",
+     "rope": 395,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -142,
+     "z": "R2",
+     "rope": 250,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -61,
+     "z": "R2",
+     "rope": 360,
+     "r": 37,
+     "type": "armor"
+    },
+    {
+     "x": -256,
+     "z": "R1",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -86,
+     "z": "R1",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 86,
+     "z": "R1",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 256,
+     "z": "R1",
+     "rope": 360,
+     "r": 39,
+     "type": "split"
+    }
+   ]
+  },
+  {
+   "id": 117,
+   "name": "",
+   "knives": 17,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "screens": [
+    {
+     "x": 160,
+     "z": 720,
+     "w": 200,
+     "h": 140,
+     "yFromCeil": 320
+    }
+   ],
+   "balloons": [
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -155,
+     "z": "R0",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -204,
+     "z": "R1",
+     "rope": 250,
+     "r": 37,
+     "type": "split"
+    },
+    {
+     "x": -86,
+     "z": "R0",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -117,
+     "z": "R2",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -39,
+     "z": "R2",
+     "rope": 430,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 39,
+     "z": "R2",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 88,
+     "z": "R1",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 145,
+     "z": "R1",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 204,
+     "z": "R1",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 261,
+     "z": "R1",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 430,
+     "r": 35,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 118,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -296,
+     "z": "R2",
+     "rope": 200,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -173,
+     "z": "R1",
+     "rope": 385,
+     "r": 30,
+     "type": "drift"
+    },
+    {
+     "x": -164,
+     "z": "R2",
+     "rope": 200,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -74,
+     "z": "R1",
+     "rope": 385,
+     "r": 33,
+     "type": "cage"
+    },
+    {
+     "x": -33,
+     "z": "R2",
+     "rope": 200,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": 41,
+     "z": "R3",
+     "rope": 385,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 123,
+     "z": "R3",
+     "rope": 200,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 123,
+     "z": "R1",
+     "rope": 385,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": 230,
+     "z": "R2",
+     "rope": 200,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 369,
+     "z": "R3",
+     "rope": 385,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 451,
+     "z": "R3",
+     "rope": 200,
+     "r": 30,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 119,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -271,
+     "z": "R1",
+     "rope": 385,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -212,
+     "z": "R1",
+     "rope": 200,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": -201,
+     "z": "R2",
+     "rope": 330,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -91,
+     "z": "R1",
+     "rope": 200,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -18,
+     "z": "R0",
+     "rope": 385,
+     "r": 36,
+     "type": "plain"
+    },
+    {
+     "x": 30,
+     "z": "R1",
+     "rope": 200,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 54,
+     "z": "R0",
+     "rope": 385,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 151,
+     "z": "R1",
+     "rope": 200,
+     "r": 36,
+     "type": "drift"
+    },
+    {
+     "x": 126,
+     "z": "R0",
+     "rope": 385,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 272,
+     "z": "R1",
+     "rope": 200,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -212,
+     "z": "R2",
+     "rope": 435,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": 361,
+     "z": "R2",
+     "rope": 250,
+     "r": 30,
+     "type": "bomb"
+    }
+   ]
+  },
+  {
+   "id": 120,
+   "name": "",
+   "knives": 14,
+   "ability": 2,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0.26,
+    "period": 3.1
+   },
+   "rope": false,
+   "wheel": {
+    "z": "R1",
+    "cx": 0,
+    "cy": -105,
+    "r": 204,
+    "speed": 0.6
+   },
+   "balloons": [
+    {
+     "wheelA": 0.77,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 1.82,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 2.86,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 3.91,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 4.96,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "wheelA": 6.01,
+     "r": 30,
+     "type": "plain"
+    },
+    {
+     "x": -425,
+     "z": "R2",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -304,
+     "z": "R2",
+     "rope": 395,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -182,
+     "z": "R2",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -61,
+     "z": "R2",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -340,
+     "z": "R2",
+     "rope": 180,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 404,
+     "z": "R2",
+     "rope": 272,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 121,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": {
+    "base": 0.3,
+    "gust": 0,
+    "period": 0
+   },
+   "rope": false,
+   "balloons": [
+    {
+     "x": 87,
+     "z": "R1",
+     "rope": 190,
+     "r": 33,
+     "type": "bomb"
+    },
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 180,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -156,
+     "z": "R0",
+     "rope": 395,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -121,
+     "z": "R0",
+     "rope": 250,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -193,
+     "z": "R2",
+     "rope": 360,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -87,
+     "z": "R1",
+     "rope": 215,
+     "r": 37,
+     "type": "armor"
+    },
+    {
+     "x": -39,
+     "z": "R2",
+     "rope": 430,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 39,
+     "z": "R2",
+     "rope": 180,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 87,
+     "z": "R1",
+     "rope": 395,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 145,
+     "z": "R1",
+     "rope": 250,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 204,
+     "z": "R1",
+     "rope": 360,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 262,
+     "z": "R1",
+     "rope": 215,
+     "r": 37,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 122,
+   "name": "",
+   "knives": 18,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": 504,
+     "z": "R3",
+     "rope": 240,
+     "r": 30,
+     "type": "gift"
+    },
+    {
+     "x": -320,
+     "z": "R1",
+     "rope": 180,
+     "r": 34,
+     "type": "bomb"
+    },
+    {
+     "x": -152,
+     "z": "R0",
+     "rope": 395,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -192,
+     "z": "R1",
+     "rope": 250,
+     "r": 37,
+     "type": "split"
+    },
+    {
+     "x": -76,
+     "z": "R0",
+     "rope": 360,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -38,
+     "z": "R0",
+     "rope": 215,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 0,
+     "z": "R2",
+     "rope": 430,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 85,
+     "z": "R2",
+     "rope": 180,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 128,
+     "z": "R1",
+     "rope": 395,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 192,
+     "z": "R1",
+     "rope": 250,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 256,
+     "z": "R1",
+     "rope": 360,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 320,
+     "z": "R1",
+     "rope": 215,
+     "r": 34,
+     "type": "armor"
+    }
+   ]
+  },
+  {
+   "id": 123,
+   "name": "",
+   "knives": 14,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "screens": [
+    {
+     "x": 280,
+     "z": 810,
+     "w": 170,
+     "h": 140,
+     "yFromCeil": 240
+    }
+   ],
+   "balloons": [
+    {
+     "x": -152,
+     "z": "R0",
+     "rope": 180,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -124,
+     "z": "R0",
+     "rope": 415,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -97,
+     "z": "R0",
+     "rope": 290,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -154,
+     "z": "R2",
+     "rope": 415,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -93,
+     "z": "R2",
+     "rope": 235,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -31,
+     "z": "R2",
+     "rope": 415,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 31,
+     "z": "R2",
+     "rope": 235,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 93,
+     "z": "R2",
+     "rope": 415,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 154,
+     "z": "R2",
+     "rope": 235,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 216,
+     "z": "R2",
+     "rope": 415,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": 278,
+     "z": "R2",
+     "rope": 235,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -503,
+     "z": "R3",
+     "rope": 351,
+     "r": 30,
+     "type": "gift"
+    }
+   ]
+  },
+  {
+   "id": 124,
+   "name": "",
+   "knives": 20,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": -348,
+     "z": "R2",
+     "rope": 165,
+     "r": 34,
+     "type": "plain",
+     "link": 1
+    },
+    {
+     "x": 51,
+     "z": "R2",
+     "rope": 360,
+     "r": 34,
+     "type": "plain"
+    },
+    {
+     "x": -234,
+     "z": "R2",
+     "rope": 340,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": 306,
+     "z": "R2",
+     "rope": 235,
+     "r": 32,
+     "type": "plain"
+    },
+    {
+     "x": -361,
+     "z": "R2",
+     "rope": 235,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -258,
+     "z": "R2",
+     "rope": 435,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -155,
+     "z": "R2",
+     "rope": 250,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": -39,
+     "z": "R1",
+     "rope": 360,
+     "r": 33,
+     "type": "drift"
+    },
+    {
+     "x": 65,
+     "z": "R3",
+     "rope": 215,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 193,
+     "z": "R3",
+     "rope": 430,
+     "r": 34,
+     "type": "cage"
+    },
+    {
+     "x": 322,
+     "z": "R3",
+     "rope": 180,
+     "r": 33,
+     "type": "plain"
+    },
+    {
+     "x": 450,
+     "z": "R3",
+     "rope": 395,
+     "r": 33,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 125,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": 39,
+     "z": "R2",
+     "rope": 180,
+     "r": 37,
+     "type": "cage"
+    },
+    {
+     "x": -190,
+     "z": "R0",
+     "rope": 180,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -348,
+     "z": "R2",
+     "rope": 395,
+     "r": 35,
+     "type": "armor"
+    },
+    {
+     "x": -121,
+     "z": "R0",
+     "rope": 250,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -86,
+     "z": "R0",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -116,
+     "z": "R2",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": -39,
+     "z": "R2",
+     "rope": 430,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 87,
+     "z": "R1",
+     "rope": 395,
+     "r": 35,
+     "type": "drift"
+    },
+    {
+     "x": 193,
+     "z": "R2",
+     "rope": 250,
+     "r": 35,
+     "type": "bomb"
+    },
+    {
+     "x": 271,
+     "z": "R2",
+     "rope": 360,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 348,
+     "z": "R2",
+     "rope": 215,
+     "r": 35,
+     "type": "plain"
+    },
+    {
+     "x": 425,
+     "z": "R2",
+     "rope": 430,
+     "r": 35,
+     "type": "plain"
+    }
+   ]
+  },
+  {
+   "id": 126,
+   "name": "",
+   "knives": 15,
+   "ability": 1,
+   "hint": "",
+   "wind": null,
+   "rope": false,
+   "balloons": [
+    {
+     "x": 231,
+     "z": "R1",
+     "rope": 190,
+     "r": 37,
+     "type": "bomb"
+    },
+    {
+     "x": 185,
+     "z": "R2",
+     "rope": 435,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 11,
+     "z": "R1",
+     "rope": 229,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -37,
+     "z": "R1",
+     "rope": 410,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 55,
+     "z": "R1",
+     "rope": 165,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": 183,
+     "z": "R1",
+     "rope": 371,
+     "r": 37,
+     "type": "plain"
+    },
+    {
+     "x": -340,
+     "z": "R2",
+     "rope": 180,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -204,
+     "z": "R2",
+     "rope": 395,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": -30,
+     "z": "R0",
+     "rope": 250,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 30,
+     "z": "R0",
+     "rope": 360,
+     "r": 39,
+     "type": "plain"
+    },
+    {
+     "x": 91,
+     "z": "R0",
+     "rope": 215,
+     "r": 39,
+     "type": "armor"
+    },
+    {
+     "x": 304,
+     "z": "R1",
+     "rope": 282,
+     "r": 31,
+     "type": "gift"
+    }
+   ]
+  }
+ ]
+}
