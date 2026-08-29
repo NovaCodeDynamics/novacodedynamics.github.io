@@ -87,24 +87,59 @@
     transition:filter .15s}
   .btn2:active{filter:brightness(.88)}
   .btn2.ghost{background:transparent;color:#6b7b82;border:1px solid #ccc3b2}
-  .stars{font-size:30px;letter-spacing:8px;margin:4px 0 0;height:38px;color:#d6cdbb}
-  .stars span{display:inline-block;opacity:.25}
-  .stars span.on{opacity:1;color:var(--red);animation:st .45s cubic-bezier(.2,1.6,.4,1) both}
-  @keyframes st{from{transform:scale(2.4) rotate(-30deg);opacity:0}to{transform:scale(1);opacity:1}}
-  .lvlgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(54px,1fr));gap:7px;
-    margin:14px 0 4px;position:relative;max-height:32vh;overflow-y:auto;
-    overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;
-    padding:2px 4px 2px 2px}
-  .lvlgrid::-webkit-scrollbar{width:5px}
-  .lvlgrid::-webkit-scrollbar-thumb{background:#cfc5b2;border-radius:3px}
-  .lvlgrid button{aspect-ratio:1;border:1px solid #d9d0be;border-radius:3px;font:inherit;font-weight:700;
-    font-size:15px;background:#efe7d8;color:#9a9484;cursor:pointer;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;gap:1px;padding:0}
-  .lvlgrid button.done{background:#e2d9c6;color:#4d5c62;border-color:#c3b9a4}
-  .lvlgrid button.lock{background:#efe9dc;color:#c3bcab;border-color:#e2dbc9}
-  .lvlgrid button.next{background:var(--red);color:#fff;border-color:var(--red-dk)}
-  .lvlgrid .s{font-size:8px;letter-spacing:1px;color:var(--red)}
-  .lvlgrid button.next .s{color:#ffd9d0}
+  /* ---- ANA SAYFA ----
+     Bolum secme izgarasi kaldirildi: oyuncu OYNA'ya basar, siradaki bolume
+     girer. Perde tam ekran ve yari saydam -- arkadaki bahce canli kalsin
+     diye blur dusuk tutuldu. */
+  .veil.home{align-items:stretch;justify-content:stretch;padding:0;
+    background:rgba(9,18,22,.34);backdrop-filter:blur(2px)}
+  .home .wrap{position:relative;display:flex;flex-direction:column;width:100%;min-height:100%;
+    padding:calc(env(safe-area-inset-top) + 14px) 18px calc(env(safe-area-inset-bottom) + 16px);
+    background:linear-gradient(180deg,rgba(9,18,22,.74) 0%,rgba(9,18,22,.22) 34%,
+      rgba(9,18,22,.62) 66%,rgba(9,18,22,.9) 100%)}
+  .home .top{display:flex;gap:8px;align-items:center}
+  .home .top .sp{flex:1}
+  .hbtn{width:38px;height:38px;border-radius:50%;border:1px solid rgba(243,232,214,.26);
+    background:rgba(9,18,22,.4);color:var(--cream);font-size:15px;display:flex;align-items:center;
+    justify-content:center;cursor:pointer;flex:0 0 auto}
+  .home .brand{margin-top:5.5vh;text-align:center}
+  .home .brand .mark{font-size:42px;line-height:1;filter:drop-shadow(0 8px 20px rgba(0,0,0,.6))}
+  .home .brand h1{font-family:"Shippori Mincho",serif;font-size:37px;margin:6px 0 0;color:#f6efe2;
+    letter-spacing:.02em;text-shadow:0 4px 24px rgba(0,0,0,.65)}
+  .home .brand .sub{font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;
+    color:rgba(243,232,214,.6);margin-top:8px}
+  .home .mid{flex:1;min-height:14px}
+  .lvlcard{background:rgba(246,239,226,.95);border-radius:6px;border-top:4px solid var(--red);
+    padding:14px 15px 15px;box-shadow:0 18px 44px rgba(0,0,0,.45);text-align:left}
+  .lvlcard .r1{display:flex;align-items:baseline;gap:8px}
+  .lvlcard .no{font-family:"Shippori Mincho",serif;font-size:22px;color:#1b2b31;font-weight:700}
+  .lvlcard .nm{font-size:12.5px;color:#5a6a70;font-weight:700}
+  .lvlcard .tag{margin-left:auto;font-size:10px;font-weight:900;letter-spacing:.14em;
+    padding:4px 8px;border-radius:2px;color:#fff;background:#b8761c}
+  .lvlcard .tag.t2{background:#7c2033}
+  .bar{height:5px;border-radius:3px;background:#ddd3bf;margin-top:11px;overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--red);border-radius:3px;transition:width .4s}
+  .lvlcard .cnt{font-size:11px;color:#7a8a90;margin-top:7px;font-weight:700;letter-spacing:.04em}
+  /* OYNA butonunun zemini bolumun zorluguna gore degisir: kirmizi / kehribar /
+     koyu bordo. Kademeyi levelTier() level verisinden hesapliyor. */
+  .play{display:block;width:100%;margin-top:12px;padding:16px;border:0;border-radius:5px;font:inherit;
+    font-weight:900;font-size:18px;letter-spacing:.12em;color:#fff6f0;cursor:pointer;
+    background:var(--red);box-shadow:0 10px 26px rgba(200,64,47,.35);
+    transition:filter .15s,transform .1s}
+  .play:active{transform:translateY(1px);filter:brightness(.9)}
+  .play .sm{display:block;font-size:10px;letter-spacing:.2em;opacity:.86;margin-top:4px;font-weight:800}
+  .play.t1{background:linear-gradient(180deg,#d08a24,#a4601a);box-shadow:0 10px 26px rgba(190,120,30,.36)}
+  .play.t2{background:linear-gradient(180deg,#96283f,#571727);box-shadow:0 10px 30px rgba(120,25,45,.45);
+    animation:t2p 2.6s ease-in-out infinite}
+  @keyframes t2p{0%,100%{box-shadow:0 10px 30px rgba(120,25,45,.45)}
+    50%{box-shadow:0 12px 40px rgba(196,44,74,.6)}}
+  .home .row2{display:flex;gap:8px;margin-top:9px}
+  .home .row2 button{flex:1;padding:12px 6px;border-radius:4px;border:1px solid rgba(243,232,214,.28);
+    background:rgba(9,18,22,.4);color:var(--cream);font:inherit;font-weight:800;font-size:11.5px;
+    letter-spacing:.1em;cursor:pointer}
+  .home .foot{text-align:center;margin-top:13px;font-size:10px;letter-spacing:.2em;
+    color:rgba(243,232,214,.4);text-transform:uppercase;cursor:default}
+  .opt[hidden]{display:none}
   .opt{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#ece4d4;
     border-radius:3px;padding:10px 13px;margin-top:8px;font-size:13px;font-weight:700;color:#5a6a70;text-align:left}
   .sw{width:42px;height:24px;border-radius:2px;background:#cfc5b2;position:relative;flex:0 0 auto;cursor:pointer;
@@ -163,12 +198,32 @@
   </div>
   <div id="toast"></div>
 
-  <div class="veil show" id="menu"><div class="card">
-    <div class="kicker" id="verTag">Balloon Dojo · v1.0</div>
-    <h1>Balloon Dojo</h1>
-    <p>Alacakaranlıkta bir bahçe. Sınırlı shuriken ile fenerleri indir.<br>
-       <b>Dokun</b> at · <b>Basılı tut</b> odak anı</p>
-    <div class="lvlgrid" id="grid"></div>
+  <div class="veil home show" id="menu"><div class="wrap">
+    <div class="top"><div class="sp"></div>
+      <button class="hbtn" id="hSnd">&#9834;</button></div>
+    <div class="brand">
+      <div class="mark">&#127982;</div>
+      <h1>Balloon Dojo</h1>
+      <div class="sub">Alacakaranlık Bahçesi</div>
+    </div>
+    <div class="mid"></div>
+    <div class="lvlcard">
+      <div class="r1"><span class="no" id="hNo">Bölüm 1</span>
+        <span class="nm" id="hName"></span><span class="tag" id="hTag" hidden></span></div>
+      <div class="bar"><i id="hBar" style="width:0%"></i></div>
+      <div class="cnt" id="hCnt"></div>
+    </div>
+    <button class="play" id="playBtn">BAŞLA</button>
+    <div class="row2">
+      <button id="howBtn">NASIL OYNANIR</button>
+      <button id="optBtn">AYARLAR</button>
+    </div>
+    <div class="foot" id="verTag">Balloon Dojo · v1.1</div>
+  </div></div>
+
+  <div class="veil" id="opts"><div class="card">
+    <div class="kicker">AYARLAR</div>
+    <h2 style="margin-bottom:12px">Nasıl atsın</h2>
     <div class="opt" style="flex-direction:column;align-items:stretch;gap:8px">
       <span>Atış stili — <b>Nişan</b> dokunduğun noktada kalır;
         Elden ve Savurma gösterişli ama yolda sapar.</span>
@@ -178,9 +233,31 @@
     </div>
     <div class="opt">Nişan halkası<div class="sw on" id="swAim"></div></div>
     <div class="opt">Rüzgâr sapma göstergesi<div class="sw on" id="swDrift"></div></div>
-    <!-- TEST MODU oyuncuya kapali. Surum etiketine 1.2 sn basili tutunca acilir. -->
+    <div class="opt">Ses<div class="sw on" id="swSnd"></div></div>
+    <!-- TEST MODU oyuncuya kapali. Ana sayfadaki surum etiketine 1.2 sn
+         basili tutunca goruniyor. -->
     <div class="opt" id="devRow" hidden>Sınırsız shuriken (test)<div class="sw" id="swInf"></div></div>
-    <button class="btn2" id="playBtn">BAŞLA</button>
+    <button class="btn2" id="optClose">KAPAT</button>
+    <button class="btn2 ghost" id="resetBtn">İlerlemeyi sıfırla</button>
+  </div></div>
+
+  <div class="veil" id="howto"><div class="card">
+    <div class="kicker">NASIL OYNANIR</div>
+    <h2>Sınırlı shuriken</h2>
+    <p style="text-align:left">
+      <b>Dokun</b> — nişan aldığın noktaya shuriken gider ve yolundaki
+      her balonu deler.<br>
+      <b>Basılı tut</b> — dünya ağır çekime girer, parmağını sürükleyip
+      bir kesme çizgisi çizersin.<br><br>
+      Bölümü <b>bütün balonları indirince</b> geçersin. Shuriken biterse
+      ya da kaçak balon tavandan sıyrılırsa baştan.
+    </p>
+    <p style="text-align:left;background:#ece4d4;padding:11px 13px;border-radius:3px">
+      Zırhlı balon iki vuruş ister · fitilli patlayınca komşularını götürür ·
+      bölünen ikiye ayrılır · kafesli ancak çubuklar açılınca vurulur ·
+      rüzgâr uzaktaki hedefte çok daha fazla sürükler.
+    </p>
+    <button class="btn2" id="howClose">ANLADIM</button>
   </div></div>
 
   <div class="veil" id="pick"><div class="card">
@@ -207,10 +284,9 @@
   <div class="veil" id="win"><div class="card">
     <div class="kicker" id="winKick">BÖLÜM TAMAM</div>
     <h2 id="winTitle"></h2>
-    <div class="stars" id="winStars"><span>★</span><span>★</span><span>★</span></div>
     <p id="winMsg"></p>
     <button class="btn2" id="nextBtn">SONRAKİ</button>
-    <button class="btn2 ghost" id="winMenu">Bölümler</button>
+    <button class="btn2 ghost" id="winMenu">ANA SAYFA</button>
   </div></div>
 
   <div class="veil" id="lose"><div class="card">
@@ -218,7 +294,7 @@
     <h2 id="loseTitle">Az kaldı</h2>
     <p id="loseMsg"></p>
     <button class="btn2" id="retryBtn">TEKRAR</button>
-    <button class="btn2 ghost" id="loseMenu">Bölümler</button>
+    <button class="btn2 ghost" id="loseMenu">ANA SAYFA</button>
   </div></div>
 </div></div>
 
@@ -647,7 +723,7 @@ let progress={}; try{ progress=JSON.parse(localStorage.getItem('kb_prog')||'{}')
    kimliği bekliyor. Bugün kaydedilmezse, hesap eklendiği gün mevcut
    oyuncuların ilerlemesi hiçbir hesaba bağlanamaz — sıfırdan başlarlar.
    Sunucuya hiçbir şey gitmiyor; sadece tarayıcıda duruyor. */
-const GAME_VERSION='1.0';
+const GAME_VERSION='1.1';
 let playerId='';
 try{
   playerId=localStorage.getItem('kb_pid')||'';
@@ -674,6 +750,7 @@ const saveProg=()=>{try{localStorage.setItem('kb_prog',JSON.stringify(progress))
 const el=id=>document.getElementById(id);
 
 function loadLevel(i){
+  el('hud').style.visibility='';
   levelIdx=clamp(i,0,LEVELS.length-1); level=LEVELS[levelIdx];
   try{ Analytics.level(levelIdx, level); }catch(e){}
   shotsFired=0; levelT0=Date.now();
@@ -1303,20 +1380,19 @@ function endLevel(won){
   try{ Analytics.result(levelIdx, won, {
     shots:shotsFired, knives_left:knivesLeft, ms:Date.now()-levelT0,
     balloons_left:balloons.filter(b=>b.alive).length,
-    stars: won ? (unlimited?0:(knivesLeft/level.knives>=.34?3:knivesLeft/level.knives>=.15?2:1)) : 0
+    tier: levelTier(level)
   }); }catch(e){}
   if(won){
     Snd.win();
     const ratio=knivesLeft/level.knives;
-    const stars=unlimited?0:(ratio>=.34?3:ratio>=.15?2:1);
-    if(!unlimited){ progress['l'+levelIdx]=Math.max(progress['l'+levelIdx]||0,stars); saveProg(); }
+    /* Yildiz sistemi kaldirildi (29 Agustos 2026): ilerleme artik sadece
+       "bitti". Kalan shuriken yine de bir cumleyle geri bildiriliyor. */
+    if(!unlimited){ progress['l'+levelIdx]=1; saveProg(); }
     el('winKick').textContent=(unlimited?'TEST MODU · ':'')+'BÖLÜM '+(levelIdx+1)+' · '+(level.name||autoBadge(level)).toUpperCase();
-    el('winTitle').textContent=unlimited?'Bölüm bitti':['Kıl payı','Temiz iş','Kusursuz'][stars-1];
-    const st=el('winStars'); st.innerHTML='';
-    for(let i=0;i<3;i++){ const s=document.createElement('span'); s.textContent='★';
-      if(i<stars){ s.className='on'; s.style.animationDelay=(i*.14)+'s'; } st.appendChild(s); }
+    el('winTitle').textContent=unlimited?'Bölüm bitti'
+      :(ratio>=.34?'Kusursuz':ratio>=.15?'Temiz iş':'Kıl payı');
     el('winMsg').textContent=unlimited
-      ? 'Sınırsız mod açık — yıldız verilmiyor. Hak sınırını ∞ butonundan geri açabilirsin.'
+      ? 'Sınırsız mod açık. Hak sınırını ayarlardan geri kapatabilirsin.'
       : (knivesLeft>0?knivesLeft+' shuriken kaldı.':'Son shuriken ile bitirdin.');
     el('nextBtn').style.display=levelIdx<LEVELS.length-1?'block':'none';
     if(levelIdx===LEVELS.length-1){
@@ -2284,39 +2360,70 @@ async function loadRemoteLevels(){
     if(!arr.length || arr.some(L => !L.b || !L.b.length || !(L.knives > 0))) return;
     if(arr.length === LEVELS.length && JSON.stringify(arr) === JSON.stringify(LEVELS)) return;
     LEVELS.length = 0; LEVELS.push(...arr);
-    if(state === 'menu') buildGrid();
+    if(state === 'menu') refreshHome();
     console.log('level seti sunucudan guncellendi: ' + LEVELS.length + ' bolum');
   }catch(e){ /* cevrimdisi ya da dosyadan acilmis: gomulu set gecerli */ }
 }
 
-/* --------- menü --------- */
-function buildGrid(){
-  const g=el('grid'); g.innerHTML=''; let open=true;
-  LEVELS.forEach((L,i)=>{
-    const b=document.createElement('button');
-    const st=progress['l'+i]||0;
-    b.innerHTML='<span>'+(i+1)+'</span>'+(st?'<span class="s">'+'★'.repeat(st)+'</span>':'');
-    if(st) b.className='done'; else if(open){ b.className='next'; open=false; }
-    /* KİLİT: bir bölüm ancak öncekini bitirince açılır. Prototipte hepsi
-       açıktı; yayında ilerleme duygusunu taşıyan şey bu kilit. Test modu
-       açıkken kilit yok (bölüm denerken engel olmasın). */
-    const locked = !unlimited && i > 0 && !progress['l' + (i - 1)];
-    if(locked){ b.classList.add('lock'); b.innerHTML = '<span>' + (i+1) + '</span>'; }
-    b.onclick=()=>{ if(locked){ toast('Önce ' + i + '. bölümü bitir'); return; }
-                    closeAll(); loadLevel(i); };
-    g.appendChild(b);
-  });
-  /* Izgara kendi icinde kayiyor: acilista siradaki bolumu ortala, yoksa
-     40. bolumdeki oyuncu her seferinde elle asagi kaydirmak zorunda kalir.
-     scrollIntoView kullanmiyoruz -- o disaridaki perdeyi de kaydiriyor. */
-  const nx=g.querySelector('button.next') || g.querySelector('button.done:last-of-type');
-  if(nx) g.scrollTop=Math.max(0, nx.offsetTop - g.clientHeight/2 + nx.offsetHeight/2);
+/* --------- ana sayfa --------- */
+/* Bolum secme izgarasi kaldirildi (29 Agustos 2026). Oyuncu OYNA'ya basar,
+   siradaki bitmemis bolume girer; gecerse sonraki, gecemezse ayni bolum.
+   Ilerleme artik yildiz degil, sadece "bitti / bitmedi". */
+function nextUnplayed(){
+  for(let i=0;i<LEVELS.length;i++) if(!progress['l'+i]) return i;
+  return LEVELS.length-1;                       // hepsi bitti: sonuncuda kal
 }
-const closeAll=()=>['menu','win','lose','fhelp','pick'].forEach(i=>el(i).classList.remove('show'));
-function openMenu(){ closeAll(); buildGrid(); el('menu').classList.add('show'); state='menu'; }
-el('playBtn').onclick=()=>{ Snd.unlock(); let n=0;
-  for(let i=0;i<LEVELS.length;i++){ if(!progress['l'+i]){ n=i; break; } if(i===LEVELS.length-1) n=i; }
-  closeAll(); loadLevel(n); };
+function doneCount(){ let n=0; for(let i=0;i<LEVELS.length;i++) if(progress['l'+i]) n++; return n; }
+
+/* ZORLUK KADEMESI — 0 normal, 1 zor, 2 cok zor.
+   Level verisinden hesaplaniyor: gereken vurus sayisinin shuriken butcesine
+   orani + mekanik yuku. Bu bir TAHMIN; gercek olcum bot raporunda ve yakinda
+   oyuncu verisinde. Esikler 126 levelin dagilimina gore secildi (~%16 zor,
+   ~%5 cok zor). Yeni leveller icin de kendiliginden calisir. */
+function levelScore(L){
+  const b=L.b||[], k=L.knives||1, t=n=>b.filter(x=>(x.t||'plain')===n).length;
+  let s=(b.length+t('armor')+t('split'))/k;
+  if(L.wheel) s+=.30;
+  if(L.screens) s+=.10*L.screens.length;
+  if(L.rope) s+=.12;
+  s+=.10*t('cage')+.12*t('drift');
+  if(b.some(x=>x.link!==undefined&&x.link!==null)) s+=.12;
+  if(L.wind) s+=(L.wind.base||0)*.55+(L.wind.gust||0)*.9;
+  s-=.06*(L.focus||0)+.05*t('bomb');
+  return s;
+}
+const levelTier=L=>{ const s=levelScore(L); return s>=1.30?2:s>=1.10?1:0; };
+
+function refreshHome(){
+  const i=nextUnplayed(), L=LEVELS[i]; if(!L) return;
+  const done=doneCount(), hepsi=done>=LEVELS.length, t=levelTier(L);
+  el('hNo').textContent='Bölüm '+(i+1);
+  el('hName').textContent=L.name||autoBadge(L);
+  const tag=el('hTag');
+  tag.hidden = t===0; tag.className='tag'+(t===2?' t2':''); tag.textContent = t===2?'ÇOK ZOR':'ZOR';
+  el('hBar').style.width=(100*done/LEVELS.length).toFixed(1)+'%';
+  el('hCnt').textContent=done+' / '+LEVELS.length+' bölüm tamam';
+  const p=el('playBtn');
+  p.className='play'+(t?' t'+t:'');
+  p.innerHTML=(done?'OYNA':'BAŞLA')+'<span class="sm">BÖLÜM '+(i+1)+
+    (hepsi?' · TEKRAR':t===2?' · ÇOK ZOR':t===1?' · ZOR':'')+'</span>';
+}
+const closeAll=()=>['menu','win','lose','fhelp','pick','opts','howto']
+  .forEach(i=>el(i).classList.remove('show'));
+function openMenu(){ closeAll(); refreshHome(); el('menu').classList.add('show'); state='menu';
+  el('hud').style.visibility='hidden'; }   /* HUD perdenin arkasindan siziyordu */
+el('playBtn').onclick=()=>{ Snd.unlock(); const n=nextUnplayed(); closeAll(); loadLevel(n); };
+el('howBtn').onclick=()=>{ el('howto').classList.add('show'); };
+el('howClose').onclick=()=>{ el('howto').classList.remove('show'); };
+el('optBtn').onclick=()=>{ el('opts').classList.add('show'); };
+el('optClose').onclick=()=>{ el('opts').classList.remove('show'); refreshHome(); };
+el('resetBtn').onclick=()=>{
+  if(!el('resetBtn').dataset.sure){ el('resetBtn').dataset.sure='1';
+    el('resetBtn').textContent='Emin misin? Tekrar bas'; return; }
+  progress={}; saveProg(); delete el('resetBtn').dataset.sure;
+  el('resetBtn').textContent='İlerlemeyi sıfırla';
+  el('opts').classList.remove('show'); refreshHome(); toast('İlerleme sıfırlandı');
+};
 el('menuBtn').onclick=openMenu;
 el('nextBtn').onclick=()=>{ closeAll(); loadLevel(levelIdx+1); };
 el('retryBtn').onclick=()=>{ closeAll(); loadLevel(levelIdx); };
@@ -2348,7 +2455,11 @@ function showPicker(){
 el('pickGo').onclick=()=>{ el('pick').classList.remove('show'); state='play';
   syncHUD(); if(level&&level.hint) toast(level.hint,true); };
 el('focusPill').onclick=()=>{ Snd.unlock(); useAbility(); };
-el('sndBtn').onclick=()=>{ Snd.unlock(); el('sndBtn').textContent=Snd.toggle()?'♪':'✕'; };
+let sndOn=true;
+function syncSnd(){ el('sndBtn').textContent=sndOn?'♪':'✕';
+  el('hSnd').textContent=sndOn?'♪':'✕'; el('swSnd').classList.toggle('on',sndOn); }
+function toggleSnd(){ Snd.unlock(); sndOn=Snd.toggle(); syncSnd(); }
+el('sndBtn').onclick=toggleSnd; el('hSnd').onclick=toggleSnd; el('swSnd').onclick=toggleSnd;
 el('swAim').onclick=e=>{ optAim=!optAim; e.currentTarget.classList.toggle('on',optAim); saveOpt(); };
 el('swDrift').onclick=e=>{ optDrift=!optDrift; e.currentTarget.classList.toggle('on',optDrift); saveOpt(); };
 function syncSeg(){
@@ -2372,7 +2483,8 @@ el('swInf').classList.toggle('on',unlimited);
 el('swAim').classList.toggle('on',optAim);
 el('swDrift').classList.toggle('on',optDrift);
 
-resize(); level=LEVELS[0]; balloons=[]; syncHUD(); buildGrid();
+resize(); level=LEVELS[0]; balloons=[]; syncHUD(); refreshHome();
+el('hud').style.visibility='hidden';   /* acilista ana sayfa acik: HUD gizli */
 Analytics.start();
 loadRemoteLevels();       // gomulu set zaten hazir, bu sadece uzerine yazar
 requestAnimationFrame(loop);
