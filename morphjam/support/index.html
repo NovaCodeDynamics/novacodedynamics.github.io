@@ -8,43 +8,44 @@
   <meta name="theme-color" content="#0e1a2b">
   <link rel="icon" href="../assets/app-icon.png">
   <link rel="stylesheet" href="../styles.css">
+  <script src="../i18n.js" defer></script>
 </head>
-<body>
-  <header class="site-header"><nav class="nav wrap" aria-label="Main navigation"><a class="brand" href="../"><img src="../assets/app-icon.png" alt=""><span>MORPH JAM</span></a><div class="nav-links"><a class="keep" href="../">Home</a><a aria-current="page" href="./">Support</a></div></nav></header>
+<body data-page="support">
+  <header class="site-header"><nav class="nav wrap" aria-label="Main navigation"><a class="brand" href="../"><img src="../assets/app-icon.png" alt=""><span>MORPH JAM</span></a><div class="nav-links"><a class="keep" href="../" data-i18n="nav.home">Home</a><a aria-current="page" href="./" data-i18n="nav.support">Support</a></div></nav></header>
   <main class="wrap">
-    <section class="page-hero"><p class="eyebrow">Support</p><h1>How can we help?</h1><p class="lead">Find the essentials below or email us. Türkçe destek taleplerini de aynı adrese gönderebilirsin.</p></section>
+    <section class="page-hero"><p class="eyebrow" data-i18n="support.eyebrow">Support</p><h1 data-i18n="support.title">How can we help?</h1><p class="lead" data-i18n="support.lead">Find the essentials below or email us.</p></section>
     <div class="content-grid">
       <article class="prose">
         <div class="support-cards">
-          <div class="support-card"><h3>Email support</h3><p><a href="mailto:support@novacodedynamics.com?subject=Morph%20Jam%20Support">support@novacodedynamics.com</a></p></div>
-          <div class="support-card"><h3>Useful details</h3><p>Include your device, OS version, app version, and level number so we can investigate faster.</p></div>
+          <div class="support-card"><h3 data-i18n="support.emailTitle">Email support</h3><p><a href="mailto:support@novacodedynamics.com?subject=Morph%20Jam%20Support">support@novacodedynamics.com</a></p></div>
+          <div class="support-card"><h3 data-i18n="support.detailsTitle">Useful details</h3><p data-i18n="support.detailsBody">Include your device, OS version, app version, and level number so we can investigate faster.</p></div>
         </div>
 
-        <h2 id="basics">How the puzzle works</h2>
-        <ol>
+        <h2 id="basics" data-i18n="support.basicsTitle">How the puzzle works</h2>
+        <ol data-i18n-html="support.basicsBody">
           <li>Swipe a block in one of four directions. It slides until a wall, obstacle, or another block stops it.</li>
           <li>Guide each block through a gate of the same color. A numbered gate accepts exactly that size; <strong>∞</strong> accepts any size.</li>
           <li>A Rotate, Split, Stretch, or Shrink tile activates only when the block finishes its move on that tile.</li>
         </ol>
 
-        <h2 id="stuck">I am stuck on a level</h2>
-        <p>Tap <strong>Help</strong> in the game. It checks the board in its current state and shows one safe directional move. It does not reveal the full solution. You can also use Undo to revisit your last decision.</p>
+        <h2 id="stuck" data-i18n="support.stuckTitle">I am stuck on a level</h2>
+        <p data-i18n-html="support.stuckBody">Tap <strong>Help</strong> in the game. It checks the board in its current state and shows one safe directional move. It does not reveal the full solution. You can also use Undo to revisit your last decision.</p>
 
-        <h2 id="purchases">Restore a purchase</h2>
-        <p>Open the in-game Store and choose <strong>Restore Purchases</strong>. Permanent purchases such as No Ads are tied to your Apple or Google store account. Consumable coin packs cannot be restored after they have been consumed.</p>
+        <h2 id="purchases" data-i18n="support.purchasesTitle">Restore a purchase</h2>
+        <p data-i18n-html="support.purchasesBody">Open the in-game Store and choose <strong>Restore Purchases</strong>. Permanent purchases such as No Ads are tied to your Apple or Google store account. Consumable coin packs cannot be restored after they have been consumed.</p>
 
-        <h2 id="progress">Progress or account problem</h2>
-        <p>Morph Jam can be played as a guest. If you linked a supported sign-in provider, use the same provider to recover synced progress. If the wrong progress appears, stop playing on the affected device and contact us before deleting data.</p>
+        <h2 id="progress" data-i18n="support.progressTitle">Progress or account problem</h2>
+        <p data-i18n="support.progressBody">Morph Jam can be played as a guest. If you linked a supported sign-in provider, use the same provider to recover synced progress. If the wrong progress appears, stop playing on the affected device and contact us before deleting data.</p>
 
-        <h2 id="ads">Advertising and privacy choices</h2>
-        <p>You can review or change available advertising consent choices from <strong>Settings → Ad Choices</strong>. On iOS, tracking permission can also be changed in the system Settings app.</p>
+        <h2 id="ads" data-i18n="support.adsTitle">Advertising and privacy choices</h2>
+        <p data-i18n-html="support.adsBody">You can review or change available advertising consent choices from <strong>Settings → Ad Choices</strong>. On iOS, tracking permission can also be changed in the system Settings app.</p>
 
-        <h2 id="report">Report a bug</h2>
-        <p>Email <a href="mailto:support@novacodedynamics.com?subject=Morph%20Jam%20Bug%20Report">support@novacodedynamics.com</a>. Please describe what you expected, what happened, and the last action you took. A screenshot is helpful, but never send passwords or payment-card information.</p>
+        <h2 id="report" data-i18n="support.reportTitle">Report a bug</h2>
+        <p data-i18n-html="support.reportBody">Email <a href="mailto:support@novacodedynamics.com?subject=Morph%20Jam%20Bug%20Report">support@novacodedynamics.com</a>. Please describe what you expected, what happened, and the last action you took. A screenshot is helpful, but never send passwords or payment-card information.</p>
       </article>
-      <aside class="side-nav" aria-label="On this page"><strong>On this page</strong><a href="#basics">Puzzle basics</a><a href="#stuck">Stuck</a><a href="#purchases">Purchases</a><a href="#progress">Progress</a><a href="#ads">Ad choices</a><a href="#report">Report a bug</a></aside>
+      <aside class="side-nav" aria-label="On this page" data-i18n-html="support.sideNav"><strong>On this page</strong><a href="#basics">Puzzle basics</a><a href="#stuck">Stuck</a><a href="#purchases">Purchases</a><a href="#progress">Progress</a><a href="#ads">Ad choices</a><a href="#report">Report a bug</a></aside>
     </div>
   </main>
-  <footer class="site-footer"><div class="footer-row wrap"><span>© 2026 NovaCode Dynamics Inc.</span><div class="footer-links"><a href="../privacy/">Privacy</a><a href="../terms/">Terms</a><a href="../delete-account/">Delete account</a></div></div></footer>
+  <footer class="site-footer"><div class="footer-row wrap"><span>© 2026 NovaCode Dynamics Inc.</span><div class="footer-links"><a href="../privacy/" data-i18n="nav.privacy">Privacy</a><a href="../terms/" data-i18n="nav.terms">Terms</a><a href="../delete-account/" data-i18n="nav.deleteAccount">Delete account</a></div></div></footer>
 </body>
 </html>

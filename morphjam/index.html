@@ -11,15 +11,16 @@
   <meta property="og:image" content="https://novacodedynamics.github.io/morphjam/assets/app-icon.png">
   <link rel="icon" href="assets/app-icon.png">
   <link rel="stylesheet" href="styles.css">
+  <script src="i18n.js" defer></script>
 </head>
-<body>
+<body data-page="home">
   <header class="site-header">
     <nav class="nav wrap" aria-label="Main navigation">
       <a class="brand" href="./"><img src="assets/app-icon.png" alt=""><span>MORPH JAM</span></a>
       <div class="nav-links">
-        <a href="#game">The game</a>
-        <a href="#screens">Screens</a>
-        <a class="keep" href="support/">Support</a>
+        <a href="#game" data-i18n="nav.game">The game</a>
+        <a href="#screens" data-i18n="nav.screens">Screens</a>
+        <a class="keep" href="support/" data-i18n="nav.support">Support</a>
       </div>
     </nav>
   </header>
@@ -27,13 +28,13 @@
   <main>
     <section class="hero wrap">
       <div>
-        <p class="eyebrow">Shape-shifting block logic puzzles</p>
-        <h1>Slide. Shift. <span class="accent">Escape.</span></h1>
-        <p class="lead">Blocks do more than move. Rotate, split, stretch, and shrink them—then use every shape to open the way out.</p>
+        <p class="eyebrow" data-i18n="home.eyebrow">Shape-shifting block logic puzzles</p>
+        <h1 data-i18n-html="home.title">Slide. Shift. <span class="accent">Escape.</span></h1>
+        <p class="lead" data-i18n="home.lead">Blocks do more than move. Rotate, split, stretch, and shrink them—then use every shape to open the way out.</p>
         <div class="actions">
-          <a class="button primary" href="#game">Discover Morph Jam</a>
-          <a class="button" href="support/">Get support</a>
-          <span class="availability">Coming to iPhone and Android</span>
+          <a class="button primary" href="#game" data-i18n="home.discover">Discover Morph Jam</a>
+          <a class="button" href="support/" data-i18n="home.getSupport">Get support</a>
+          <span class="availability" data-i18n="home.availability">Coming to iPhone and Android</span>
         </div>
       </div>
       <div class="hero-art" aria-hidden="true">
@@ -44,22 +45,22 @@
     <section class="section" id="game">
       <div class="wrap">
         <div class="section-heading">
-          <p class="eyebrow">A puzzle that rewrites itself</p>
-          <h2>Every move can change the board.</h2>
-          <p>A block keeps sliding until something stops it. The right stopping point can transform the piece—and the plan you had for it.</p>
+          <p class="eyebrow" data-i18n="home.gameEyebrow">A puzzle that rewrites itself</p>
+          <h2 data-i18n="home.gameTitle">Every move can change the board.</h2>
+          <p data-i18n="home.gameLead">A block keeps sliding until something stops it. The right stopping point can transform the piece—and the plan you had for it.</p>
         </div>
         <div class="feature-grid">
           <article class="feature">
-            <h3>Change the shape</h3>
-            <p>Rotate, stretch, or shrink pieces to match gates and create new routes through the grid.</p>
+            <h3 data-i18n="home.shapeTitle">Change the shape</h3>
+            <p data-i18n="home.shapeBody">Rotate, stretch, or shrink pieces to match gates and create new routes through the grid.</p>
           </article>
           <article class="feature">
-            <h3>Split the responsibility</h3>
-            <p>One even-length piece can become two independent problems, each with its own route and exit.</p>
+            <h3 data-i18n="home.splitTitle">Split the responsibility</h3>
+            <p data-i18n="home.splitBody">One even-length piece can become two independent problems, each with its own route and exit.</p>
           </article>
           <article class="feature">
-            <h3>Ask for one step</h3>
-            <p>When you are stuck, Help re-solves the board from where you are and shows a move—not the whole answer.</p>
+            <h3 data-i18n="home.stepTitle">Ask for one step</h3>
+            <p data-i18n="home.stepBody">When you are stuck, Help re-solves the board from where you are and shows a move—not the whole answer.</p>
           </article>
         </div>
       </div>
@@ -68,13 +69,13 @@
     <section class="section" id="screens">
       <div class="wrap">
         <div class="section-heading">
-          <p class="eyebrow">Inside the game</p>
-          <h2>Clear rules. Surprising consequences.</h2>
+          <p class="eyebrow" data-i18n="home.screensEyebrow">Inside the game</p>
+          <h2 data-i18n="home.screensTitle">Clear rules. Surprising consequences.</h2>
         </div>
         <div class="screens">
-          <figure><img src="assets/01_hook.png" alt="Morph Jam puzzle board with colorful blocks and gates" loading="lazy"><figcaption>Pieces do not just move. They change shape.</figcaption></figure>
-          <figure><img src="assets/02_split.png" alt="Morph Jam level featuring the Split mechanic" loading="lazy"><figcaption>Split turns one piece into two separate responsibilities.</figcaption></figure>
-          <figure><img src="assets/03_morph.png" alt="Morph Jam level featuring Stretch and Rotate mechanics" loading="lazy"><figcaption>Stretch, shrink, and rotate until every piece fits.</figcaption></figure>
+          <figure><img src="assets/01_hook.png" alt="Morph Jam puzzle board with colorful blocks and gates" loading="lazy"><figcaption data-i18n="home.screen1">Pieces do not just move. They change shape.</figcaption></figure>
+          <figure><img src="assets/02_split.png" alt="Morph Jam level featuring the Split mechanic" loading="lazy"><figcaption data-i18n="home.screen2">Split turns one piece into two separate responsibilities.</figcaption></figure>
+          <figure><img src="assets/03_morph.png" alt="Morph Jam level featuring Stretch and Rotate mechanics" loading="lazy"><figcaption data-i18n="home.screen3">Stretch, shrink, and rotate until every piece fits.</figcaption></figure>
         </div>
       </div>
     </section>
@@ -83,7 +84,7 @@
   <footer class="site-footer">
     <div class="footer-row wrap">
       <span>© 2026 NovaCode Dynamics Inc. Morph Jam.</span>
-      <div class="footer-links"><a href="support/">Support</a><a href="privacy/">Privacy</a><a href="terms/">Terms</a><a href="delete-account/">Delete account</a></div>
+      <div class="footer-links"><a href="support/" data-i18n="nav.support">Support</a><a href="privacy/" data-i18n="nav.privacy">Privacy</a><a href="terms/" data-i18n="nav.terms">Terms</a><a href="delete-account/" data-i18n="nav.deleteAccount">Delete account</a></div>
     </div>
   </footer>
 </body>
