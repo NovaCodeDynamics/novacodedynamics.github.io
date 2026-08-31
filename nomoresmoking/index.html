@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>No More Smoking</title>
+  <meta name="description" content="Sigarayı kendi yönteminle bırak — birden ya da kademeli bırakma programları, kriz anı desteği ve ilerleme takibi." />
+  <meta name="theme-color" content="#0f766e" />
+  <link rel="canonical" href="https://novacodedynamics.github.io/nomoresmoking/" />
+  <link rel="icon" href="app-icon.png" />
+  <meta property="og:title" content="No More Smoking" />
+  <meta property="og:description" content="Quit now or step by step with craving support and progress tracking." />
+  <meta property="og:image" content="https://novacodedynamics.github.io/nomoresmoking/app-icon.png" />
+  <meta property="og:url" content="https://novacodedynamics.github.io/nomoresmoking/" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #10383d;
+      background:
+        radial-gradient(circle at 16% 4%, rgba(45, 212, 191, 0.20), transparent 32%),
+        radial-gradient(circle at 88% 18%, rgba(125, 211, 252, 0.22), transparent 34%),
+        linear-gradient(180deg, #f2fffc 0%, #ffffff 72%);
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width: min(100%, 1120px);
+      min-height: 100vh;
+      padding: 28px 22px 26px;
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      box-shadow: 0 14px 30px rgba(15, 118, 110, 0.18);
+      flex: 0 0 auto;
+    }
+
+    .brand-name {
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 850;
+      letter-spacing: -0.5px;
+      color: #08383d;
+      white-space: nowrap;
+    }
+
+    .mini-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid rgba(15, 118, 110, 0.24);
+      border-radius: 999px;
+      color: #0f766e;
+      background: rgba(255, 255, 255, 0.72);
+      text-decoration: none;
+      font-weight: 850;
+      white-space: nowrap;
+      box-shadow: 0 10px 24px rgba(15, 118, 110, 0.08);
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 430px;
+      gap: 54px;
+      align-items: center;
+      padding: 24px 0 10px;
+    }
+
+    .copy {
+      padding-left: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(46px, 7vw, 82px);
+      line-height: 0.98;
+      letter-spacing: -3px;
+      color: #062f35;
+      font-weight: 900;
+    }
+
+    .green {
+      color: #0f8f7d;
+    }
+
+    .subtitle {
+      margin: 22px 0 0;
+      max-width: 610px;
+      font-size: clamp(20px, 3vw, 30px);
+      line-height: 1.28;
+      color: #0f766e;
+      font-weight: 800;
+    }
+
+    .text {
+      margin: 18px 0 0;
+      max-width: 600px;
+      font-size: 19px;
+      line-height: 1.58;
+      color: #526a72;
+    }
+
+    .features {
+      display: grid;
+      gap: 16px;
+      margin: 34px 0 36px;
+      max-width: 560px;
+    }
+
+    .feature {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 16px;
+      align-items: center;
+      padding: 16px 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(15, 118, 110, 0.10);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 16px 38px rgba(15, 118, 110, 0.07);
+    }
+
+    .feature-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(20, 184, 166, 0.18), rgba(15, 118, 110, 0.08));
+      font-size: 25px;
+    }
+
+    .feature-title {
+      margin: 0 0 4px;
+      font-size: 18px;
+      font-weight: 850;
+      color: #123b42;
+    }
+
+    .feature-desc {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.38;
+      color: #60747b;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: min(100%, 380px);
+      min-height: 66px;
+      padding: 0 26px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #0f766e, #10b981);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.2px;
+      box-shadow: 0 22px 42px rgba(16, 185, 129, 0.28);
+    }
+
+    .store-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      max-width: 600px;
+    }
+
+    .store-actions .cta {
+      width: auto;
+      min-width: 250px;
+      max-width: 290px;
+      flex: 1 1 250px;
+    }
+
+    .cta.google-play {
+      background: linear-gradient(135deg, #173f46, #0f766e);
+      box-shadow: 0 22px 42px rgba(6, 47, 53, 0.22);
+    }
+
+    .desktop-cta {
+      margin-top: 0;
+    }
+
+    .mobile-cta {
+      display: none;
+    }
+
+    .phone-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 720px;
+    }
+
+    .glow {
+      position: absolute;
+      width: 420px;
+      height: 520px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(20, 184, 166, 0.24), transparent 70%);
+      filter: blur(8px);
+      z-index: 0;
+    }
+
+    .phone {
+      position: relative;
+      z-index: 1;
+      width: 365px;
+      border-radius: 58px;
+      padding: 12px;
+      background: #111;
+      box-shadow:
+        0 38px 80px rgba(6, 47, 53, 0.22),
+        0 16px 28px rgba(6, 47, 53, 0.18);
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      top: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 118px;
+      height: 32px;
+      border-radius: 0 0 19px 19px;
+      background: #111;
+      z-index: 3;
+    }
+
+    .screen {
+      display: block;
+      width: 100%;
+      border-radius: 47px;
+      background: #eaf8f5;
+    }
+
+    .trust {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: #5b7178;
+      font-size: 14px;
+    }
+
+    .pill {
+      padding: 10px 13px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.68);
+      border: 1px solid rgba(15, 118, 110, 0.10);
+    }
+
+    .footer {
+      margin-top: 34px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(15, 118, 110, 0.14);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      color: #6b7f86;
+      font-size: 14px;
+    }
+
+    .footer a {
+      color: #0f766e;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        padding: 22px 18px 24px;
+      }
+
+      .top {
+        justify-content: center;
+        margin-bottom: 18px;
+      }
+
+      .brand-name {
+        font-size: 20px;
+      }
+
+      .top-actions {
+        display: none;
+      }
+
+      .hero {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+        padding-top: 6px;
+        text-align: center;
+      }
+
+      .copy {
+        padding-left: 0;
+        display: contents;
+      }
+
+      h1 {
+        order: 1;
+        font-size: clamp(42px, 12vw, 62px);
+        letter-spacing: -2px;
+      }
+
+      .subtitle {
+        order: 2;
+        margin: -6px auto 0;
+        max-width: 520px;
+      }
+
+      .text {
+        order: 3;
+        margin: 0 auto;
+        max-width: 520px;
+        font-size: 17px;
+      }
+
+      .features {
+        order: 4;
+        margin: 12px auto 10px;
+        width: min(100%, 520px);
+      }
+
+      .feature {
+        text-align: left;
+      }
+
+      .phone-wrap {
+        order: 5;
+        min-height: 0;
+        padding-top: 4px;
+        width: 100%;
+      }
+
+      .phone {
+        width: min(86vw, 350px);
+        border-radius: 54px;
+      }
+
+      .screen {
+        border-radius: 43px;
+      }
+
+      .mobile-cta {
+        order: 6;
+        display: flex;
+        flex-direction: column;
+        width: min(100%, 380px);
+        margin: 2px auto 0;
+      }
+
+      .mobile-cta .cta {
+        width: 100%;
+        max-width: none;
+        flex: none;
+      }
+
+      .desktop-cta {
+        display: none;
+      }
+
+      .trust {
+        order: 7;
+        justify-content: center;
+        margin-top: 4px;
+      }
+
+      .footer {
+        justify-content: center;
+        text-align: center;
+        margin-top: 24px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+      }
+
+      .brand-name {
+        font-size: 18px;
+      }
+
+      .feature {
+        grid-template-columns: 46px 1fr;
+        padding: 14px;
+      }
+
+      .feature-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 15px;
+      }
+
+      .cta {
+        min-height: 60px;
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header class="top">
+      <div class="brand">
+        <img class="icon" src="app-icon.png" alt="No More Smoking icon" />
+        <div class="brand-name" id="brandName">No More Smoking</div>
+      </div>
+
+      <div class="top-actions">
+        <a class="mini-button" href="https://apps.apple.com/ca/app/no-more-smoking/id6757434482" target="_blank" rel="noopener noreferrer">
+          <span id="openAppStore">App Store</span>
+        </a>
+        <a class="mini-button" href="https://play.google.com/store/apps/details?id=com.novacodedynamics.nomoresmoking" target="_blank" rel="noopener noreferrer">
+          <span id="openGooglePlay">Google Play</span>
+        </a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="copy">
+        <h1 id="mainTitle">Sigarayı Bırak<br><span class="green">Kendi Yönteminle</span></h1>
+
+        <p class="subtitle" id="subtitle">Birden ya da kademeli bırak.</p>
+
+        <p class="text" id="description">
+          Herkes bir gecede bırakamaz. No More Smoking; sigarayı adım adım azaltmana, kriz anlarını yönetmene ve ilerlemeni takip etmene yardımcı olur.
+        </p>
+
+        <div class="features">
+          <div class="feature">
+            <div class="feature-icon">🎯</div>
+            <div>
+              <p class="feature-title" id="feature1Title">Kademeli bırakma programları</p>
+              <p class="feature-desc" id="feature1Desc">Kendine uygun yolu seç, adım adım azalt.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">🌊</div>
+            <div>
+              <p class="feature-title" id="feature2Title">Kriz anında destek araçları</p>
+              <p class="feature-desc" id="feature2Desc">Zor anlarda uygulayabileceğin pratik teknikler.</p>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">📈</div>
+            <div>
+              <p class="feature-title" id="feature3Title">İlerleme takibi</p>
+              <p class="feature-desc" id="feature3Desc">Yolculuğunu görünür tut, motivasyonunu koru.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="store-actions desktop-cta">
+          <a class="cta" href="https://apps.apple.com/ca/app/no-more-smoking/id6757434482" target="_blank" rel="noopener noreferrer">
+            <span id="downloadAppStore">Download on App Store</span>
+          </a>
+          <a class="cta google-play" href="https://play.google.com/store/apps/details?id=com.novacodedynamics.nomoresmoking" target="_blank" rel="noopener noreferrer">
+            <span id="downloadGooglePlay">Get it on Google Play</span>
+          </a>
+        </div>
+
+        <div class="trust">
+          <span class="pill" id="privacyPill">Gizlilik odaklı</span>
+          <span class="pill" id="journeyPill">Gerçek bırakma süreçleri için tasarlandı</span>
+        </div>
+      </div>
+
+      <div class="phone-wrap" aria-label="App preview">
+        <div class="glow"></div>
+        <div class="phone">
+          <img class="screen" src="craving-screen.jpg" alt="No More Smoking kriz anı destek ekranı" />
+        </div>
+      </div>
+
+      <div class="store-actions mobile-cta">
+        <a class="cta" href="https://apps.apple.com/ca/app/no-more-smoking/id6757434482" target="_blank" rel="noopener noreferrer">
+          <span id="downloadAppStoreMobile">Download on App Store</span>
+        </a>
+        <a class="cta google-play" href="https://play.google.com/store/apps/details?id=com.novacodedynamics.nomoresmoking" target="_blank" rel="noopener noreferrer">
+          <span id="downloadGooglePlayMobile">Get it on Google Play</span>
+        </a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span id="footerBuilt">NovaCode Dynamics tarafından geliştirildi</span>
+      <span><a href="mailto:info@novacodedynamics.com" id="supportLink">Support</a></span>
+    </footer>
+  </main>
+
+  <script>
+    // Turkish language support
+    const translations = {
+      en: {
+        brandName: "No More Smoking",
+        openAppStore: "App Store",
+        openGooglePlay: "Google Play",
+        mainTitle: "Quit Smoking<br><span class=\"green\">Your Way</span>",
+        subtitle: "Quit now or step by step.",
+        description: "Not everyone can quit overnight. No More Smoking helps you reduce gradually, manage cravings, and track your progress.",
+        feature1Title: "Gradual quit programs",
+        feature1Desc: "Choose your path and reduce step by step.",
+        feature2Title: "Craving support tools",
+        feature2Desc: "Practical techniques for difficult moments.",
+        feature3Title: "Progress tracking",
+        feature3Desc: "Keep your journey visible and stay motivated.",
+        downloadAppStore: "Download on App Store",
+        downloadGooglePlay: "Get it on Google Play",
+        privacyPill: "Privacy focused",
+        journeyPill: "Built for real quit journeys",
+        footerBuilt: "Built by NovaCode Dynamics",
+        supportLink: "Support"
+      },
+      tr: {
+        brandName: "No More Smoking",
+        openAppStore: "App Store",
+        openGooglePlay: "Google Play",
+        mainTitle: "Sigarayı Bırak<br><span class=\"green\">Kendi Yönteminle</span>",
+        subtitle: "Birden ya da kademeli bırak.",
+        description: "Herkes bir gecede bırakamaz. No More Smoking; sigarayı adım adım azaltmana, kriz anlarını yönetmene ve ilerlemeni takip etmene yardımcı olur.",
+        feature1Title: "Kademeli bırakma programları",
+        feature1Desc: "Kendine uygun yolu seç, adım adım azalt.",
+        feature2Title: "Kriz anında destek araçları",
+        feature2Desc: "Zor anlarda uygulayabileceğin pratik teknikler.",
+        feature3Title: "İlerleme takibi",
+        feature3Desc: "Yolculuğunu görünür tut, motivasyonunu koru.",
+        downloadAppStore: "App Store'dan İndir",
+        downloadGooglePlay: "Google Play'den İndir",
+        privacyPill: "Gizlilik odaklı",
+        journeyPill: "Gerçek bırakma süreçleri için tasarlandı",
+        footerBuilt: "NovaCode Dynamics tarafından geliştirildi",
+        supportLink: "Destek"
+      }
+    };
+
+    function setLanguage() {
+      const lang = navigator.language.startsWith('tr') ? 'tr' : 'en';
+      const texts = translations[lang];
+
+      document.documentElement.lang = lang;
+      document.getElementById('mainTitle').innerHTML = texts.mainTitle;
+
+      const textIds = [
+        'brandName', 'openAppStore', 'openGooglePlay', 'subtitle', 'description',
+        'feature1Title', 'feature1Desc', 'feature2Title', 'feature2Desc',
+        'feature3Title', 'feature3Desc', 'privacyPill', 'journeyPill',
+        'footerBuilt', 'supportLink'
+      ];
+
+      textIds.forEach((id) => {
+        document.getElementById(id).textContent = texts[id];
+      });
+
+      document.getElementById('downloadAppStore').textContent = texts.downloadAppStore;
+      document.getElementById('downloadAppStoreMobile').textContent = texts.downloadAppStore;
+      document.getElementById('downloadGooglePlay').textContent = texts.downloadGooglePlay;
+      document.getElementById('downloadGooglePlayMobile').textContent = texts.downloadGooglePlay;
+    }
+
+    setLanguage();
+  </script>
+</body>
+</html>
