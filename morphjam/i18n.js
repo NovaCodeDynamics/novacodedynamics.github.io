@@ -17,7 +17,7 @@
         eyebrow: 'Şekil değiştiren blok mantık bulmacası',
         title: 'Kaydır. Dönüştür. <span class="accent">Çıkışı bul.</span>',
         lead: 'Bloklar yalnızca hareket etmez. Onları döndür, böl, uzat ve küçült; ardından her şekli doğru çıkışa ulaştır.',
-        discover: 'Morph Jam’i keşfet', getSupport: 'Destek al', availability: 'Yakında iPhone ve Android’de',
+        discover: 'Morph Jam’i keşfet', getSupport: 'Destek al', appStore: 'App Store’dan indir', googlePlay: 'Google Play’den indir', availability: 'iPhone, iPad ve Android’de ücretsiz',
         gameEyebrow: 'Kendini yeniden kuran bir bulmaca', gameTitle: 'Her hamle tahtayı değiştirebilir.',
         gameLead: 'Bir blok, önüne bir engel çıkana kadar kayar. Doğru durma noktası hem parçayı hem de kurduğun planı dönüştürebilir.',
         shapeTitle: 'Şekli değiştir', shapeBody: 'Parçaları kapılara uydurmak ve yeni yollar açmak için döndür, uzat veya küçült.',
@@ -94,7 +94,7 @@
       home: {
         eyebrow: 'Logikrätsel mit formwandelnden Blöcken', title: 'Schieben. Verwandeln. <span class="accent">Entkommen.</span>',
         lead: 'Blöcke bewegen sich nicht nur. Drehe, teile, strecke und verkleinere sie – und führe jede Form zum richtigen Ausgang.',
-        discover: 'Morph Jam entdecken', getSupport: 'Support erhalten', availability: 'Demnächst für iPhone und Android',
+        discover: 'Morph Jam entdecken', getSupport: 'Support erhalten', appStore: 'Im App Store laden', googlePlay: 'Bei Google Play laden', availability: 'Kostenlos für iPhone, iPad und Android',
         gameEyebrow: 'Ein Rätsel, das sich neu schreibt', gameTitle: 'Jeder Zug kann das Spielfeld verändern.', gameLead: 'Ein Block gleitet, bis ihn etwas stoppt. Der richtige Haltepunkt kann das Teil verwandeln – und deinen ganzen Plan.',
         shapeTitle: 'Form verändern', shapeBody: 'Drehe, strecke oder verkleinere Teile, damit sie zu den Toren passen und neue Wege entstehen.',
         splitTitle: 'Aufgabe teilen', splitBody: 'Ein geradzahliges Teil kann zu zwei getrennten Aufgaben mit eigenen Wegen und Ausgängen werden.',
@@ -165,7 +165,7 @@
       home: {
         eyebrow: 'Puzles lógicos con bloques cambiantes', title: 'Desliza. Transforma. <span class="accent">Escapa.</span>',
         lead: 'Los bloques hacen mucho más que moverse. Gíralos, divídelos, estíralos y encógelos; después lleva cada forma hasta la salida correcta.',
-        discover: 'Descubre Morph Jam', getSupport: 'Obtener ayuda', availability: 'Próximamente en iPhone y Android',
+        discover: 'Descubre Morph Jam', getSupport: 'Obtener ayuda', appStore: 'Descargar en App Store', googlePlay: 'Descargar en Google Play', availability: 'Gratis en iPhone, iPad y Android',
         gameEyebrow: 'Un puzle que se reescribe', gameTitle: 'Cada movimiento puede cambiar el tablero.', gameLead: 'Un bloque sigue deslizándose hasta que algo lo detiene. El punto de parada correcto puede transformar la pieza y también tu plan.',
         shapeTitle: 'Cambia la forma', shapeBody: 'Gira, estira o encoge las piezas para ajustarlas a las puertas y abrir nuevas rutas.',
         splitTitle: 'Divide el problema', splitBody: 'Una pieza de longitud par puede convertirse en dos problemas independientes, cada uno con su ruta y salida.',
@@ -236,7 +236,7 @@
       home: {
         eyebrow: 'Casse-têtes logiques de blocs transformables', title: 'Glissez. Transformez. <span class="accent">Échappez-vous.</span>',
         lead: 'Les blocs ne font pas que bouger. Faites-les pivoter, divisez-les, étirez-les et rétrécissez-les, puis guidez chaque forme vers la bonne sortie.',
-        discover: 'Découvrir Morph Jam', getSupport: 'Obtenir de l’aide', availability: 'Bientôt sur iPhone et Android',
+        discover: 'Découvrir Morph Jam', getSupport: 'Obtenir de l’aide', appStore: 'Télécharger sur l’App Store', googlePlay: 'Télécharger sur Google Play', availability: 'Gratuit sur iPhone, iPad et Android',
         gameEyebrow: 'Un casse-tête qui se réécrit', gameTitle: 'Chaque mouvement peut changer le plateau.', gameLead: 'Un bloc continue de glisser jusqu’à ce qu’un obstacle l’arrête. Le bon point d’arrêt peut transformer la pièce et tout votre plan.',
         shapeTitle: 'Changez la forme', shapeBody: 'Faites pivoter, étirez ou rétrécissez les pièces pour les adapter aux portes et ouvrir de nouveaux chemins.',
         splitTitle: 'Divisez le problème', splitBody: 'Une pièce de longueur paire peut devenir deux problèmes indépendants, chacun avec son chemin et sa sortie.',
