@@ -156,3 +156,6 @@ zmaticoo.com, 5135195, RESELLER
 OWNERDOMAIN=novacodedynamics.com
 ironsrc.com, 684117, DIRECT
 ironsrc.com, 700967, DIRECT
+
+# Morph Jam — new AdMob account, 14 Nov 2026
+google.com, pub-2391575764750566, DIRECT, f08c47fec0942fa0
